@@ -39,22 +39,22 @@ npm run start
 
 ## Tools & Frameworks
 
-###Node
+### Node
 https://nodejs.org/
 
-###Express
+### Express
 https://expressjs.com/
 
-###Cytoscape.js
+### Cytoscape.js
 https://js.cytoscape.org/
 
-###WebCola
+### WebCola
 https://github.com/tgdwyer/WebCola/
 
-###Neo4j
+### Neo4j
 https://neo4j.com/
 
-###EJS
+### EJS
 https://ejs.co/
 
 ## Contributors
