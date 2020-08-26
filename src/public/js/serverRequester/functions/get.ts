@@ -4,7 +4,7 @@ import {CyElement} from "../../../../helpers/CyElement";
 
 export async function getNode(this: ServerRequester, nodeid:string):Promise<string> {
     let elements = "";
-    await axios.get(`${this.hostname}:${this.port}/getnode`, {
+    await axios.get(`http://${this.hostname}:${this.port}/getnode`, {
         params: {
             id: nodeid
         }
@@ -21,7 +21,7 @@ export async function getNode(this: ServerRequester, nodeid:string):Promise<stri
 
 export async function getRelatedNodesById(this: ServerRequester, nodeid: string):Promise<string>{
     let elements = "";
-    await axios.get(`${this.hostname}:${this.port}/getrelatednode`, {
+    await axios.get(`http://${this.hostname}:${this.port}/getrelatednode`, {
         params: {
             id: nodeid
         }
@@ -38,7 +38,7 @@ export async function getRelatedNodesById(this: ServerRequester, nodeid: string)
 
 export async function getRelatedNodesByElement(this: ServerRequester, element: CyElement):Promise<string>{
     let elements = "";
-    await axios.get(`${this.hostname}:${this.port}/getrelatednodes`, {
+    await axios.get(`http://${this.hostname}:${this.port}/getrelatednodes`, {
         params: {
             id: element.data.id
         }
@@ -55,7 +55,7 @@ export async function getRelatedNodesByElement(this: ServerRequester, element: C
 
 export async function getRelations(this: ServerRequester, element: CyElement):Promise<string>{
     let elements = "";
-    await axios.get(` ${this.hostname}:${this.port}/getrelations`, {
+    await axios.get(`http://${this.hostname}:${this.port}/getrelations`, {
         params: {
             id: element.data.id
         }
