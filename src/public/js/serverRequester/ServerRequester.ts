@@ -5,10 +5,14 @@ class ServerRequester{
     private static instance: ServerRequester;
 
     protected hostname?:string;
+    protected port?:string;
 
     private constructor() {
         if(process.env.HOST !== undefined){
             this.hostname = process.env.HOST;
+        }
+        if(process.env.PORT !== undefined){
+            this.port = process.env.PORT;
         }
     }
 
