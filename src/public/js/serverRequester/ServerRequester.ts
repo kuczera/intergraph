@@ -8,12 +8,15 @@ class ServerRequester{
     protected port?:string;
 
     private constructor() {
-        if(process.env.HOST !== undefined){
-            this.hostname = process.env.HOST;
+        if(process.env.HOSTNAME !== undefined){
+            this.hostname = process.env.HOSTNAME;
         }
-        if(process.env.PORT !== undefined){
-            this.port = process.env.PORT;
+        if(process.env.SERVER_PORT !== undefined){
+            this.port = process.env.SERVER_PORT;
         }
+
+        console.log(this.hostname);
+        console.log(this.port);
     }
 
     public static getInstance(): ServerRequester{
