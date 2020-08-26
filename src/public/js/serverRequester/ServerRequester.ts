@@ -4,8 +4,12 @@ import {getNode, getRelatedNodesByElement, getRelatedNodesById, getRelations} fr
 class ServerRequester{
     private static instance: ServerRequester;
 
-    private constructor() {
+    protected hostname?:string;
 
+    private constructor() {
+        if(process.env.HOST !== undefined){
+            this.hostname = process.env.HOST;
+        }
     }
 
     public static getInstance(): ServerRequester{
