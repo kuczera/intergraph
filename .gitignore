@@ -1,6 +1,14 @@
 #Dependencies
 
 /node_modules
+
+
+#Generated
 /.cache
 /.idea
 /dist
+
+
+#Environment
+.env-development
+.env-production
