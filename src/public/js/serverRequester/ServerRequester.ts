@@ -8,8 +8,11 @@ class ServerRequester{
     protected port?:string;
 
     private constructor() {
+
+        console.log(process.env.HOSTNAME);
         if(process.env.HOSTNAME !== undefined){
             this.hostname = process.env.HOSTNAME;
+            console.log(this.hostname);
         }
         if(process.env.SERVER_PORT !== undefined){
             this.port = process.env.SERVER_PORT;
