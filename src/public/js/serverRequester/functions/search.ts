@@ -4,7 +4,7 @@ import {ServerRequester} from "../ServerRequester";
 
 export async function searchElements(this: ServerRequester, searchValue: string):Promise<string>{
     let elements = "";
-    await axios.get(`http://${this.hostname}:${this.port}/searchnodes`, {
+    await axios.get(`http://${this.hostname}:8080/searchnodes`, {
         params: {
             searchText: searchValue
         }
