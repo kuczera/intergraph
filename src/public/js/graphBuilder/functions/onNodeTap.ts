@@ -22,7 +22,7 @@ export function onNodeTap(this: GraphBuilder) {
 
                 nodesRelationContent!.innerHTML = "";
                 nodesRelationContent!.appendChild(
-                    generateListFromMultiDictionary(this, myMultiDict, evt.target.data().id)
+                    generateListFromMultiDictionary(this, myMultiDict)
                 );
                 document.dispatchEvent(listGenerated);
 

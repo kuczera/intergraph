@@ -3,6 +3,7 @@ import {GraphBuilder} from "../GraphBuilder";
 import {graphContainer} from "../../main";
 
 
+
 export function initiateGraph(this: GraphBuilder){
     this.cy = cytoscape({
         container: graphContainer,
@@ -10,7 +11,7 @@ export function initiateGraph(this: GraphBuilder){
 
         ],
         layout: {
-            name: 'grid'
+            name: 'cola'
         },
         style: [
             {

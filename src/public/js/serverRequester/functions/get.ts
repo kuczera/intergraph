@@ -21,7 +21,7 @@ export async function getNode(this: ServerRequester, nodeid:string):Promise<stri
 
 export async function getRelatedNodesById(this: ServerRequester, nodeid: string):Promise<string>{
     let elements = "";
-    await axios.get(`http://${this.hostname}:${this.port}/getrelatednode`, {
+    await axios.get(`http://${this.hostname}:${this.port}/getrelatednodes`, {
         params: {
             id: nodeid
         }

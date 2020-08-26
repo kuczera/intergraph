@@ -1,9 +1,14 @@
-import {addByElement, addNodeById} from "./functions/add";
+import {addByElement, addByUrlWithRelations, addNodeById} from "./functions/add";
 import {initiateGraph} from "./functions/initiateGraph";
 import {ServerRequester} from "../serverRequester/ServerRequester";
 import {onNodeTap} from "./functions/onNodeTap";
 import {elementExists} from "./functions/helpers/checkForExistence";
 import {getSourcePosition, isValidRelation} from "./functions/helpers/checkForRelations";
+import cytoscape from "cytoscape";
+
+// tslint:disable-next-line
+const cola = require("cytoscape-cola");
+
 
 class GraphBuilder{
     private static instance: GraphBuilder;
@@ -12,8 +17,10 @@ class GraphBuilder{
 
     private constructor(){
         this.serverRequester = ServerRequester.getInstance();
+        cytoscape.use(cola);
         this.initiateGraph();
         this.onNodeTap();
+
     }
 
     public static getInstance(): GraphBuilder{
@@ -31,6 +38,7 @@ class GraphBuilder{
     public onNodeTap = onNodeTap;
     public isValidRelation = isValidRelation;
     public getSourcePosition = getSourcePosition;
+    public addByUrlWithRelations = addByUrlWithRelations;
 }
 
 export {GraphBuilder};

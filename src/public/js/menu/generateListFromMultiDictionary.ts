@@ -2,8 +2,7 @@ import * as Collections from 'typescript-collections';
 import {GraphBuilder} from "../graphBuilder/GraphBuilder";
 
 export function generateListFromMultiDictionary(graphBuilder: GraphBuilder,
-                                                multiDictionary: Collections.MultiDictionary<any, any>,
-                                                sourceElementId: string | null):HTMLElement{
+                                                multiDictionary: Collections.MultiDictionary<any, any>):HTMLElement{
 
     const parentList = document.createElement("ul");
     parentList.classList.add("collapsible");
@@ -21,6 +20,17 @@ export function generateListFromMultiDictionary(graphBuilder: GraphBuilder,
 
         const parentBody = document.createElement("div");
         parentBody.classList.add("collapsible-body");
+
+        const addAll = document.createElement("button");
+        addAll.innerHTML = "addAll";
+        addAll.addEventListener("click", () => {
+            foundCyElements.forEach((cyElement) => {
+                graphBuilder.addByElement(cyElement);
+            });
+        });
+
+        parentBody.appendChild(addAll);
+
 
         const childList = document.createElement("ul");
         childList.classList.add("collapsible");
@@ -41,7 +51,7 @@ export function generateListFromMultiDictionary(graphBuilder: GraphBuilder,
             const childBodyAddToGraphButton = document.createElement("button");
             childBodyAddToGraphButton.innerHTML = "add";
             childBodyAddToGraphButton.addEventListener("click", () => {
-                graphBuilder.addByElement(cyElement, sourceElementId);
+                graphBuilder.addByElement(cyElement);
             });
 
             childBody.appendChild(childBodyText);

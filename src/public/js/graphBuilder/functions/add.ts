@@ -18,14 +18,11 @@ export async function addNodeById(this: GraphBuilder, nodeid:string){
 
 }
 
-export async function addByElement(this: GraphBuilder, element: CyElement, sourceElementId: string | null){
-
-
-
+export async function addByElement(this: GraphBuilder, element: CyElement){
 
     if(!this.elementExists(element)){
         const foundRelations:CyElement[] = [];
-        const sourcePositions:Position[] = []
+        const sourcePositions:Position[] = [];
         let x = 0;
         let y = 0;
 
@@ -65,8 +62,33 @@ export async function addByElement(this: GraphBuilder, element: CyElement, sourc
             this.cy.add(relation);
         });
 
+        this.cy.layout({name: 'cola'}).run();
 
     }
+
+}
+
+export function addByUrlWithRelations(this: GraphBuilder, url: string){
+    this.serverRequester.searchElements(url)
+        .then((response) => {
+            const elements = JSON.parse(response);
+            elements.forEach((element:CyElement) => {
+                this.cy.add(element);
+                this.serverRequester.getRelatedNodesByElement(element)
+                    .then((childResponse) => {
+                        const childElements = JSON.parse(childResponse);
+                        childElements.forEach((childElement:CyElement) => {
+                            this.addByElement(childElement);
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
 }
 //

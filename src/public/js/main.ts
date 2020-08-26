@@ -16,8 +16,8 @@ const search = document.getElementById("searchNodes");
 const searchElement = document.getElementById("search") as HTMLInputElement;
 
 searchElement.addEventListener("focus", () => {
-   const icon = document.getElementById("icon");
-   icon!.style.display = "none";
+    const icon = document.getElementById("icon");
+    icon!.style.display = "none";
 });
 searchElement.addEventListener("blur", () => {
     const icon = document.getElementById("icon");
@@ -32,6 +32,8 @@ search!.addEventListener("submit", async (event) => {
     event.preventDefault();
     searchElement!.blur();
 
+    // graphBuilder.addByUrlWithRelations(searchElement.value);
+
     foundnodes!.innerHTML = "";
     const loader = document.createElement("div");
     loader.classList.add("loader");
@@ -43,7 +45,7 @@ search!.addEventListener("submit", async (event) => {
             const myMultiDict = generateCyElementMultiDictionary(response);
             foundnodes!.innerHTML = "";
             foundnodes!.appendChild(
-                generateListFromMultiDictionary(graphBuilder, myMultiDict, null)
+                generateListFromMultiDictionary(graphBuilder, myMultiDict)
             );
             document.dispatchEvent(listGenerated);
         })
@@ -54,9 +56,15 @@ search!.addEventListener("submit", async (event) => {
 });
 
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
+
+    let elems = document.querySelectorAll('.fixed-action-btn');
+    M.FloatingActionButton.init(elems, {});
+
     const options = {};
-    const elems = document.querySelectorAll('.tabs');
+    elems = document.querySelectorAll('.tabs');
     M.Tabs.init(elems, options);
 });
 
