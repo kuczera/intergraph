@@ -9,7 +9,6 @@ dotenv.config();
 
 // port is now available to the Node.js runtime
 // as if it were an environment variable
-// export const hostname = process.env.HOST;
 const port = process.env.SERVER_PORT;
 
 const app = express();

@@ -9,9 +9,9 @@ class ServerRequester{
 
     private constructor() {
 
-        console.log(process.env.HOSTNAME);
-        if(process.env.HOSTNAME !== undefined){
-            this.hostname = process.env.HOSTNAME;
+        console.log(process.env.HOST);
+        if(process.env.HOST !== undefined){
+            this.hostname = process.env.HOST;
             console.log(this.hostname);
         }
         if(process.env.SERVER_PORT !== undefined){
