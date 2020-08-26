@@ -2,8 +2,8 @@ import {searchElements} from "./functions/search";
 import {getNode, getRelatedNodesByElement, getRelatedNodesById, getRelations} from "./functions/get";
 
 
-class ServerRequester{
-    private static instance: ServerRequester;
+class RequestService{
+    private static instance: RequestService;
 
 
     protected hostname?:string;
@@ -24,12 +24,12 @@ class ServerRequester{
         console.log(this.port);
     }
 
-    public static getInstance(): ServerRequester{
-        if(!ServerRequester.instance){
-            ServerRequester.instance = new ServerRequester();
+    public static getInstance(): RequestService{
+        if(!RequestService.instance){
+            RequestService.instance = new RequestService();
         }
 
-        return ServerRequester.instance;
+        return RequestService.instance;
     }
 
     public searchElements = searchElements;
@@ -39,4 +39,4 @@ class ServerRequester{
     public getRelations = getRelations;
 }
 
-export {ServerRequester};
+export {RequestService};

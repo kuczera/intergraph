@@ -1,5 +1,5 @@
 import {GraphBuilder} from "./graphBuilder/GraphBuilder";
-import {ServerRequester} from "./serverRequester/ServerRequester";
+import {RequestService} from "./requestService/RequestService";
 import {generateCyElementMultiDictionary} from "./menu/generateCyElementMultiDictionary";
 import {generateListFromMultiDictionary} from "./menu/generateListFromMultiDictionary";
 
@@ -7,7 +7,7 @@ export const graphContainer = document.getElementById("cy");
 
 
 const graphBuilder = GraphBuilder.getInstance();
-const serverRequester = ServerRequester.getInstance();
+const serverRequester = RequestService.getInstance();
 
 export const listGenerated = document.createEvent('Event');
 listGenerated.initEvent("ListGenerated", true, true);

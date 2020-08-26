@@ -1,8 +1,8 @@
 import axios from "axios";
-import {ServerRequester} from "../ServerRequester";
+import {RequestService} from "../RequestService";
 import {CyElement} from "../../../../helpers/CyElement";
 
-export async function getNode(this: ServerRequester, nodeid:string):Promise<string> {
+export async function getNode(this: RequestService, nodeid:string):Promise<string> {
     let elements = "";
     await axios.get(`http://${this.hostname}:${this.port}/getnode`, {
         params: {
@@ -19,7 +19,7 @@ export async function getNode(this: ServerRequester, nodeid:string):Promise<stri
 
 }
 
-export async function getRelatedNodesById(this: ServerRequester, nodeid: string):Promise<string>{
+export async function getRelatedNodesById(this: RequestService, nodeid: string):Promise<string>{
     let elements = "";
     await axios.get(`http://${this.hostname}:${this.port}/getrelatednodes`, {
         params: {
@@ -36,7 +36,7 @@ export async function getRelatedNodesById(this: ServerRequester, nodeid: string)
     return elements;
 }
 
-export async function getRelatedNodesByElement(this: ServerRequester, element: CyElement):Promise<string>{
+export async function getRelatedNodesByElement(this: RequestService, element: CyElement):Promise<string>{
     let elements = "";
     await axios.get(`http://${this.hostname}:${this.port}/getrelatednodes`, {
         params: {
@@ -53,7 +53,7 @@ export async function getRelatedNodesByElement(this: ServerRequester, element: C
     return elements;
 }
 
-export async function getRelations(this: ServerRequester, element: CyElement):Promise<string>{
+export async function getRelations(this: RequestService, element: CyElement):Promise<string>{
     let elements = "";
     await axios.get(`http://${this.hostname}:${this.port}/getrelations`, {
         params: {

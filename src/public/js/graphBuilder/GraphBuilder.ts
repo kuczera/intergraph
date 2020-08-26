@@ -1,6 +1,6 @@
 import {addByElement, addByUrlWithRelations, addNodeById} from "./functions/add";
 import {initiateGraph} from "./functions/initiateGraph";
-import {ServerRequester} from "../serverRequester/ServerRequester";
+import {RequestService} from "../requestService/RequestService";
 import {onNodeTap} from "./functions/onNodeTap";
 import {elementExists} from "./functions/helpers/checkForExistence";
 import {getSourcePosition, isValidRelation} from "./functions/helpers/checkForRelations";
@@ -12,11 +12,11 @@ const cola = require("cytoscape-cola");
 
 class GraphBuilder{
     private static instance: GraphBuilder;
-    protected serverRequester: ServerRequester;
+    protected serverRequester: RequestService;
     protected cy: any;
 
     private constructor(){
-        this.serverRequester = ServerRequester.getInstance();
+        this.serverRequester = RequestService.getInstance();
         cytoscape.use(cola);
         this.initiateGraph();
         this.onNodeTap();

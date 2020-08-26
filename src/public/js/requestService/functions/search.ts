@@ -1,8 +1,8 @@
 import axios from "axios";
-import {ServerRequester} from "../ServerRequester";
+import {RequestService} from "../RequestService";
 
 
-export async function searchElements(this: ServerRequester, searchValue: string):Promise<string>{
+export async function searchElements(this: RequestService, searchValue: string):Promise<string>{
     let elements = "";
     await axios.get(`http://${this.hostname}:${this.port}/searchnodes`, {
         params: {
