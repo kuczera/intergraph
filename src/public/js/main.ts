@@ -5,6 +5,7 @@ import {generateListFromMultiDictionary} from "./menu/generateListFromMultiDicti
 
 export const graphContainer = document.getElementById("cy");
 
+
 const graphBuilder = GraphBuilder.getInstance();
 const serverRequester = ServerRequester.getInstance();
 

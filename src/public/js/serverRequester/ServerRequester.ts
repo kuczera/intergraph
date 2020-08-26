@@ -1,8 +1,10 @@
 import {searchElements} from "./functions/search";
 import {getNode, getRelatedNodesByElement, getRelatedNodesById, getRelations} from "./functions/get";
 
+
 class ServerRequester{
     private static instance: ServerRequester;
+
 
     protected hostname?:string;
     protected port?:string;
