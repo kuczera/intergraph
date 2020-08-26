@@ -7,7 +7,7 @@
 /.cache
 /.idea
 /dist
-
+/docs
 
 #Environment
 .env-development
