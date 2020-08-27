@@ -1,5 +1,5 @@
 {
-  "dbhost": "bolt://jlu-buster.mni.thm.de:12321",
+  "dbhost": "bolt://jlu-buster.mni.thm.de:10211",
   "dbusername": "neo4j",
   "dbpassword": "1234"
 }
