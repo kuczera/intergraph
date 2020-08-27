@@ -44,6 +44,6 @@ export function initiateGraph(this: GraphBuilder){
             }
         ]
     });
-    console.log(regestaToBeLoaded);
+    // console.log(regestaToBeLoaded);
     this.addByIdWithRelations(regestaToBeLoaded);
 }

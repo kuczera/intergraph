@@ -6,7 +6,6 @@ import {
     getRelatedNodes
 } from "../backend/database/queries/databaseQuery";
 import {getElementsFromAPIResponse} from "../backend/elementMapping/elementMapper";
-import {GraphBuilder} from "../public/js/graphBuilder/GraphBuilder";
 
 
 export const register = ( app: express.Application ) => {

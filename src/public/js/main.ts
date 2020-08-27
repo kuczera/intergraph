@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("ListGenerated", () => {
-    console.log("event called");
+    // console.log("event called");
     const elems = document.querySelectorAll('.collapsible');
     const options = {};
     M.Collapsible.init(elems, options);
