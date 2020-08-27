@@ -59,3 +59,4 @@ https://ejs.co/
 
 ## Contributors
 * Stefan Schindler
+* Andreas Kuczera
