@@ -34,7 +34,7 @@ npm run build
 Deploy the project:
 
 ```
-npm run start
+npm run start &
 ```
 
 ## Tools & Frameworks
