@@ -6,6 +6,7 @@ import {generateListFromMultiDictionary} from "./menu/generateListFromMultiDicti
 export const graphContainer = document.getElementById("cy");
 
 
+
 const graphBuilder = GraphBuilder.getInstance();
 const serverRequester = RequestService.getInstance();
 
@@ -61,12 +62,16 @@ search!.addEventListener("submit", async (event) => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
+
     let elems = document.querySelectorAll('.fixed-action-btn');
     M.FloatingActionButton.init(elems, {});
 
     const options = {};
     elems = document.querySelectorAll('.tabs');
     M.Tabs.init(elems, options);
+
+
 });
 
 document.addEventListener("ListGenerated", () => {

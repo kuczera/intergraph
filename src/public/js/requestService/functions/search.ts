@@ -4,7 +4,7 @@ import {RequestService} from "../RequestService";
 
 export async function searchElements(this: RequestService, searchValue: string):Promise<string>{
     let elements = "";
-    await axios.get(`http://${this.hostname}:${this.port}/searchnodes`, {
+    await axios.get(this.requestURL + `searchnodes`, {
         params: {
             searchText: searchValue
         }

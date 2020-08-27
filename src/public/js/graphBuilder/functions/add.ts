@@ -68,7 +68,7 @@ export async function addByElement(this: GraphBuilder, element: CyElement){
 
 }
 
-export function addByUrlWithRelations(this: GraphBuilder, url: string){
+export function addByIdWithRelations(this: GraphBuilder, url: string){
     this.serverRequester.searchElements(url)
         .then((response) => {
             const elements = JSON.parse(response);

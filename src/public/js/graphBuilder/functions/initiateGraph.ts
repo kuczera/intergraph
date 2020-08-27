@@ -5,6 +5,8 @@ import {graphContainer} from "../../main";
 
 
 export function initiateGraph(this: GraphBuilder){
+    const regestaToBeLoaded = graphContainer!.innerText;
+    graphContainer!.innerText = "";
     this.cy = cytoscape({
         container: graphContainer,
         elements: [
@@ -42,4 +44,6 @@ export function initiateGraph(this: GraphBuilder){
             }
         ]
     });
+    console.log(regestaToBeLoaded);
+    this.addByIdWithRelations(regestaToBeLoaded);
 }

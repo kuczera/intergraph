@@ -9,7 +9,12 @@ dotenv.config();
 
 // port is now available to the Node.js runtime
 // as if it were an environment variable
+
+
 const port = process.env.SERVER_PORT;
+const hostname = process.env.HOST_NAME;
+
+console.log(hostname + ":" + port);
 
 const app = express();
 /**
@@ -32,6 +37,6 @@ routes.register( app );
 // start the express server
 app.listen( port, () => {
     // tslint:disable-next-line:no-console
-    console.log( `server started at http://localhost:${ port }` );
+    console.log( `server started at http://${hostname}:${ port }` );
 
 } );

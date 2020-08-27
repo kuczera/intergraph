@@ -6,13 +6,21 @@ import {
     getRelatedNodes
 } from "../backend/database/queries/databaseQuery";
 import {getElementsFromAPIResponse} from "../backend/elementMapping/elementMapper";
+import {GraphBuilder} from "../public/js/graphBuilder/GraphBuilder";
 
 
 export const register = ( app: express.Application ) => {
 
+
+
     // define a route handler for the default home page
     app.get( "/", ( req: any, res ) => {
-        res.render( "index" );
+
+        if(req.query.regesta !== undefined && req.query.regesta !== null){
+            res.render( "index" , { regesta: req.query.regesta})
+        } else {
+            res.render( "index");
+        }
     } );
     app.get("/getnode", async (req:any, res) => {
         getNode(req.query.id).then((result) => {
@@ -35,8 +43,5 @@ export const register = ( app: express.Application ) => {
         })
     });
 
-    app.get("/guitars", async (req:any, res) => {
-        res.render("guitars");
-    })
 };
 

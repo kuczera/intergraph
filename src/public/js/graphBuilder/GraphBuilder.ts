@@ -1,4 +1,4 @@
-import {addByElement, addByUrlWithRelations, addNodeById} from "./functions/add";
+import {addByElement, addByIdWithRelations, addNodeById} from "./functions/add";
 import {initiateGraph} from "./functions/initiateGraph";
 import {RequestService} from "../requestService/RequestService";
 import {onNodeTap} from "./functions/onNodeTap";
@@ -38,7 +38,7 @@ class GraphBuilder{
     public onNodeTap = onNodeTap;
     public isValidRelation = isValidRelation;
     public getSourcePosition = getSourcePosition;
-    public addByUrlWithRelations = addByUrlWithRelations;
+    public addByIdWithRelations = addByIdWithRelations;
 }
 
 export {GraphBuilder};

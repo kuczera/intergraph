@@ -1,0 +1,13 @@
+{
+  "Action": "action",
+  "ExternalResource": "title",
+  "IndexEntry": "label",
+  "IndexEvent": "label",
+  "IndexPerson": "label",
+  "IndexPlace": "label",
+  "IndexThing": "path",
+  "Literature": "title",
+  "Place": "normalizedGerman",
+  "Reference": "title",
+  "Regesta": "identifier"
+}

@@ -1,4 +1,7 @@
 import {CyElement} from "./CyElement";
+import labelconfig from "./labelconfig.json";
+import fs from "fs";
+import * as path from "path";
 
 /**
  * Used for nodes
@@ -25,28 +28,31 @@ export class CyNode extends CyElement {
 
 
         /**
-         * Used for setting the token which shall be displayed in the graph.
-         *
-         * Since the token is different for each class, it needs to be specified for each.
-         *
-         * The following variable shall be put into a config file later on to make it more dynamic to be used
-         * with other databases
+         * Sets the token that shall be displayed in the graph resolved by the given config
          */
-        const token : {[index:string] : string}  = {
-            "Action": responseElement.properties.action,
-            "ExternalResource": responseElement.properties.title,
-            "IndexEntry": responseElement.properties.label,
-            "IndexEvent": responseElement.properties.label,
-            "IndexPerson": responseElement.properties.label,
-            "IndexPlace": responseElement.properties.label,
-            "IndexThing": responseElement.properties.path,
-            "Literature": responseElement.properties.title,
-            "Place": responseElement.properties.normalizedGerman,
-            "Reference": responseElement.properties.title,
-            "Regesta": responseElement.properties.identifier
-        };
 
-        this.data.displayToken = token[this.classes];
+        const config: {[index:string] : string} = labelconfig;
+        for (const key in config) {
+            if(key === this.classes) {
+                const value = config[key];
+                this.data.displayToken = responseElement.properties[value];
+            }
+        }
+
+        // saving this method for later
+
+        // const data = fs.readFileSync(path.join(__dirname, './labelconfig.json'), 'utf8');
+        // const json = JSON.parse(data);
+        // for(const key in json) {
+        //     if(key === this.classes) {
+        //         const value = json[key];
+        //         this.data.displayToken = responseElement.properties[value];
+        //     }
+        // }
+
+
+
+
 
     }
 
