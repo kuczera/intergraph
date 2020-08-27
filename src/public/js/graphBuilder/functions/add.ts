@@ -72,19 +72,24 @@ export function addByIdWithRelations(this: GraphBuilder, url: string){
     this.serverRequester.searchElements(url)
         .then((response) => {
             const elements = JSON.parse(response);
-            elements.forEach((element:CyElement) => {
-                this.cy.add(element);
-                this.serverRequester.getRelatedNodesByElement(element)
-                    .then((childResponse) => {
-                        const childElements = JSON.parse(childResponse);
-                        childElements.forEach((childElement:CyElement) => {
-                            this.addByElement(childElement);
+            if(elements.length === 1){
+                elements.forEach((element:CyElement) => {
+                    this.cy.add(element);
+                    this.serverRequester.getRelatedNodesByElement(element)
+                        .then((childResponse) => {
+                            const childElements = JSON.parse(childResponse);
+                            childElements.forEach((childElement:CyElement) => {
+                                this.addByElement(childElement);
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error);
                         });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            });
+                });
+            } else {
+                console.log("No unique identifier used");
+            }
+
         })
         .catch((error) => {
             console.log(error);
