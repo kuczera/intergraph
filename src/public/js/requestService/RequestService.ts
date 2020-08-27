@@ -8,6 +8,7 @@ class RequestService{
 
     private constructor() {
         this.requestURL = `http://${process.env.HOST_NAME}:${process.env.SERVER_PORT}/`;
+        console.log(this.requestURL);
     }
 
     public static getInstance(): RequestService{
