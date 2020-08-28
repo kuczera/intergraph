@@ -26,7 +26,7 @@ Setting up the environment variables:
 
 Setting up the database configuration
 
-* open the "dbconfig-sample.json" int he root folder
+* open the "dbconfig-sample.json" in src/backend/database
 * fill the missing values
 * save the file as "dbconfig.json"
 
