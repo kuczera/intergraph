@@ -73,4 +73,18 @@ export async function searchNodes(searchText: string):Promise<Record[]> {
     return query.records;
 }
 
+/**
+ * Queries the database to get a specific Regesta by the URL
+ * @param {string} searchURI - value to be searched for on the url property
+ * @returns {Promise<Record[]>} - single Regesta if exists
+ */
+export async function searchRegesta(searchURI: string):Promise<Record[]>{
+    const dbsession = db.session();
+    const query = await dbsession
+        .run(`MATCH (n:Regesta)
+                    WHERE n.url = "${searchURI}"
+                    RETURN n`);
+    return query.records;
+}
+
 

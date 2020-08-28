@@ -3,8 +3,15 @@ import {generateCyElementMultiDictionary} from "../../menu/generateCyElementMult
 import {generateListFromMultiDictionary} from "../../menu/generateListFromMultiDictionary";
 import {listGenerated} from "../../main";
 
+
+/**
+ * Exposes various information about the node in the node information content
+ */
 export function onNodeTap(this: GraphBuilder) {
     this.cy.on('tap', 'node', (evt:any)  => {
+
+
+        console.log(this.cy.getElementById("33423"));
 
         const nodeInformation = document.getElementById("nodeInformationContent");
         nodeInformation!.innerHTML = "";
@@ -33,5 +40,14 @@ export function onNodeTap(this: GraphBuilder) {
                 nodesRelationContent!.innerHTML = "Something went wrong! Check the console for more Information!";
             });
     });
+}
+
+/**
+ * Logs the edges information to the console
+ */
+export function onEdgeTap(this: GraphBuilder){
+    this.cy.on('tap', 'edge', (evt:any) => {
+        console.log(evt.target.data());
+    })
 }
 

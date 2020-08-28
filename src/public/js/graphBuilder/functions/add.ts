@@ -2,7 +2,11 @@ import {GraphBuilder} from "../GraphBuilder";
 import {CyElement} from "../../../../helpers/CyElement";
 import {Position} from "../../../../helpers/Position";
 
-
+/**
+ * Add a node by their ID
+ * @param {string} nodeid
+ * @returns {Promise<void>}
+ */
 export async function addNodeById(this: GraphBuilder, nodeid:string){
 
     let node;
@@ -18,6 +22,15 @@ export async function addNodeById(this: GraphBuilder, nodeid:string){
 
 }
 
+/**
+ * Adds an element (Node) to the graph and checks for existing relations in the current graph
+ * if relations exists, it adds the edges too
+ * if no relations are there the new position is generated randomly
+ * if on relation is there the new position is randomly around the related node
+ * if there are more than 1 related nodes the new node is positioned in the center
+ * @param {CyElement} element
+ * @returns {Promise<void>}
+ */
 export async function addByElement(this: GraphBuilder, element: CyElement){
 
     if(!this.elementExists(element)){
@@ -68,8 +81,12 @@ export async function addByElement(this: GraphBuilder, element: CyElement){
 
 }
 
-export function addByIdWithRelations(this: GraphBuilder, url: string){
-    this.serverRequester.searchElements(url)
+/**
+ * Adds a regesta and all their relations to the graph
+ * @param {string} uri - the uri as used in the properties and on regesta-imperii
+ */
+export function addRegestaByURIWithRelations(this: GraphBuilder, uri: string){
+    this.serverRequester.searchRegesta(uri)
         .then((response) => {
             const elements = JSON.parse(response);
             if(elements.length === 1){
@@ -79,7 +96,7 @@ export function addByIdWithRelations(this: GraphBuilder, url: string){
                         .then((childResponse) => {
                             const childElements = JSON.parse(childResponse);
                             childElements.forEach((childElement:CyElement) => {
-                                this.addByElement(childElement);
+                                this.addByElement(childElement).catch((error) => {console.log(error)});
                             });
                         })
                         .catch((error) => {
@@ -96,17 +113,3 @@ export function addByIdWithRelations(this: GraphBuilder, url: string){
         });
 
 }
-//
-// export async function addWithRelations(this: GraphBuilder, nodeid:string){
-//
-//     let nodes;
-//     await this.serverRequester.getRelatedNodesById(nodeid)
-//         .then((response) => {
-//             nodes = JSON.parse(response);
-//             this.cy.add(JSON.parse(nodes));
-//
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         });
-// }

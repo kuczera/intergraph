@@ -1,3 +1,6 @@
+/**
+ * Helper Class for the positioning of the CyElements in Graph
+ */
 class Position{
 
     x: number;

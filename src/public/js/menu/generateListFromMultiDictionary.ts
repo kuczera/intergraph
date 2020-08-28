@@ -1,6 +1,12 @@
 import * as Collections from 'typescript-collections';
 import {GraphBuilder} from "../graphBuilder/GraphBuilder";
 
+/**
+ * Uses a multidictionary to create content for the views
+ * @param {GraphBuilder} graphBuilder
+ * @param {MultiDictionary<any, any>} multiDictionary
+ * @returns {HTMLElement}
+ */
 export function generateListFromMultiDictionary(graphBuilder: GraphBuilder,
                                                 multiDictionary: Collections.MultiDictionary<any, any>):HTMLElement{
 
@@ -25,7 +31,7 @@ export function generateListFromMultiDictionary(graphBuilder: GraphBuilder,
         addAll.innerHTML = "addAll";
         addAll.addEventListener("click", () => {
             foundCyElements.forEach((cyElement) => {
-                graphBuilder.addByElement(cyElement);
+                graphBuilder.addByElement(cyElement).catch((error) => {console.log(error)});
             });
         });
 
@@ -51,7 +57,7 @@ export function generateListFromMultiDictionary(graphBuilder: GraphBuilder,
             const childBodyAddToGraphButton = document.createElement("button");
             childBodyAddToGraphButton.innerHTML = "add";
             childBodyAddToGraphButton.addEventListener("click", () => {
-                graphBuilder.addByElement(cyElement);
+                graphBuilder.addByElement(cyElement).catch((error) => {console.log(error)});
             });
 
             childBody.appendChild(childBodyText);

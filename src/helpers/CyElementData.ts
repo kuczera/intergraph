@@ -12,9 +12,11 @@ export class CyElementData {
      * @param responseElement - the responseElement/record as it was returned from the database
      */
     constructor(responseElement: any) {
-
-        this.id = responseElement.identity.low;
-
+        if(responseElement.constructor.name === "Relationship"){
+            this.id = "edge-" + responseElement.identity.low;
+        } else {
+            this.id = responseElement.identity.low;
+        }
     }
 
 }

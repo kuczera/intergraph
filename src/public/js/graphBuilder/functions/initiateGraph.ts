@@ -3,7 +3,9 @@ import {GraphBuilder} from "../GraphBuilder";
 import {graphContainer} from "../../main";
 
 
-
+/**
+ * Initiates the graph instance and adds a regesta too it if the site was opened with specific parameters
+ */
 export function initiateGraph(this: GraphBuilder){
     const regestaToBeLoaded = graphContainer!.innerText;
     graphContainer!.innerText = "";
@@ -44,6 +46,8 @@ export function initiateGraph(this: GraphBuilder){
             }
         ]
     });
-    // console.log(regestaToBeLoaded);
-    this.addByIdWithRelations(regestaToBeLoaded);
+    if(regestaToBeLoaded.length !== 0){
+        this.addRegestaByURIWithRelations(regestaToBeLoaded);
+    }
+
 }
