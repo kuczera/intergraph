@@ -4,7 +4,7 @@
 
 
 #config-data
-dbconfig.json
+/src/backend/database/dbconfig.json
 
 
 #Generated

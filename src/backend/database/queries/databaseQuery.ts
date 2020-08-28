@@ -67,7 +67,7 @@ export async function searchNodes(searchText: string):Promise<Record[]> {
                             WHERE n[prop]
                             CONTAINS "${searchText}"
                             )
-                        ) 
+                        )
                     RETURN n`);
 
     return query.records;

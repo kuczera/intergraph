@@ -1,5 +1,5 @@
 import neo4j from "neo4j-driver";
-import dbconfig from "../../../dbconfig.json";
+import dbconfig from "./dbconfig.json";
 
 /**
  * Constant for creating the database sessions
