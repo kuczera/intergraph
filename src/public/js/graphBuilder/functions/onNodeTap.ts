@@ -11,8 +11,6 @@ export function onNodeTap(this: GraphBuilder) {
     this.cy.on('tap', 'node', (evt:any)  => {
 
 
-        console.log(this.cy.getElementById("33423"));
-
         const nodeInformation = document.getElementById("nodeInformationContent");
         nodeInformation!.innerHTML = "";
         for (const key of Object.keys(evt.target.data())){
@@ -36,7 +34,7 @@ export function onNodeTap(this: GraphBuilder) {
 
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
                 nodesRelationContent!.innerHTML = "Something went wrong! Check the console for more Information!";
             });
     });
