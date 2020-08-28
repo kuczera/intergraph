@@ -3,6 +3,10 @@
 /node_modules
 
 
+#config-data
+dbconfig.json
+
+
 #Generated
 /.cache
 /.idea

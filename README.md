@@ -24,6 +24,12 @@ Setting up the environment variables:
 * fill the variables as explained in the comments
 * save the file as ".env"
 
+Setting up the database configuration
+
+* open the "dbconfig-sample.json" int he root folder
+* fill the missing values
+* save the file as "dbconfig.json"
+
 
 Build the project:
 
