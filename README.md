@@ -35,18 +35,7 @@ Run `npm run start` to run both frontend and backend for a local test.
       - property to be shown for a node label in cytoscape
       - properties to be shown in info container for a node in the view
 
-## TODOS
 
-- Settings-Page which is saved on the server with Login
-- Settings-Page
-  -- Database credetials
-  -- dynamic configuration
-    --- read labels and properties from DB
-    --- create table with colums
-      ---- properties to be queried on search per label
-      ---- property to be shown for a node label in cytoscape
-      ---- properties to be shown in info container for a node in the view
--
 
 ## Tools & Frameworks
 
