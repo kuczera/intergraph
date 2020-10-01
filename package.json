@@ -1,0 +1,19 @@
+{
+  "name": "intergraph",
+  "version": "1.0.0",
+  "description": "Start script for a local test.",
+  "author": "Stefan Schindler",
+  "scripts": {
+    "server": "cd intergraph-backend && npm run dev:start",
+    "client": "cd intergraph-frontend && ng serve",
+    "installServerDependencies": "cd intergraph-backend && npm install --prod",
+    "installClientDependencies": "cd intergraph-frontend && npm install --prod",
+    "localtest": "npm-run-all install installServerDependencies installClientDependencies",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "npm-run-all": "^4.1.5"
+  }
+}

@@ -16,7 +16,7 @@ export class CyEdge implements EdgeDefinition{
         }
 
         // another information is saved outside the properties
-        this.data['type'] = dbElement.type;
+        this.data.type = dbElement.type;
     }
 
 }

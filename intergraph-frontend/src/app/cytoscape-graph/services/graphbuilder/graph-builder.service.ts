@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import * as cy from 'cytoscape';
 import {CytoscapeOptions, EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
-import dagre from 'cytoscape-dagre';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {first} from 'rxjs/operators';
-import cola from 'cytoscape-cola';
+const cola = require('cytoscape-cola');
+const dage = require('cytoscape-dagre');
 
 @Injectable()
 export class GraphBuilderService {

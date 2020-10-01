@@ -1,4 +1,4 @@
-export const nodeConfig = {
+export const nodeConfig: {[key: string]: string} = {
   Action: 'action',
   ExternalResource: 'title',
   IndexEntry: 'label',

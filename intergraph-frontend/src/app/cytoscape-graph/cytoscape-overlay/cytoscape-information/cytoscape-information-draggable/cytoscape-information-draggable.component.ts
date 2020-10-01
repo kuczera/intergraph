@@ -48,8 +48,7 @@ export class CytoscapeInformationDraggableComponent implements AfterViewInit {
       element.onmousedown = dragMouseDown;
     }
 
-    function dragMouseDown(e): void {
-      e = e || window.event;
+    function dragMouseDown(e: MouseEvent): void {
       e.preventDefault();
       // get the mouse cursor position at startup:
       pos3 = e.clientX;
@@ -59,8 +58,7 @@ export class CytoscapeInformationDraggableComponent implements AfterViewInit {
       document.onmousemove = elementDrag;
     }
 
-    function elementDrag(e): void {
-      e = e || window.event;
+    function elementDrag(e: MouseEvent): void {
       e.preventDefault();
       // calculate the new cursor position:
       pos1 = pos3 - e.clientX;

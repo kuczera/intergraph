@@ -1,5 +1,5 @@
 import * as express from "express";
-import { Response} from "express";
+import {Request, Response} from "express";
 import {QueryResult} from "neo4j-driver";
 import neo4j from "../database/neo4j";
 import {convertDatabaseRecordsToCyElements} from "../mapping/mapping";
@@ -8,14 +8,14 @@ import {convertDatabaseRecordsToCyElements} from "../mapping/mapping";
 export const register = ( app: express.Application ) => {
 
     // default route handler
-    app.get('/', (req, res) => {
+    app.get('/', (req: Request, res: Response) => {
         res.send('API is online!');
     });
 
     // get a single node by their id
     // parameters:
     //  id
-    app.get('/getNode', (req, res) => {
+    app.get('/getNode', (req: Request, res: Response) => {
         neo4j.read( `MATCH (n)
                             WHERE id(n) = ${req.query.id}
                             RETURN n`)
@@ -31,7 +31,7 @@ export const register = ( app: express.Application ) => {
     // get all relations of a single node
     // parameters:
     //  id
-    app.get('/getRelations', (req, res) => {
+    app.get('/getRelations', (req: Request, res: Response) => {
         neo4j.read( `MATCH (n)-[r]-(x)
                             WHERE id(n) = ${req.query.id}
                             RETURN r`)
@@ -47,7 +47,7 @@ export const register = ( app: express.Application ) => {
     // get all related nodes of a single node
     // parameters:
     //  id
-    app.get('/getRelatedNodes', (req, res) => {
+    app.get('/getRelatedNodes', (req: Request, res: Response) => {
         neo4j.read( `MATCH (n)-[r]-(x)
                             WHERE id(n) = ${req.query.id}
                             RETURN x`)
@@ -64,7 +64,7 @@ export const register = ( app: express.Application ) => {
     // parameters:
     //  id
     //  type
-    app.get('/getRelatedNodesByType', (req, res) => {
+    app.get('/getRelatedNodesByType', (req: Request, res: Response) => {
         neo4j.read( `MATCH (n)-[r:${req.query.type}]-(x)
                             WHERE id(n) = ${req.query.id}
                             RETURN x,r`)
@@ -80,7 +80,7 @@ export const register = ( app: express.Application ) => {
     // get all nodes with the given search text in one of their properties
     // parameters:
     //  searchText
-    app.get('/searchNodes', (req, res) => {
+    app.get('/searchNodes', (req: Request, res: Response) => {
         neo4j.read( `MATCH (n)
                             WHERE (
                                 ANY (
@@ -100,7 +100,7 @@ export const register = ( app: express.Application ) => {
     });
 
     // get all labels from the database
-    app.get('/getDatabaseLabels', (req, res) => {
+    app.get('/getDatabaseLabels', (req: Request, res: Response) => {
         neo4j.read(`MATCH (n) RETURN distinct labels(n)`)
             .then((result: QueryResult) => {
                 res.json(result);
