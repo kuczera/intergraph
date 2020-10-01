@@ -1,0 +1,11 @@
+#overlayContent {
+  position: absolute;
+  z-index: 2;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.mat-fab {
+  margin: 5px;
+
+}

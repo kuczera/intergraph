@@ -1,0 +1,39 @@
+mat-form-field {
+  width: 100%;
+}
+
+#searchResult {
+  min-height: 100px;
+}
+
+.searchSpinner {
+  margin: 0 10px;
+}
+
+#spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#searchContent {
+  width: 40vh;
+  float: left;
+}
+
+mat-selection-list {
+  max-height: 400px;
+  overflow: auto;
+}
+
+ng-template {
+  width: 40vh;
+}
+
+.informationContainer {
+  float: left;
+}
+
+.searchComponent {
+  z-index: 7;
+}

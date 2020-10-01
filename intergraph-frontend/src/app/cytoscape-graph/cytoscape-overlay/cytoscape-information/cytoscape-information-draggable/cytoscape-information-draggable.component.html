@@ -1,0 +1,9 @@
+<div id="draggableInformation" #draggableInformation class="draggableInformation">
+  <div id="draggableInformationHeader" class="draggableInformationHeader">
+    Click to Move!
+    <button mat-icon-button class="closeButton" #closeButton (click)="destroyComponent()">
+      <mat-icon>close_small</mat-icon>
+    </button>
+  </div>
+  <app-cytoscape-information [node]="node"></app-cytoscape-information>
+</div>
