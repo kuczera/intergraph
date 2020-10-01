@@ -14,10 +14,6 @@
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 
-<<<<<<< HEAD
-#config-data
-/src/backend/database/dbconfig.json
-=======
 # IDEs and editors
 /.idea
 .project
@@ -26,7 +22,6 @@ speed-measure-plugin*.json
 *.launch
 .settings/
 *.sublime-workspace
->>>>>>> development
 
 # IDE - VSCode
 .vscode/*

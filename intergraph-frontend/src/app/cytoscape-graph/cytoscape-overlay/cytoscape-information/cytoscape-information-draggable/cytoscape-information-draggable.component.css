@@ -1,0 +1,21 @@
+.draggableInformation {
+  position: absolute;
+  z-index: 5;
+}
+
+.draggableInformationHeader {
+  padding: 10px;
+  cursor: move;
+  z-index: 6;
+  background-color: #673AB7;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.closeButton {
+  float: right;
+  margin: -10px;
+}
+
+

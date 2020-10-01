@@ -1,0 +1,23 @@
+<!-- The overlay content div sometimes makes clicking on nodes buggy -->
+<!--<div id="overlayContent">-->
+  <div id="navbar">
+    <button mat-fab color="primary" aria-label="search" (click)="toggleSearch()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-fab color="primary" aria-label="information" (click)="toggleInformation()">
+      <mat-icon>info_outline</mat-icon>
+    </button>
+    <button mat-fab color="primary" aria-label="config" (click)="toggleConfig()">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+  <ng-template [ngIf]="showSearch">
+    <app-cytoscape-search></app-cytoscape-search>
+  </ng-template>
+  <ng-template [ngIf]="showConfig">
+    <app-cytoscape-config></app-cytoscape-config>
+  </ng-template>
+  <ng-template  #nodeInformation>
+
+  </ng-template>
+<!--</div>-->

@@ -1,47 +1,35 @@
 # Intergraph
 
-## Local Setup
+This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions there.
 
-The source code is hosted on GitHub.
+## Local Test Deployment
 
+The source code is hosted on GitHub.  
 https://github.com/kuczera/intergraph
 
-Clone project repository:
+### Clone repository
 
-```
-git@github.com:kuczera/intergraph.git
-```
+`git@github.com:kuczera/intergraph.git`
 
-Use npm to install the local dependencies:
+### Install dependencies
 
-```
-npm i
-```
+Run `npm install` to install dependencies for the test deployment script. Run `npm run localtest` afterwards to install dependencies for frontend and backend. Installing these may take some time.
 
-Setting up the environment variables:
+### Run local test
 
-* open the ".env-sample" file in the root folder
-* fill the variables as explained in the comments
-* save the file as ".env"
+Run `npm run start` to run both frontend and backend for a local test.
 
-Setting up the database configuration
+## TODOS
 
-* open the "dbconfig-sample.json" int he root folder
-* fill the missing values
-* save the file as "dbconfig.json"
-
-
-Build the project:
-
-```
-npm run build
-```
-
-Deploy the project:
-
-```
-npm run start &
-```
+- Settings-Page which is saved on the server with Login
+- Settings-Page
+  - Database credetials
+  - dynamic configuration
+    - read labels and properties from DB
+    - create table with colums
+      - properties to be queried on search per label
+      - property to be shown for a node label in cytoscape
+      - properties to be shown in info container for a node in the view
 
 ## TODOS
 
@@ -58,11 +46,11 @@ npm run start &
 
 ## Tools & Frameworks
 
-### Node
-https://nodejs.org/
+### NodeJS
+https://nodejs.org/en/docs/
 
-### Express
-https://expressjs.com/
+### ExpressJS
+https://expressjs.com/de/api.html
 
 ### Cytoscape.js
 https://js.cytoscape.org/
@@ -71,10 +59,10 @@ https://js.cytoscape.org/
 https://github.com/tgdwyer/WebCola/
 
 ### Neo4j
-https://neo4j.com/
+https://neo4j.com/docs/
 
-### EJS
-https://ejs.co/
+### Angular
+https://angular.io/docs
 
 ## Contributors
 * Stefan Schindler

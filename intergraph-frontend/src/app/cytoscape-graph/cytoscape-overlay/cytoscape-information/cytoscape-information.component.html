@@ -1,0 +1,77 @@
+<mat-card class="information-card">
+  <mat-card-header (click)="toggleProperty()">
+    <mat-card-title>{{displayToken}}</mat-card-title>
+    <mat-card-subtitle>
+      {{node?.data.id}} - {{node.classes}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">description</mat-icon>
+          data
+        </ng-template>
+        <div class="informationContent">
+          <div *ngIf="!showData else property">
+            <mat-selection-list [multiple]="false">
+              <mat-list-option *ngFor="let property of properties | keyvalue"
+                               class="dataContent" (click)="toggleProperty(property)">
+                {{property.key}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <ng-template #property>
+            <div class="propertyContent">
+              <h2>{{propertyToDisplay.key}}</h2>
+              {{propertyToDisplay.value}}
+            </div>
+          </ng-template>
+        </div>
+      </mat-tab>
+
+<!--      <mat-tab>-->
+<!--        <ng-template mat-tab-label>-->
+<!--          <mat-icon class="example-tab-icon">mediation</mat-icon>-->
+<!--          by Class-->
+<!--        </ng-template>-->
+<!--        <div class="informationContent">-->
+<!--          <mat-selection-list  [multiple]="false">-->
+<!--            <mat-list-option *ngFor="let node of relatedNodesByClass"-->
+<!--                             id="relationContent">-->
+
+<!--              <app-cytoscape-node-detail [node]="node"></app-cytoscape-node-detail>-->
+<!--            </mat-list-option>-->
+<!--          </mat-selection-list>-->
+<!--        </div>-->
+<!--      </mat-tab>-->
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">mediation</mat-icon>
+          Relations by Type
+        </ng-template>
+        <div class="informationContent">
+          <mat-selection-list  [multiple]="false">
+            <mat-list-option *ngFor="let relation of relationsByType | keyvalue"
+                             id="relationContents" (click)="addNodesByType(relation.key)">
+              {{relation.key}}  ({{relation.value}})
+
+<!--              <app-cytoscape-node-detail [node]="node"></app-cytoscape-node-detail>-->
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+    <div class="nav-content">
+      <mat-card-actions>
+<!--        <button mat-raised-button color="primary" class="back-button" *ngIf="showProperty"-->
+<!--                (click)="toggleProperty()">BACK</button>-->
+        <button mat-raised-button class="add-button" *ngIf="!nodeExists" (click)="addNode()">ADD</button>
+        <button mat-raised-button color="warn" class="remove-button"
+                *ngIf="nodeExists" (click)="removeNode()">REMOVE</button>
+      </mat-card-actions>
+    </div>
+
+</mat-card>
