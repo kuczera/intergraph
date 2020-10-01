@@ -18,6 +18,8 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build project
 
+To deploy on production open `./src/environments/environment.prod.ts` and modify the `apiUrl` variable to listen to corresponding backend url.
+
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Deploy project

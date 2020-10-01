@@ -13,11 +13,11 @@ https://github.com/kuczera/intergraph
 
 ### Install dependencies
 
-`npm run localtest`
+Run `npm install` to install dependencies for the test deployment script. Run `npm run localtest` afterwards to install dependencies for frontend and backend. Installing these may take some time.
 
 ### Run local test
 
-`npm run start`
+Run `npm run start` to run both frontend and backend for a local test.
 
 ## TODOS
 
