@@ -1,6 +1,6 @@
 # Intergraph
 
-This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions there.
+This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions in their directories.
 
 ## Local Test Deployment
 
