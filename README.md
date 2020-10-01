@@ -11,6 +11,10 @@ https://github.com/kuczera/intergraph
 
 `git@github.com:kuczera/intergraph.git`
 
+### Setup backend environment variables
+
+Open `./intergraph-backend/.env` file to set up host url and credentials for the graph database.
+
 ### Install dependencies
 
 Run `npm install` to install dependencies for the test deployment script. Run `npm run localtest` afterwards to install dependencies for frontend and backend. Installing these may take some time.
@@ -42,7 +46,7 @@ Run `npm run start` to run both frontend and backend for a local test.
       ---- properties to be queried on search per label
       ---- property to be shown for a node label in cytoscape
       ---- properties to be shown in info container for a node in the view
-- 
+-
 
 ## Tools & Frameworks
 
