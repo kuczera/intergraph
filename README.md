@@ -9,7 +9,7 @@ https://github.com/kuczera/intergraph
 
 ### Clone repository
 
-`git@github.com:kuczera/intergraph.git`
+`git clone git@github.com:kuczera/intergraph.git`
 
 ### Setup backend environment variables
 
