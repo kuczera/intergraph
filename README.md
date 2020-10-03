@@ -1,6 +1,6 @@
 # Intergraph
 
-This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions there.
+This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions in their directories.
 
 ## Local Test Deployment
 
@@ -9,7 +9,7 @@ https://github.com/kuczera/intergraph
 
 ### Clone repository
 
-`git@github.com:kuczera/intergraph.git`
+`git clone git@github.com:kuczera/intergraph.git`
 
 ### Setup backend environment variables
 
@@ -35,18 +35,7 @@ Run `npm run start` to run both frontend and backend for a local test.
       - property to be shown for a node label in cytoscape
       - properties to be shown in info container for a node in the view
 
-## TODOS
 
-- Settings-Page which is saved on the server with Login
-- Settings-Page
-  -- Database credetials
-  -- dynamic configuration
-    --- read labels and properties from DB
-    --- create table with colums
-      ---- properties to be queried on search per label
-      ---- property to be shown for a node label in cytoscape
-      ---- properties to be shown in info container for a node in the view
--
 
 ## Tools & Frameworks
 
