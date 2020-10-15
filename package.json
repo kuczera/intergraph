@@ -5,7 +5,7 @@
   "author": "Stefan Schindler",
   "scripts": {
     "server": "cd intergraph-backend && npm run dev:start",
-    "client": "cd intergraph-frontend && ng serve",
+    "client": "cd intergraph-frontend && npm ng serve",
     "installServerDependencies": "cd intergraph-backend && npm install --prod",
     "installClientDependencies": "cd intergraph-frontend && npm install --prod && npm link typescript && npm link @angular/cli",
     "localtest": "npm-run-all installServerDependencies installClientDependencies",
