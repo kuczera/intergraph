@@ -6,7 +6,7 @@
 }
 
 .information-card {
-  width: 30vh;
+  width: 45vh;
 }
 
 .back-button {
@@ -56,4 +56,21 @@
 }
 
 .mat-tab-body-content {
+}
+
+.keyData {
+  font-weight: bold;
+  float: left;
+  width: 50%;
+  overflow: auto;
+  padding-right: 1vh;
+}
+
+.truncated-node-value {
+  cursor: pointer;
+}
+
+.node-value-container {
+  float: left;
+  width: 50%;
 }

@@ -22,6 +22,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CytoscapeInformationDraggableComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { TruncPipe } from './trunc.pipe';
 
 
 
@@ -35,6 +36,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     CytoscapeConfigComponent,
     CytoscapeNodeDetailComponent,
     CytoscapeInformationDraggableComponent,
+    TruncPipe,
   ],
     imports: [
         BrowserModule,
@@ -50,7 +52,7 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatProgressSpinnerModule,
         MatListModule,
         MatExpansionModule,
-        MatTabsModule
+        MatTabsModule,
     ],
   providers: [ ],
   bootstrap: [AppComponent],

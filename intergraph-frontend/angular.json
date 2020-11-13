@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "intergraph-frontend"
+  "defaultProject": "intergraph-frontend",
+  "cli": {
+    "analytics": "0137e853-615f-43e8-94e8-abc4f94a3225"
+  }
 }
