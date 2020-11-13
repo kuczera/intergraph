@@ -57,3 +57,11 @@
 
 .mat-tab-body-content {
 }
+
+.node-color-container {
+  float: left;
+  width: 100%;
+  padding: 1vh 1vh 1vh 1vh;
+}
+
+

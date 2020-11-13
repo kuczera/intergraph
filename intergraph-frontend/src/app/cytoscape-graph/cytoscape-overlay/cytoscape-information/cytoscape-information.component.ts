@@ -26,6 +26,11 @@ export class CytoscapeInformationComponent implements AfterViewInit{
   relationsByType: Map<string, number> = new Map<string, number>();
   propertyToDisplay: KeyValue<string, any>;
   nodeExists: boolean;
+  nodeColor = [
+    { Regesta: 'blue' },
+    { IndexEntry: 'red' }
+
+  ];
 
   constructor(
     private graphBuilderService: GraphBuilderService,
@@ -71,6 +76,8 @@ export class CytoscapeInformationComponent implements AfterViewInit{
 
 
     });
+    console.log(this.nodeColor);
+    console.log(this.nodeColor[0]['Regesta']);
   }
 
   addNode(): void {
