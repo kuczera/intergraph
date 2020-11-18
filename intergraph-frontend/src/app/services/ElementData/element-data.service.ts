@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ElementDefinition} from 'cytoscape';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {IFilterLabel} from "../../filter-label";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {environment} from '../../../environments/environment';
 export class ElementDataService {
 
   intergraphApiUrl: string;
+  restApiName: string;
 
   constructor(private http: HttpClient) {
     this.intergraphApiUrl = environment.apiUrl;
@@ -72,9 +74,17 @@ export class ElementDataService {
     );
   }
 
-  searchNodes(searchText: string): Observable<any> {
+  searchNodes(searchText: string, filter: string): Observable<any> {
+
+    if (filter === 'Any') {
+      this.restApiName = '/searchNodes';
+    } else {
+      this.restApiName = '/searchNodesByType';
+    }
+
     const httpParams: HttpParams = new HttpParams()
-      .append('searchText', searchText);
+      .append('searchText', searchText)
+      .append('filter', filter);
 
     const options = {
       responseType: 'json' as const,
@@ -82,16 +92,19 @@ export class ElementDataService {
     };
 
     return this.http.get(
-      this.intergraphApiUrl + '/searchNodes', options
+      this.intergraphApiUrl + this.restApiName, options
     );
   }
 
-  getDatabaseLabels(): Observable<any> {
+  getDatabaseLabels(): Observable<IFilterLabel[]> {
+    const httpParams: HttpParams = new HttpParams()
+
     const options = {
-      responseType: 'json' as const
+      responseType: 'json' as const,
+      params: httpParams
     };
 
-    return this.http.get(
+    return this.http.get<IFilterLabel[]>(
       this.intergraphApiUrl + '/getDatabaseLabels', options
     );
   }

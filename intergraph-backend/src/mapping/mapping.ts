@@ -30,3 +30,21 @@ export function convertDatabaseRecordsToCyElements(records: Record[]): JSON[]{
     });
     return cyElements;
 }
+
+
+
+export function convertLabelsToJson(records: Record[]): JSON[] {
+
+    const jsonLabels: JSON[] = [];
+    records.forEach((record) => {
+
+        let label;
+        record.keys.forEach((key: string, index: number) => {
+            label = record.get(index);
+            let jsonLabel: JSON = {} as JSON;
+            jsonLabel = JSON.parse(JSON.stringify({"name": label}));
+            jsonLabels.push(jsonLabel);
+        })
+    });
+    return jsonLabels;
+}
