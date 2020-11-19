@@ -4,6 +4,7 @@ import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
+import {style} from '../../../intergraph/cytoscapeOptions';
 
 @Component({
   selector: 'app-cytoscape-information',
@@ -26,11 +27,8 @@ export class CytoscapeInformationComponent implements AfterViewInit{
   relationsByType: Map<string, number> = new Map<string, number>();
   propertyToDisplay: KeyValue<string, any>;
   nodeExists: boolean;
-  nodeColor = [
-    { Regesta: 'blue' },
-    { IndexEntry: 'red' }
-
-  ];
+  nodeColor = ['blue', 'red', 'yellow', 'black', 'green', 'purple', 'orange', 'brown', 'blue', 'red', 'yellow'];
+  labelsMatchedWithColors = [];
 
   constructor(
     private graphBuilderService: GraphBuilderService,
@@ -38,6 +36,29 @@ export class CytoscapeInformationComponent implements AfterViewInit{
   ) {
     this.showData = false;
   }
+
+  ngOnInit() : void {
+    let filterLabel = [
+      {"name": "Regesta"},
+      {"name": "IndexPlace"},
+      {"name": "IndexEntry"},
+      {"name": "IndexEvent"},
+      {"name": "IndexPerson"},
+      {"name": "IndexThing"},
+      {"name": "Action"},
+      {"name": "ExternalResource"},
+      {"name": "Literature"},
+      {"name": "Reference"},
+      {"name": "Place"},
+    ];
+
+    if (filterLabel.length == this.nodeColor.length) {
+      for (let i in filterLabel) {
+        this.labelsMatchedWithColors.push({"name": filterLabel[i].name, "color": this.nodeColor[i]});
+      }
+    }
+  }
+
 
   ngAfterViewInit(): void {
     // this timeout handles the ExpressionChangedAfterItHasBeenCheckedError
@@ -71,14 +92,21 @@ export class CytoscapeInformationComponent implements AfterViewInit{
             }
           });
         });
-
-
-
-
     });
-    console.log(this.nodeColor);
-    console.log(this.nodeColor[0]['Regesta']);
   }
+
+  // return colors matching with the node classe
+  applyColorForNode(typeOfNode: string): string {
+
+    for (let entry of this.labelsMatchedWithColors) {
+      if (entry.name === typeOfNode) {
+        return entry.color;
+      }
+    }
+    return 'white';
+  }
+
+
 
   addNode(): void {
     this.graphBuilderService.addNodeWithRelations(this.node);

@@ -3,7 +3,7 @@
     <mat-card-title>{{displayToken}}</mat-card-title>
     <mat-card-subtitle>
       {{node?.data.id}} - {{node.classes}}
-      <span class="node-color-container" [style]="{'background-color': nodeColor[0]['Regesta']}"></span>
+      <span class="node-color-container" [style]="{'background-color': applyColorForNode(node.classes)}"></span>
     </mat-card-subtitle>
 
   </mat-card-header>
