@@ -6,7 +6,10 @@
         <mat-card-subtitle>You can search for elements in the database here.</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <mat-form-field class="serach-form-field" (submit)="searchNodes()">
+        <mat-select [(ngModel)]="filter">
+          <mat-option [value]="label.name" *ngFor="let label of filterLabels | sortFilterLabelBy">{{label.name}}</mat-option>
+        </mat-select>
+        <mat-form-field class="search-form-field" (submit)="searchNodes()">
           <mat-label>Search for</mat-label>
           <input matInput type="text" [(ngModel)]="searchText" (keyup.enter)="searchNodes()" #searchInput>
           <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">

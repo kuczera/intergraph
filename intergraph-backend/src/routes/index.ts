@@ -2,7 +2,7 @@ import * as express from "express";
 import {Request, Response} from "express";
 import {QueryResult} from "neo4j-driver";
 import neo4j from "../database/neo4j";
-import {convertDatabaseRecordsToCyElements} from "../mapping/mapping";
+import {convertDatabaseRecordsToCyElements, convertLabelsToJson} from "../mapping/mapping";
 
 
 export const register = ( app: express.Application ) => {
@@ -99,11 +99,37 @@ export const register = ( app: express.Application ) => {
             });
     });
 
+
+
+    // get all nodes with the given search text in one of their properties
+    // parameters:
+    //  searchText
+    app.get('/searchNodesByType', (req: Request, res: Response) => {
+        neo4j.read( `MATCH (n:${req.query.filter})
+                            WHERE (
+                                ANY (
+                                    prop IN KEYS(n)
+                                    WHERE n[prop]
+                                    CONTAINS "${req.query.searchText}"
+                                    )
+                                )
+                            RETURN n`)
+            .then((result: QueryResult) => {
+                res.json(convertDatabaseRecordsToCyElements(result.records));
+            })
+            .catch((error) => {
+                res.status(400);
+                res.send(error);
+            });
+    });
+
+
+
     // get all labels from the database
     app.get('/getDatabaseLabels', (req: Request, res: Response) => {
-        neo4j.read(`MATCH (n) RETURN distinct labels(n)`)
+        neo4j.read(`CALL db.labels()`)
             .then((result: QueryResult) => {
-                res.json(result);
+                res.json(convertLabelsToJson(result.records));
             })
             .catch((error) => {
                 res.status(400);
