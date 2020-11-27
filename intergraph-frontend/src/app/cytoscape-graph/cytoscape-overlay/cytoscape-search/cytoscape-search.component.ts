@@ -12,6 +12,7 @@ import {ElementDataService} from '../../../services/ElementData/element-data.ser
 import {CytoscapeInformationComponent} from '../cytoscape-information/cytoscape-information.component';
 import {NodeDefinition} from 'cytoscape';
 import {IFilterLabel} from '../../../filter-label';
+import * as Chart from "chart.js";
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -34,6 +35,33 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
   filter = 'Regesta';
+
+  public barChartOptions = {
+    scales: {
+      yAxes: [{
+        display: false,
+        gridLines: {
+          display: false
+        }
+      }],
+      xAxes: [{
+        gridLines: {
+          drawBorder: false
+        }
+      }]
+    },
+    responsive: true
+  };
+
+  public barChartType = 'line';
+  public barChartLegend = false;
+
+  public barChartData = [
+    {data: [65, 65, 65, 65], borderColor: 'rgba(0, 0, 0 , 0.20)', fill: false}
+  ];
+
+
+
 
 
   constructor(

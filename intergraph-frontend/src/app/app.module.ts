@@ -24,8 +24,8 @@ import { CytoscapeInformationDraggableComponent } from './cytoscape-graph/cytosc
 import {MatTabsModule} from '@angular/material/tabs';
 import { TruncPipe } from './trunc.pipe';
 import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
-import {MatSelectModule} from "@angular/material/select";
-
+import {MatSelectModule} from '@angular/material/select';
+import {ChartsModule} from 'ng2-charts';
 
 
 @NgModule({
@@ -56,7 +56,8 @@ import {MatSelectModule} from "@angular/material/select";
         MatListModule,
         MatExpansionModule,
         MatTabsModule,
-        MatSelectModule
+        MatSelectModule,
+        ChartsModule,
     ],
 
 
