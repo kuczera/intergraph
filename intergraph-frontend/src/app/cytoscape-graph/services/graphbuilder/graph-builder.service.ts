@@ -3,8 +3,9 @@ import * as cy from 'cytoscape';
 import {CytoscapeOptions, EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {first} from 'rxjs/operators';
+import {styleOptions} from '../../../intergraph/cytoscapeOptions';
 const cola = require('cytoscape-cola');
-const dage = require('cytoscape-dagre');
+// const dage = require('cytoscape-dagre');
 
 @Injectable()
 export class GraphBuilderService {
@@ -17,7 +18,7 @@ export class GraphBuilderService {
 
   };
 
-  private createNodeInformation: (evt: any) => void;
+  createNodeInformation: (evt: any) => void;
 
 
   openInformationContainerIds: string[] = [];
@@ -32,125 +33,27 @@ export class GraphBuilderService {
   initGraph(): void {
     cy.use(cola);
     this.cyGraph = cy({
+      wheelSensitivity: 0.1,
       container: this.graphContainer,
       layout: {
         name: 'cola'
       },
-      style: [
-        {
-          selector: 'node',
-          style: {
-            label: 'id'
-          }
-        },
-        {
-          selector: 'edge',
-          style: {
-            label: 'data(type)'
-          }
-        },
-        {
-          selector: '.Action',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(action)'
-          }
-        },
-        {
-          selector: '.Regesta',
-          style: {
-            shape: 'round-diamond',
-            'background-color': 'green',
-            label: 'data(action)'
-          }
-        },
-        {
-          selector: '.ExternalResource',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(title)'
-          }
-        },
-        {
-          selector: '.IndexEntry',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(label)'
-          }
-        },
-        {
-          selector: '.IndexEvent',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(label)'
-          }
-        },
-        {
-          selector: '.IndexThing',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(label)'
-          }
-        },
-        {
-          selector: '.IndexPerson',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(label)'
-          }
-        },
-        {
-          selector: '.IndexPlace',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(label)'
-          }
-        },
-        {
-          selector: '.Literature',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(title)'
-          }
-        },
-        {
-          selector: '.Place',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(normalizedGerman)'
-          }
-        },
-        {
-          selector: '.Reference',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(title)'
-          }
-        },
-        {
-          selector: '.Regesta',
-          style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(identifier)'
-          }
-        },
-      ]
+      style: styleOptions
     });
 
-    this.cyGraph.on('tap', 'node', (evt: any) => {
-      this.createNodeInformation(this.getElement(evt.target.data().id));
+    this.cyGraph.on('mouseover', 'node', (evt: any) => {
+      const selectedNodeId: string = evt.target._private.data.id;
+      this.cyGraph.getElementById(selectedNodeId).style('text-wrap', 'none');
     });
+
+    this.cyGraph.on('mouseout', 'node', (evt: any) => {
+      const selectedNodeId: string = evt.target._private.data.id;
+      this.cyGraph.getElementById(selectedNodeId).style('text-wrap', 'ellipsis');
+    });
+
+    // this.cyGraph.on('tap', 'node', (evt: any) => {
+    //   this.createNodeInformation(this.getElement(evt.target.data().id));
+    // });
   }
 
   onNodeTap(fn: (evt: any) => void): void {
@@ -202,7 +105,7 @@ export class GraphBuilderService {
     if (this.checkForExistence(element)) {
       this.cyGraph.remove(this.cyGraph.getElementById(element.data.id));
       this.elements.splice(this.elements.indexOf(element, 0), 1);
-      this.cyGraph.layout({name: 'cola'}).run();
+      // this.cyGraph.layout({name: 'cola'}).run();
     }
   }
 
