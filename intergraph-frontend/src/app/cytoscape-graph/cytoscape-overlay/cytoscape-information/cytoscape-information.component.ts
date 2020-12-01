@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterViewInit, OnInit, Component, Input} from '@angular/core';
 import {nodeConfig} from '../../../intergraph/nodeConfig';
 import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
@@ -11,7 +11,7 @@ import {style} from '../../../intergraph/cytoscapeOptions';
   templateUrl: './cytoscape-information.component.html',
   styleUrls: ['./cytoscape-information.component.css']
 })
-export class CytoscapeInformationComponent implements AfterViewInit{
+export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
   // needs empty Input since it's throwing an error if the component isn't used
   @Input()
@@ -27,7 +27,7 @@ export class CytoscapeInformationComponent implements AfterViewInit{
   relationsByType: Map<string, number> = new Map<string, number>();
   propertyToDisplay: KeyValue<string, any>;
   nodeExists: boolean;
-  nodeColor = ['blue', 'red', 'yellow', 'black', 'green', 'purple', 'orange', 'brown', 'blue', 'red', 'yellow'];
+  nodeStyle = [];
   labelsMatchedWithColors = [];
 
   constructor(
@@ -37,26 +37,15 @@ export class CytoscapeInformationComponent implements AfterViewInit{
     this.showData = false;
   }
 
-  ngOnInit() : void {
-    let filterLabel = [
-      {"name": "Regesta"},
-      {"name": "IndexPlace"},
-      {"name": "IndexEntry"},
-      {"name": "IndexEvent"},
-      {"name": "IndexPerson"},
-      {"name": "IndexThing"},
-      {"name": "Action"},
-      {"name": "ExternalResource"},
-      {"name": "Literature"},
-      {"name": "Reference"},
-      {"name": "Place"},
-    ];
+  ngOnInit(): void {
 
-    if (filterLabel.length == this.nodeColor.length) {
-      for (let i in filterLabel) {
-        this.labelsMatchedWithColors.push({"name": filterLabel[i].name, "color": this.nodeColor[i]});
+    // retrieve json string from file cytoscapeOptions.ts
+    if (style !== undefined) {
+      for (const entry of JSON.parse(style)) {
+        this.nodeStyle.push(entry);
       }
     }
+
   }
 
 
@@ -95,12 +84,11 @@ export class CytoscapeInformationComponent implements AfterViewInit{
     });
   }
 
-  // return colors matching with the node classe
+  // return colors matching with the node classes
   applyColorForNode(typeOfNode: string): string {
-
-    for (let entry of this.labelsMatchedWithColors) {
-      if (entry.name === typeOfNode) {
-        return entry.color;
+    for (const entry of this.nodeStyle) {
+      if (entry.selector.includes(typeOfNode)) {
+        return entry.style['background-color'];
       }
     }
     return 'white';
