@@ -1,4 +1,4 @@
-export const style = `[
+export const style = JSON.stringify([
   {
     selector: 'node',
     style: {
@@ -99,4 +99,4 @@ export const style = `[
       label: 'properties(identifier)'
     }
   },
-]`;
+]);

@@ -75,3 +75,12 @@
   float: left;
   width: 50%;
 }
+
+
+.node-color-container {
+  float: left;
+  width: 100%;
+  padding: 1vh 1vh 1vh 1vh;
+}
+
+
