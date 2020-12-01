@@ -60,7 +60,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
   searchNodes(): void {
 
-    console.log(this.filterLabels);
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
@@ -69,7 +68,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
       .subscribe((result) => {
         this.searchResult = result;
         this.showSearchResult = true;
-        console.log(result);
       });
   }
 
@@ -106,7 +104,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.filterLabels = data;
         this.filterLabels.push({"name": "Any"});
         this.filterLabels.push({"name": "Entity"});
-        console.log(data);
       });
 
   }

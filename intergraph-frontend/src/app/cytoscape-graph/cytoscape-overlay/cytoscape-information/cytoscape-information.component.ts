@@ -40,6 +40,7 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
 
+    console.log(style);
     // retrieve json string from file cytoscapeOptions.ts
     if (style !== undefined) {
       for (const entry of JSON.parse(style)) {
@@ -63,7 +64,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
       for (const key of Object.keys(this.node.data)){
         this.properties.set(key, this.node.data[key]);
       }
-      console.log(this.properties);
       // display the correct button to add or remove
       this.graphBuilderService.checkForExistence(this.node)
         ? this.nodeExists = true

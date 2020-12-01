@@ -8,7 +8,7 @@ export const style = JSON.stringify([
   {
     selector: 'edge',
     style: {
-      label: 'data(displayToken)'
+      //label: 'data(displayToken)'
     }
   },
   {
