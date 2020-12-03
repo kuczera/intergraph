@@ -48,3 +48,20 @@ export function convertLabelsToJson(records: Record[]): JSON[] {
     });
     return jsonLabels;
 }
+
+
+
+export function convertDatesToJson(records: Record[]): JSON[] {
+    const jsonDates: JSON[] = [];
+    records.forEach((record) => {
+       let date;
+       record.keys.forEach((key: string, index: number) => {
+           date = record.get(index);
+           let jsonDate: JSON = {} as JSON;
+           jsonDate = JSON.parse(JSON.stringify({"date": date}));
+           jsonDates.push(jsonDate);
+       })
+    });
+
+    return jsonDates;
+}
