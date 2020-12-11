@@ -13,7 +13,7 @@ export const styleOptions: cy.StylesheetStyle[] = [
     style: {
       'curve-style': 'bezier',
       label: 'data(type)',
-      // 'edge-text-rotation': 'autorotate',  // This line makes the server fail compilation; but still works when the server is already running
+//      'edge-text-rotation': 'autorotate',  // This line makes the server fail compilation; but still works when the server is already running
       'font-size': 7,
       'text-background-color': 'white',
       'text-background-opacity': 1,
