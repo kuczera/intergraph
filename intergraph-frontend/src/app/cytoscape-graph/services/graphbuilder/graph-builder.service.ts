@@ -64,6 +64,7 @@ export class GraphBuilderService {
   addElement(element: ElementDefinition): void {
     if (!this.checkForExistence(element)) {
       this.cyGraph.add(element);
+      this.cyGraph.getElementById(element.data.id).css({'edge-text-rotation': 'autorotate'});
       this.elements.push(element);
       this.cyGraph.layout({name: 'cola'}).run();
     }

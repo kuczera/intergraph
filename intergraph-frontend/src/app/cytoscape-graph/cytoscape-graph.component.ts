@@ -36,7 +36,5 @@ export class CytoscapeGraphComponent implements AfterViewInit {
     } else {
       this.ctxMenu.showCanvasMenu(event);
     }
-
-
   }
 }
