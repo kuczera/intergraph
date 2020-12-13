@@ -27,8 +27,16 @@
           </div>
           <ng-template #property>
             <div class="propertyContent">
+              <button mat-raised-button (click)="toggleInfocard()">
+                <mat-icon>arrow_back_ios</mat-icon>
+              </button>
               <h2>{{propertyToDisplay.key}}</h2>
-              {{propertyToDisplay.value}}
+              <div *ngIf="propertyToDisplay.key==='url'">
+                <a href="{{propertyToDisplay.value}}">{{propertyToDisplay.value}}</a>
+              </div>
+              <div *ngIf="propertyToDisplay.key!=='url'">
+                {{propertyToDisplay.value}}
+              </div>
             </div>
           </ng-template>
         </div>
