@@ -24,7 +24,8 @@ import { CytoscapeInformationDraggableComponent } from './cytoscape-graph/cytosc
 import {MatTabsModule} from '@angular/material/tabs';
 import { TruncPipe } from './trunc.pipe';
 import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
-import {MatSelectModule} from "@angular/material/select";
+import {MatSelectModule} from '@angular/material/select';
+import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
 
 
 
@@ -40,6 +41,7 @@ import {MatSelectModule} from "@angular/material/select";
     CytoscapeInformationDraggableComponent,
     TruncPipe,
     SortFilterLabelByPipe,
+    CytoscapeContextMenuComponent,
   ],
     imports: [
         BrowserModule,
