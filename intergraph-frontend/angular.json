@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "intergraph-frontend"
+  "defaultProject": "intergraph-frontend",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
