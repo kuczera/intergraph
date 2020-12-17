@@ -11,6 +11,7 @@ import {
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {CytoscapeInformationComponent} from '../cytoscape-information/cytoscape-information.component';
 import {NodeDefinition} from 'cytoscape';
+import {IFilterLabel} from '../../../filter-label';
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -31,6 +32,8 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   searchResult: NodeDefinition[];
   activeSearchResult: NodeDefinition;
   showActiveSearchResult: boolean;
+  filterLabels: IFilterLabel[];
+  filter = 'Regesta';
 
 
   constructor(
@@ -41,7 +44,10 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.showSearchResult = true;
     this.showActiveSearchResult = false;
+    this.getLabels();
   }
+
+
 
   ngAfterViewInit(): void {
 
@@ -53,11 +59,12 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
   searchNodes(): void {
+
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
     this.showSearchResult = false;
-    this.elementDataService.searchNodes(this.searchText)
+    this.elementDataService.searchNodes(this.searchText, this.filter)
       .subscribe((result) => {
         this.searchResult = result;
         this.showSearchResult = true;
@@ -88,6 +95,19 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+
+
+  getLabels(): void {
+    this.elementDataService.getDatabaseLabels()
+      .subscribe((data) => {
+        this.filterLabels = data;
+        this.filterLabels.push({"name": "Any"});
+        this.filterLabels.push({"name": "Entity"});
+      });
+
+  }
+
 
 
 }

@@ -1,16 +1,17 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterViewInit, OnInit, Component, Input} from '@angular/core';
 import {nodeConfig} from '../../../intergraph/nodeConfig';
 import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
+import {styleOptions} from '../../../intergraph/cytoscapeOptions';
 
 @Component({
   selector: 'app-cytoscape-information',
   templateUrl: './cytoscape-information.component.html',
   styleUrls: ['./cytoscape-information.component.css']
 })
-export class CytoscapeInformationComponent implements AfterViewInit{
+export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
   // needs empty Input since it's throwing an error if the component isn't used
   @Input()
@@ -26,13 +27,30 @@ export class CytoscapeInformationComponent implements AfterViewInit{
   relationsByType: Map<string, number> = new Map<string, number>();
   propertyToDisplay: KeyValue<string, any>;
   nodeExists: boolean;
+  lenTrunc: number;
+  nodeStyle = [];
 
   constructor(
     private graphBuilderService: GraphBuilderService,
     private elementDataService: ElementDataService
   ) {
     this.showData = false;
+    this.lenTrunc = 20;
   }
+
+  ngOnInit(): void {
+
+    const jsStyleOptions: any = JSON.stringify(styleOptions);
+    console.log(jsStyleOptions);
+    // retrieve json string from file cytoscapeOptions.ts
+    if (jsStyleOptions !== undefined) {
+      for (const entry of JSON.parse(jsStyleOptions)) {
+        this.nodeStyle.push(entry);
+      }
+    }
+
+  }
+
 
   ngAfterViewInit(): void {
     // this timeout handles the ExpressionChangedAfterItHasBeenCheckedError
@@ -47,7 +65,6 @@ export class CytoscapeInformationComponent implements AfterViewInit{
       for (const key of Object.keys(this.node.data)){
         this.properties.set(key, this.node.data[key]);
       }
-
       // display the correct button to add or remove
       this.graphBuilderService.checkForExistence(this.node)
         ? this.nodeExists = true
@@ -66,12 +83,20 @@ export class CytoscapeInformationComponent implements AfterViewInit{
             }
           });
         });
-
-
-
-
     });
   }
+
+  // return colors matching with the node classes
+  applyColorForNode(typeOfNode: string): string {
+    for (const entry of this.nodeStyle) {
+      if (entry.selector.includes(typeOfNode)) {
+        return entry.style['background-color'];
+      }
+    }
+    return 'white';
+  }
+
+
 
   addNode(): void {
     this.graphBuilderService.addNodeWithRelations(this.node);
@@ -92,7 +117,7 @@ export class CytoscapeInformationComponent implements AfterViewInit{
   }
 
   toggleProperty(property?: KeyValue<string, any>): void {
-    if (property) {
+    if (property.value.length > this.lenTrunc) {
       this.propertyToDisplay = property;
       this.showData = true;
     } else {

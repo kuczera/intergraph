@@ -1,22 +1,30 @@
-export const style = `[
+import * as cy from 'cytoscape';
+export const styleOptions: cy.StylesheetStyle[] = [
   {
     selector: 'node',
     style: {
-      label: 'id'
+      label: 'id',
+      'text-wrap': 'ellipsis',
+      'text-max-width': '150px',
     }
   },
   {
     selector: 'edge',
     style: {
-      label: 'data(displayToken)'
+      'curve-style': 'bezier',
+      label: 'data(type)',
+//      'edge-text-rotation': 'autorotate',  // This line makes the server fail compilation; but still works when the server is already running
+      'font-size': 7,
+      'text-background-color': 'white',
+      'text-background-opacity': 1,
     }
   },
   {
     selector: '.Action',
     style: {
-      shape: 'hexagon',
-      'background-color': 'red',
-      label: 'properties(action)'
+      shape: 'ellipse',
+      'background-color': 'salmon',
+      label: 'data(action)'
     }
   },
   {
@@ -24,79 +32,93 @@ export const style = `[
     style: {
       shape: 'round-diamond',
       'background-color': 'green',
-      label: 'properties(action)'
+      label: 'data(action)'
     }
   },
   {
     selector: '.ExternalResource',
     style: {
-      shape: 'hexagon',
+      shape: 'ellipse',
       'background-color': 'red',
-      label: 'properties(title)'
+      label: 'data(title)'
     }
   },
   {
     selector: '.IndexEntry',
     style: {
-      shape: 'hexagon',
+      shape: 'ellipse',
       'background-color': 'red',
-      label: 'properties(label)'
+      label: 'data(label)'
     }
   },
   {
     selector: '.IndexEvent',
     style: {
-      shape: 'hexagon',
+      shape: 'ellipse',
       'background-color': 'red',
-      label: 'properties(label)'
+      label: 'data(label)'
+    }
+  },
+  {
+    selector: '.IndexThing',
+    style: {
+      shape: 'ellipse',
+      'background-color': 'red',
+      label: 'data(label)'
     }
   },
   {
     selector: '.IndexPerson',
     style: {
-      shape: 'hexagon',
-      'background-color': 'red',
-      label: 'properties(label)'
+      shape: 'ellipse',
+      'background-color': '#3E8DD7',
+      label: 'data(label)'
     }
   },
   {
     selector: '.IndexPlace',
     style: {
-      shape: 'hexagon',
-      'background-color': 'red',
-      label: 'properties(label)'
+      shape: 'ellipse',
+      'background-color': '#8B6935',
+      label: 'data(label)'
     }
   },
   {
     selector: '.Literature',
     style: {
-      shape: 'hexagon',
+      shape: 'ellipse',
       'background-color': 'red',
-      label: 'properties(title)'
+      label: 'data(title)'
     }
   },
   {
     selector: '.Place',
     style: {
-      shape: 'hexagon',
+      shape: 'ellipse',
       'background-color': 'red',
-      label: 'properties(normalizedGerman)'
+      label: 'data(normalizedGerman)'
     }
   },
   {
     selector: '.Reference',
     style: {
-      shape: 'hexagon',
+      shape: 'ellipse',
       'background-color': 'red',
-      label: 'properties(title)'
+      label: 'data(title)'
     }
   },
   {
     selector: '.Regesta',
     style: {
-      shape: 'hexagon',
-      'background-color': 'red',
-      label: 'properties(identifier)'
+      shape: 'ellipse',
+      'background-color': '#BC2E2E',
+      label: 'data(identifier)'
     }
   },
-]`;
+  {
+    selector: ':selected',
+    style: {
+      'background-color': '#DCCE4F',
+    }
+  },
+];

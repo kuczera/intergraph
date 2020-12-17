@@ -1,0 +1,21 @@
+<div id="cytoscapeContextMenu" #container>
+  <div #nodeMenu *ngIf="isNodeMenuShowed">
+    <h5>Node</h5>
+    <button (click)="seeInfo()">See informations</button>
+    <h5>Expand</h5>
+    <button (click)="expandAll()">All</button>
+    <button *ngFor="let relation of relationsByType | keyvalue" (click)="expandByRelationType(relation.key)">{{relation.key}}({{relation.value}})</button>
+
+    <h5>Collapse</h5>
+    <button (click)="collapseAll()">All</button>
+    <button *ngFor="let relation of relationsByType | keyvalue" (click)="collapseByRelationType(relation.key)">{{relation.key}}({{relation.value}})</button>
+    <button (click)="collapseNode()">Node</button>
+  </div>
+
+  <div #canvasMenu *ngIf="isCanvasMenuShowed">
+    <h5>Canvas</h5>
+    <button (click)="cleanCanvas()">Clean canvas</button>
+    <button (click)="fitCanvas()">Fit</button>
+  </div>
+</div>
+

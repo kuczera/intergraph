@@ -3,7 +3,9 @@
     <mat-card-title>{{displayToken}}</mat-card-title>
     <mat-card-subtitle>
       {{node?.data.id}} - {{node.classes}}
+      <span class="node-color-container" [style]="{'background-color': applyColorForNode(node.classes)}"></span>
     </mat-card-subtitle>
+
   </mat-card-header>
   <mat-card-content>
     <mat-tab-group>
@@ -14,12 +16,14 @@
         </ng-template>
         <div class="informationContent">
           <div *ngIf="!showData else property">
-            <mat-selection-list [multiple]="false">
-              <mat-list-option *ngFor="let property of properties | keyvalue"
-                               class="dataContent" (click)="toggleProperty(property)">
-                {{property.key}}
-              </mat-list-option>
-            </mat-selection-list>
+            <mat-list>
+              <mat-list-item *ngFor="let property of properties | keyvalue"
+                             class="dataContent" (click)="toggleProperty(property)">
+                <div class="keyData">{{property.key}} </div>
+                <div [ngClass]="{'truncated-node-value': property.value.toString().length > lenTrunc, 'node-value-container': true}">
+                {{property.value | trunc: lenTrunc}}</div>
+              </mat-list-item>
+            </mat-list>
           </div>
           <ng-template #property>
             <div class="propertyContent">

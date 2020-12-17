@@ -5,7 +5,7 @@
   "author": "Stefan Schindler",
   "scripts": {
     "server": "cd intergraph-backend && npm run dev:start",
-    "client": "cd intergraph-frontend && npm ng serve",
+    "client": "cd intergraph-frontend && npm run ng serve",
     "installServerDependencies": "cd intergraph-backend && npm install --prod",
     "installClientDependencies": "cd intergraph-frontend && npm install --prod && npm link typescript && npm link @angular/cli",
     "localtest": "npm-run-all installServerDependencies installClientDependencies",
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
     "npm-run-all": "^4.1.5"
   }
 }
