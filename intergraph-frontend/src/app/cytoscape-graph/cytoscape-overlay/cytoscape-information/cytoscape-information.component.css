@@ -33,7 +33,7 @@
 }
 
 .propertyContent {
-  padding: 0 16px;
+  padding: 0 0px;
 }
 
 /* width */
@@ -81,6 +81,27 @@
   float: left;
   width: 100%;
   padding: 1vh 1vh 1vh 1vh;
+}
+
+.titleAndBackButtonContent {
+  overflow: hidden;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+
+span {
+  margin-top: 1vh;
+  float: left;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+button {
+  float: right;
+  background-color: #673ab7 ;
+  color: white;
+
 }
 
 

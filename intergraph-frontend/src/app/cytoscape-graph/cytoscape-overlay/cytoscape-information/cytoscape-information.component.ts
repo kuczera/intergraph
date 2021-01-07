@@ -125,7 +125,8 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
 
   toggleInfocard(): void {
-    this.showData = true;
+    this.showData = false;
+
   }
 
 
