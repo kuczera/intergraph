@@ -1,6 +1,14 @@
 <div id="timeFilterContent">
   <div>
-    <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someRange" [tooltips]="toolTips"></nouislider>
+    <nouislider
+      [connect]="true"
+      [min]="start"
+      [max]="end"
+      [step]="step"
+      [(ngModel)]="someRange"
+      [tooltips]="toolTips"
+      [format]="format"
+      (ngModelChange)="onChange($event)"></nouislider>
   </div>
 </div>
 
