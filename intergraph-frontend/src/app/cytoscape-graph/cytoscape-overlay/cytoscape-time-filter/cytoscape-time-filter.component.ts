@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ElementDataService} from '../../../services/ElementData/element-data.service';
-import {start} from "repl";
-import {NouiFormatter} from "ng2-nouislider";
+import { ElementDataService } from '../../../services/ElementData/element-data.service';
+import { NouiFormatter } from 'ng2-nouislider';
+import { GraphBuilderService } from '../../services/graphbuilder/graph-builder.service';
 
 @Component({
   selector: 'app-cytoscape-time-filter',
@@ -11,9 +11,7 @@ import {NouiFormatter} from "ng2-nouislider";
 
 
 
-
 export class CytoscapeTimeFilterComponent implements OnInit {
-
 
   toolTips: boolean[] = [true, true];
   start = 0;
@@ -25,6 +23,7 @@ export class CytoscapeTimeFilterComponent implements OnInit {
 
   constructor(
     private elementDataService: ElementDataService,
+    private graphBuilderService: GraphBuilderService
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +75,7 @@ export class CytoscapeTimeFilterComponent implements OnInit {
   }
 
   onChange(event: any): void {
-
+    this.graphBuilderService.filterGraph(event[0], event[1]);
   }
 
 }

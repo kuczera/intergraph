@@ -226,4 +226,17 @@ export class GraphBuilderService {
     this.openInformationContainerIds.splice(
       this.openInformationContainerIds.indexOf(id, 0 ), 1);
   }
+
+  filterGraph(startDate: number, endDate: number): void {
+    this.elements.forEach((element: ElementDefinition) => {
+
+      let elementDate = new Date(element.data.date);
+      console.log(this.cyGraph.layout({name: 'cola'}));
+      if (elementDate.getTime() < startDate || elementDate.getTime() > endDate) {
+        this.cyGraph.getElementById(element.data.id).style('display', 'none');
+      } else {
+        this.cyGraph.getElementById(element.data.id).style('display', 'element');
+      }
+    });
+  }
 }
