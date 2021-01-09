@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ElementDefinition} from 'cytoscape';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {IFilterLabel} from "../../filter-label";
+import {IFilterLabel} from '../../filter-label';
 
 @Injectable({
   providedIn: 'root'
@@ -97,7 +97,7 @@ export class ElementDataService {
   }
 
   getDatabaseLabels(): Observable<IFilterLabel[]> {
-    const httpParams: HttpParams = new HttpParams()
+    const httpParams: HttpParams = new HttpParams();
 
     const options = {
       responseType: 'json' as const,
@@ -106,6 +106,21 @@ export class ElementDataService {
 
     return this.http.get<IFilterLabel[]>(
       this.intergraphApiUrl + '/getDatabaseLabels', options
+    );
+  }
+
+
+  getAllDates(): Observable<any> {
+
+    const httpParams: HttpParams = new HttpParams();
+
+    const options = {
+      responseType: 'json' as const,
+      params: httpParams
+    };
+
+    return this.http.get(
+      this.intergraphApiUrl + '/getAllDates', options
     );
   }
 

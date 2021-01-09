@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChartType, ChartDataSets, ChartOptions} from 'chart.js';
+import {Label, Color, BaseChartDirective} from 'ng2-charts';
+import * as Chart from 'chart.js';
 
 @Component({
   selector: 'app-cytoscape-config',
@@ -7,9 +10,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CytoscapeConfigComponent implements OnInit {
 
+  dataPoints: Array<any> = [{ x: 1, y: 10}, { x: 2, y: 20}];
+
+  @ViewChild('lineChart') private chartRef;
+  chart: any;
+
+
   constructor() { }
 
   ngOnInit(): void {
+
+    this.chart = new Chart(this.chartRef.nativeElement, {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            data: this.dataPoints,
+            borderColor: '#00AEFF',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            display: true
+          }]
+        }
+      }
+    });
   }
 
 }

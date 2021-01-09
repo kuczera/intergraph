@@ -59,16 +59,18 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
   searchNodes(): void {
-
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
+    if (this.searchText !== '') {   // search text is not empty
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      this.showSearchResult = false;
+      this.elementDataService.searchNodes(this.searchText, this.filter)
+        .subscribe((result) => {
+          this.searchResult = result;
+          this.showSearchResult = true;
+          console.log(result);
+        });
     }
-    this.showSearchResult = false;
-    this.elementDataService.searchNodes(this.searchText, this.filter)
-      .subscribe((result) => {
-        this.searchResult = result;
-        this.showSearchResult = true;
-      });
   }
 
   showInformation(node: NodeDefinition): void {

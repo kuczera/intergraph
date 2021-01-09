@@ -1,0 +1,11 @@
+#timeFilterContent {
+  position: absolute;
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+}
+
+nouislider {
+  padding-right: 5%;
+  padding-left: 5%;
+}

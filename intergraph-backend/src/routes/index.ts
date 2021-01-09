@@ -2,7 +2,7 @@ import * as express from "express";
 import {Request, Response} from "express";
 import {QueryResult} from "neo4j-driver";
 import neo4j from "../database/neo4j";
-import {convertDatabaseRecordsToCyElements, convertLabelsToJson} from "../mapping/mapping";
+import {convertDatabaseRecordsToCyElements, convertLabelsToJson, convertDatesToJson} from "../mapping/mapping";
 
 
 export const register = ( app: express.Application ) => {
@@ -134,6 +134,18 @@ export const register = ( app: express.Application ) => {
             .catch((error) => {
                 res.status(400);
                 res.send(error);
+            });
+    });
+    
+    
+    app.get('/getAllDates', (req: Request, res: Response) => {
+        neo4j.read('MATCH (n) RETURN DISTINCT n.startDate')
+            .then((result: QueryResult) => {
+                res.json(convertDatesToJson(result.records));
+            })
+            .catch((error) => {
+               res.status(400);
+               res.send(error);
             });
     });
 

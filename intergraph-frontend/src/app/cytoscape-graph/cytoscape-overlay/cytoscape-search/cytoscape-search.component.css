@@ -1,3 +1,4 @@
+
 mat-form-field {
   width: 100%;
 }
@@ -37,3 +38,23 @@ ng-template {
 .searchComponent {
   z-index: 7;
 }
+
+.timeFilter {
+  width: 35vh;
+  height: 1vh;
+  background-color: aqua;
+}
+
+.endDateButton {
+   float: right;
+   height: 2vh;
+ }
+
+
+.startDateButton {
+  float: left;
+  height: 2vh;
+  position: absolute;
+}
+
+
