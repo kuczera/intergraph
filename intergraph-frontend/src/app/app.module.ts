@@ -10,23 +10,23 @@ import { CytoscapeSearchComponent } from './cytoscape-graph/cytoscape-overlay/cy
 import { CytoscapeInformationComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-information/cytoscape-information.component';
 import { CytoscapeConfigComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-config/cytoscape-config.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
-import {FormsModule} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { CytoscapeNodeDetailComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-node-detail/cytoscape-node-detail.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatListModule} from '@angular/material/list';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { CytoscapeInformationDraggableComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { TruncPipe } from './trunc.pipe';
 import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
-import {MatSelectModule} from '@angular/material/select';
-import {ChartsModule} from 'ng2-charts';
-import { NouisliderModule} from 'ng2-nouislider';
+import { MatSelectModule } from '@angular/material/select';
+import { ChartsModule } from 'ng2-charts';
+import { NouisliderModule } from 'ng2-nouislider';
 import { CytoscapeTimeFilterComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-time-filter/cytoscape-time-filter.component';
 
 

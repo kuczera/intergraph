@@ -221,22 +221,29 @@ export class GraphBuilderService {
     this.openInformationContainerIds.push(id);
   }
 
+
+
   // Helper for the View
   removeFromOpenInformationContainerIds(id: string): void {
     this.openInformationContainerIds.splice(
       this.openInformationContainerIds.indexOf(id, 0 ), 1);
   }
 
+
+  // Filtering nodes in graph
   filterGraph(startDate: number, endDate: number): void {
     this.elements.forEach((element: ElementDefinition) => {
 
-      let elementDate = new Date(element.data.date);
-      console.log(this.cyGraph.layout({name: 'cola'}));
-      if (elementDate.getTime() < startDate || elementDate.getTime() > endDate) {
-        this.cyGraph.getElementById(element.data.id).style('display', 'none');
-      } else {
-        this.cyGraph.getElementById(element.data.id).style('display', 'element');
+      const elementDate = new Date(element.data.endDate);
+
+      if (!isNaN(elementDate.getTime())) { // Invalid date
+        if (elementDate.getTime() < startDate || elementDate.getTime() > endDate) {
+          this.cyGraph.getElementById(element.data.id).style('display', 'none');
+        } else {
+          this.cyGraph.getElementById(element.data.id).style('display', 'element');
+        }
       }
+
     });
   }
 }

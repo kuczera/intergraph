@@ -36,8 +36,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   filter = 'Regesta';
 
 
-
-
   constructor(
     private elementDataService: ElementDataService,
     private resolver: ComponentFactoryResolver
@@ -61,18 +59,18 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
   searchNodes(): void {
-
-    console.log(this.filterLabels);
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
+    if (this.searchText !== '') {   // search text is not empty
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      this.showSearchResult = false;
+      this.elementDataService.searchNodes(this.searchText, this.filter)
+        .subscribe((result) => {
+          this.searchResult = result;
+          this.showSearchResult = true;
+          console.log(result);
+        });
     }
-    this.showSearchResult = false;
-    this.elementDataService.searchNodes(this.searchText, this.filter)
-      .subscribe((result) => {
-        this.searchResult = result;
-        this.showSearchResult = true;
-        console.log(result);
-      });
   }
 
   showInformation(node: NodeDefinition): void {

@@ -19,15 +19,15 @@ export class CytoscapeTimeFilterComponent implements OnInit {
   someRange: number[] = [this.start, this.end];
   format: NouiFormatter = {from: this.toNumber, to: this.toFormat};
   step: number = 6 * 4 * 7 * 24 * 60 * 60 * 1000;
-  test: Event;
 
   constructor(
     private elementDataService: ElementDataService,
     private graphBuilderService: GraphBuilderService
   ) { }
 
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
     this.elementDataService.getAllDates()
       .subscribe((data) => {
         let startDate = new Date(data[0].date);
@@ -46,23 +46,25 @@ export class CytoscapeTimeFilterComponent implements OnInit {
         }
         this.start = startDate.getTime();
         this.end = endDate.getTime();
-      });
 
+      });
   }
 
-  toFormat(value: number): string {
-    let d = new Date();
-    d.setTime(value);
 
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+  // convert timestamp to string format
+  toFormat(value: number): string {
+    const d = new Date();
+    d.setTime(value);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
       'Oct', 'Nov', 'Dec'];
     return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-
-
   }
 
+
+
+  // convert date string to timestamp
   toNumber(value: string): number {
-    let val = value.split(' ');
+    const val = value.split(' ');
 
     if (val.length < 2) {
       return new Date().getTime();
@@ -70,9 +72,13 @@ export class CytoscapeTimeFilterComponent implements OnInit {
     return new Date(value).getTime();
   }
 
+
+
   timestamp(str: string): number {
     return new Date(str).getTime();
   }
+
+
 
   onChange(event: any): void {
     this.graphBuilderService.filterGraph(event[0], event[1]);
