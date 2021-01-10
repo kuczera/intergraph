@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ChartsModule } from 'ng2-charts';
 import { NouisliderModule } from 'ng2-nouislider';
 import { CytoscapeTimeFilterComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-time-filter/cytoscape-time-filter.component';
+import { SearchListMenuComponent } from './cytoscape-graph/cytoscape-overlay/search-list-menu/search-list-menu.component';
 
 
 
@@ -43,7 +44,8 @@ import { CytoscapeTimeFilterComponent } from './cytoscape-graph/cytoscape-overla
     CytoscapeInformationDraggableComponent,
     TruncPipe,
     SortFilterLabelByPipe,
-    CytoscapeTimeFilterComponent
+    CytoscapeTimeFilterComponent,
+    SearchListMenuComponent,
   ],
     imports: [
         BrowserModule,

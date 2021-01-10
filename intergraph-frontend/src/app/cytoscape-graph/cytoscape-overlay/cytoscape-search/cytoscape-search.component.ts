@@ -8,10 +8,13 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {ElementDataService} from '../../../services/ElementData/element-data.service';
-import {CytoscapeInformationComponent} from '../cytoscape-information/cytoscape-information.component';
-import {NodeDefinition} from 'cytoscape';
-import {IFilterLabel} from '../../../filter-label';
+import { ElementDataService } from '../../../services/ElementData/element-data.service';
+import { CytoscapeInformationComponent } from '../cytoscape-information/cytoscape-information.component';
+import { NodeDefinition } from 'cytoscape';
+import { IFilterLabel } from '../../../filter-label';
+import { SearchListMenuComponent } from '../search-list-menu/search-list-menu.component';
+
+
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -21,8 +24,8 @@ import {IFilterLabel} from '../../../filter-label';
 export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
-  @ViewChild('informationContainer', {read: ViewContainerRef}) container: ViewContainerRef;
-  informationContainer: ComponentRef<any>;
+  @ViewChild('searchMenuContainer', {read: ViewContainerRef}) container: ViewContainerRef;
+  searchMenuContainer: ComponentRef<any>;
 
   @ViewChild('searchInput')
   searchInput: ElementRef;
@@ -41,6 +44,8 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
     private resolver: ComponentFactoryResolver
   ) { }
 
+
+
   ngOnInit(): void {
     this.showSearchResult = true;
     this.showActiveSearchResult = false;
@@ -58,6 +63,7 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   }
 
 
+
   searchNodes(): void {
     if (this.searchText !== '') {   // search text is not empty
       if (document.activeElement instanceof HTMLElement) {
@@ -68,20 +74,22 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         .subscribe((result) => {
           this.searchResult = result;
           this.showSearchResult = true;
-          console.log(result);
         });
     }
   }
 
-  showInformation(node: NodeDefinition): void {
+
+
+  showContextMenu(node: NodeDefinition): void {
     if (!this.showActiveSearchResult) {
       this.showActiveSearchResult = true;
       this.activeSearchResult = node;
       const factory: ComponentFactory<any> =
-        this.resolver.resolveComponentFactory(CytoscapeInformationComponent);
-      this.informationContainer = this.container.createComponent(factory);
-      this.informationContainer.instance.node = node;
-      this.informationContainer.instance.draggable = false;
+        this.resolver.resolveComponentFactory(SearchListMenuComponent);
+      console.log(this.container);
+      this.searchMenuContainer = this.container.createComponent(factory);
+      this.searchMenuContainer.instance.node = node;
+      this.searchMenuContainer.instance.draggable = false;
     } else {
       if (this.activeSearchResult === node) {
         this.showActiveSearchResult = false;
@@ -91,9 +99,9 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.activeSearchResult = node;
         const factory: ComponentFactory<any> =
           this.resolver.resolveComponentFactory(CytoscapeInformationComponent);
-        this.informationContainer = this.container.createComponent(factory);
-        this.informationContainer.instance.node = node;
-        this.informationContainer.instance.draggable = false;
+        this.searchMenuContainer = this.container.createComponent(factory);
+        this.searchMenuContainer.instance.node = node;
+        this.searchMenuContainer.instance.draggable = false;
       }
     }
   }

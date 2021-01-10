@@ -21,7 +21,7 @@
         </mat-form-field>
         <div id="searchResult">
           <mat-selection-list #nodes [multiple]="false" *ngIf="showSearchResult">
-            <mat-list-option *ngFor="let node of searchResult" [value]="node" (click)="showInformation(node)">
+            <mat-list-option *ngFor="let node of searchResult" [value]="node" (contextmenu)="showContextMenu(node)">
               <app-cytoscape-node-detail [node]="node"></app-cytoscape-node-detail>
             </mat-list-option>
           </mat-selection-list>
@@ -39,7 +39,7 @@
       <!--    </mat-card-actions>-->
     </mat-card>
   </div>
-  <div class="informationContainer">
-    <ng-template #informationContainer></ng-template>
+  <div class="searchMenuContainer">
+    <ng-template #searchMenuContainer></ng-template>
   </div>
 </div>

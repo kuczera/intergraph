@@ -1,3 +1,6 @@
+.searchContainer {
+
+}
 
 mat-form-field {
   width: 100%;
@@ -31,7 +34,7 @@ ng-template {
   width: 40vh;
 }
 
-.informationContainer {
+.searchMenuContainer {
   float: left;
 }
 

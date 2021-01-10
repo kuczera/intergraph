@@ -38,6 +38,8 @@ export class CytoscapeOverlayComponent implements OnInit {
 
   }
 
+
+
   ngOnInit(): void {
     this.showSearch = false;
     this.showInformation = false;
@@ -45,6 +47,8 @@ export class CytoscapeOverlayComponent implements OnInit {
 
     this.graphBuilderService.onNodeTap(this.createNodeInformation.bind(this));
   }
+
+
 
   toggleSearch(): void {
     if (!this.showSearch) {
@@ -57,6 +61,8 @@ export class CytoscapeOverlayComponent implements OnInit {
     this.toggleInformationElements();
   }
 
+
+
   toggleInformation(): void {
     if (!this.showInformation) {
       this.showSearch = false;
@@ -68,6 +74,8 @@ export class CytoscapeOverlayComponent implements OnInit {
     this.toggleInformationElements();
   }
 
+
+
   toggleConfig(): void {
     if (!this.showConfig) {
       this.showSearch = false;
@@ -78,6 +86,8 @@ export class CytoscapeOverlayComponent implements OnInit {
     }
     this.toggleInformationElements();
   }
+
+
 
   createNodeInformation(node: NodeDefinition): void {
     const newID = node.data.id + '-draggableInformation';
@@ -97,6 +107,7 @@ export class CytoscapeOverlayComponent implements OnInit {
   }
 
 
+
   toggleInformationElements(): void {
     this.graphBuilderService.openInformationContainerIds.forEach((id: string) => {
       if (this.showInformation) {
@@ -106,7 +117,5 @@ export class CytoscapeOverlayComponent implements OnInit {
       }
     });
   }
-
-
 
 }

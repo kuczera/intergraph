@@ -39,8 +39,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-
-    console.log(style);
     // retrieve json string from file cytoscapeOptions.ts
     if (style !== undefined) {
       for (const entry of JSON.parse(style)) {
