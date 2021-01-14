@@ -27,8 +27,20 @@
           </div>
           <ng-template #property>
             <div class="propertyContent">
-              <h2>{{propertyToDisplay.key}}</h2>
-              {{propertyToDisplay.value}}
+              <div class="titleAndBackButtonContent">
+                <span>
+                  {{propertyToDisplay.key}} :
+                </span>
+                <button mat-raised-button (click)="toggleInfocard()">
+                  <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="propertyToDisplay.key==='url'">
+                <a href="{{propertyToDisplay.value}}" target="_blank">{{propertyToDisplay.value}}</a>
+              </div>
+              <div *ngIf="propertyToDisplay.key!=='url'">
+                {{propertyToDisplay.value}}
+              </div>
             </div>
           </ng-template>
         </div>
