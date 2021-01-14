@@ -80,13 +80,13 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
 
-  showContextMenu(node: NodeDefinition): void {
+  showContextMenu(node: NodeDefinition, evt: any): void {
     if (!this.showActiveSearchResult) {
       this.showActiveSearchResult = true;
       this.activeSearchResult = node;
+      console.log(evt.clientX);
       const factory: ComponentFactory<any> =
         this.resolver.resolveComponentFactory(SearchListMenuComponent);
-      console.log(this.container);
       this.searchMenuContainer = this.container.createComponent(factory);
       this.searchMenuContainer.instance.node = node;
       this.searchMenuContainer.instance.draggable = false;
