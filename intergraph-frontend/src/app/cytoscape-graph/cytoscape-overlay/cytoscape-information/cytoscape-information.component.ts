@@ -94,25 +94,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   }
 
 
-
-  addNode(): void {
-    this.graphBuilderService.addNodeWithRelations(this.node);
-    this.nodeExists = true;
-  }
-
-  addNodesByType(type: string): void {
-    this.elementDataService.getRelatedNodesByType(this.node.data.id, type).subscribe((result: ElementDefinition[]) => {
-      result.forEach((element: ElementDefinition) => {
-        this.graphBuilderService.addElement(element);
-      });
-    });
-  }
-
-  removeNode(): void {
-    this.graphBuilderService.removeElement(this.node);
-    this.nodeExists = false;
-  }
-
   toggleProperty(property?: KeyValue<string, any>): void {
     if (property.value.length > this.lenTrunc) {
       this.propertyToDisplay = property;

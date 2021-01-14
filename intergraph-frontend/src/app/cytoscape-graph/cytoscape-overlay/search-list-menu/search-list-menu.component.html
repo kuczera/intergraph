@@ -3,10 +3,10 @@
     <mat-list-item>
       <button (click)="toggleInfocard()">Infocard</button>
     </mat-list-item>
-    <mat-list-item *ngIf="nodeExists">
+    <mat-list-item *ngIf="!nodeExists">
       <button (click)="addNode()">Add</button>
     </mat-list-item>
-    <mat-list-item *ngIf="!nodeExists">
+    <mat-list-item *ngIf="nodeExists">
       <button (click)="removeNode()">Remove</button>
     </mat-list-item>
   </mat-selection-list>

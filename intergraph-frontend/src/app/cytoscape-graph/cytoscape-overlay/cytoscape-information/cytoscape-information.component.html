@@ -58,7 +58,7 @@
         <div class="informationContent">
           <mat-selection-list  [multiple]="false">
             <mat-list-option *ngFor="let relation of relationsByType | keyvalue"
-                             id="relationContents" (click)="addNodesByType(relation.key)">
+                             id="relationContents">
               {{relation.key}}  ({{relation.value}})
 
 <!--              <app-cytoscape-node-detail [node]="node"></app-cytoscape-node-detail>-->
@@ -69,13 +69,7 @@
     </mat-tab-group>
   </mat-card-content>
     <div class="nav-content">
-      <mat-card-actions>
-<!--        <button mat-raised-button color="primary" class="back-button" *ngIf="showProperty"-->
-<!--                (click)="toggleProperty()">BACK</button>-->
-        <button mat-raised-button class="add-button" *ngIf="!nodeExists" (click)="addNode()">ADD</button>
-        <button mat-raised-button color="warn" class="remove-button"
-                *ngIf="nodeExists" (click)="removeNode()">REMOVE</button>
-      </mat-card-actions>
+
     </div>
 
 </mat-card>

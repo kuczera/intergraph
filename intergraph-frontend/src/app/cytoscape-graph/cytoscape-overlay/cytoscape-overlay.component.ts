@@ -8,9 +8,11 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {CytoscapeInformationDraggableComponent} from './cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
-import {GraphBuilderService} from '../services/graphbuilder/graph-builder.service';
-import {NodeDefinition} from 'cytoscape';
+import { CytoscapeInformationDraggableComponent } from './cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
+import { GraphBuilderService } from '../services/graphbuilder/graph-builder.service';
+import { NodeDefinition } from 'cytoscape';
+
+
 
 @Component({
   selector: 'app-cytoscape-overlay',
@@ -29,7 +31,6 @@ export class CytoscapeOverlayComponent implements OnInit {
   showSearch: boolean;
   showInformation: boolean;
   showConfig: boolean;
-
 
   constructor(
     private resolver: ComponentFactoryResolver,

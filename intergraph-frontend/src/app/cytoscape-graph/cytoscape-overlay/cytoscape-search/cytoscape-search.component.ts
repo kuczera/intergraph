@@ -3,7 +3,7 @@ import {
   Component,
   ComponentFactory,
   ComponentFactoryResolver,
-  ComponentRef, ElementRef,
+  ComponentRef, ElementRef, Host, HostListener,
   OnInit,
   ViewChild,
   ViewContainerRef
@@ -16,13 +16,13 @@ import { SearchListMenuComponent } from '../search-list-menu/search-list-menu.co
 
 
 
+
 @Component({
   selector: 'app-cytoscape-search',
   templateUrl: './cytoscape-search.component.html',
   styleUrls: ['./cytoscape-search.component.css']
 })
 export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
-
 
   @ViewChild('searchMenuContainer', {read: ViewContainerRef}) container: ViewContainerRef;
   searchMenuContainer: ComponentRef<any>;
@@ -37,7 +37,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
   filter = 'Regesta';
-
 
   constructor(
     private elementDataService: ElementDataService,
@@ -84,12 +83,14 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
     if (!this.showActiveSearchResult) {
       this.showActiveSearchResult = true;
       this.activeSearchResult = node;
-      console.log(evt.clientX);
+
       const factory: ComponentFactory<any> =
         this.resolver.resolveComponentFactory(SearchListMenuComponent);
       this.searchMenuContainer = this.container.createComponent(factory);
       this.searchMenuContainer.instance.node = node;
       this.searchMenuContainer.instance.draggable = false;
+      this.searchMenuContainer.instance.show(evt.clientX, evt.clientY);
+
     } else {
       if (this.activeSearchResult === node) {
         this.showActiveSearchResult = false;
@@ -102,6 +103,7 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.searchMenuContainer = this.container.createComponent(factory);
         this.searchMenuContainer.instance.node = node;
         this.searchMenuContainer.instance.draggable = false;
+        this.searchMenuContainer.instance.show(evt.clientX, evt.clientY);
       }
     }
   }
@@ -115,9 +117,15 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.filterLabels.push({"name": "Any"});
         this.filterLabels.push({"name": "Entity"});
       });
-
   }
 
-
+/*
+  @HostListener('document:click')
+  document(): void {
+    if (this.showActiveSearchResult) {
+      this.showActiveSearchResult = false;
+      this.container.clear();
+    }
+  }*/
 
 }
