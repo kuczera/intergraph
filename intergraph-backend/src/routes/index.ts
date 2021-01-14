@@ -85,7 +85,7 @@ export const register = ( app: express.Application ) => {
                             WHERE (
                                 ANY (
                                     prop IN KEYS(n)
-                                    WHERE n[prop]
+                                    WHERE Lower(toString(n[prop]))
                                     CONTAINS "${req.query.searchText}"
                                     )
                                 )
