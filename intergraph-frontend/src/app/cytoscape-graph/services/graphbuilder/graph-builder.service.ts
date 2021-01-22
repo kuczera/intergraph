@@ -17,7 +17,7 @@ export class GraphBuilderService {
 
   };
 
-  private createNodeInformation: (evt: any) => void;
+  public createNodeInformation: (evt: any) => void;
 
 
   openInformationContainerIds: string[] = [];

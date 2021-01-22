@@ -20,8 +20,8 @@ import { GraphBuilderService } from '../../services/graphbuilder/graph-builder.s
 })
 export class SearchListMenuComponent implements OnInit {
 
-  @ViewChild('informationContainer', {read: ViewContainerRef}) container: ViewContainerRef;
-  informationContainer: ComponentRef<any>;
+  @ViewChild('informationContainer', {read: ViewContainerRef}) informationContainer: ViewContainerRef;
+  informationComponent: ComponentRef<any>;
 
   @HostBinding('style.left') x = '0px';
   @HostBinding('style.top') y = '0px';
@@ -46,9 +46,13 @@ export class SearchListMenuComponent implements OnInit {
   ngOnInit(): void {
     // checking if node exists in Cytoscape graph
     this.graphBuilderService.elements.forEach((element: ElementDefinition) => {
-      if (element.data.id === this.node.data.id) {
+
+      const elementId = Number(element.data.id);
+      if (elementId === Number(this.node.data.id)) {
+        console.log('true');
         this.nodeExists = true;
       } else {
+        console.log('false');
         this.nodeExists = false;
       }
     });
@@ -59,15 +63,17 @@ export class SearchListMenuComponent implements OnInit {
 
   toggleInfocard(): void {
     if (!this.showInfocard) {
+      this.graphBuilderService.createNodeInformation(this.node);
+      /*
       const factory: ComponentFactory<any> =
         this.resolver.resolveComponentFactory(CytoscapeInformationDraggableComponent);
-      this.informationContainer = this.container.createComponent(factory);
-      this.informationContainer.instance.node = this.node;
-      this.informationContainer.instance.draggable = false;
-      this.showInfocard = true;
+      this.informationComponent = this.informationContainer.createComponent(factory);
+      this.informationComponent.instance.node = this.node;
+      this.informationComponent.instance.draggable = false;
+      this.showInfocard = true;*/
     } else {
       this.showInfocard = false;
-      this.container.clear();
+      this.informationContainer.clear();
     }
 
   }

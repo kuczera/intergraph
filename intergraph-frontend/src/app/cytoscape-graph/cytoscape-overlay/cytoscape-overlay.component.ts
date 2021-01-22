@@ -18,7 +18,7 @@ import { NodeDefinition } from 'cytoscape';
   selector: 'app-cytoscape-overlay',
   templateUrl: './cytoscape-overlay.component.html',
   styleUrls: ['./cytoscape-overlay.component.css'],
-  providers: []
+  providers: [],
 })
 export class CytoscapeOverlayComponent implements OnInit {
 
@@ -101,7 +101,8 @@ export class CytoscapeOverlayComponent implements OnInit {
       if (!this.showInformation) {
         // timeout since view is creating div slower than toggling works
         setTimeout(() => {
-          this.toggleInformation();
+          //this.toggleInformation();
+
         });
       }
     }

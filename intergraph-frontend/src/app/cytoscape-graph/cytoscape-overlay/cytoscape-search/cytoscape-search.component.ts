@@ -24,12 +24,13 @@ import { SearchListMenuComponent } from '../search-list-menu/search-list-menu.co
 })
 export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('searchMenuContainer', {read: ViewContainerRef}) container: ViewContainerRef;
-  searchMenuContainer: ComponentRef<any>;
+  @ViewChild('searchMenuContainer', {read: ViewContainerRef}) searchMenuContainer: ViewContainerRef;
+  searchMenuComponent: ComponentRef<any>;
 
   @ViewChild('searchInput')
   searchInput: ElementRef;
 
+  clickInside: boolean;
   searchText = '';
   showSearchResult: boolean;
   searchResult: NodeDefinition[];
@@ -44,13 +45,11 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   ) { }
 
 
-
   ngOnInit(): void {
     this.showSearchResult = true;
     this.showActiveSearchResult = false;
     this.getLabels();
   }
-
 
 
   ngAfterViewInit(): void {
@@ -59,8 +58,8 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.searchInput.nativeElement.focus();
     });
+    this.clickInside = false;
   }
-
 
 
   searchNodes(): void {
@@ -78,36 +77,19 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   }
 
 
-
   showContextMenu(node: NodeDefinition, evt: any): void {
     if (!this.showActiveSearchResult) {
-      this.showActiveSearchResult = true;
       this.activeSearchResult = node;
 
+      this.searchMenuContainer.clear();
       const factory: ComponentFactory<any> =
         this.resolver.resolveComponentFactory(SearchListMenuComponent);
-      this.searchMenuContainer = this.container.createComponent(factory);
-      this.searchMenuContainer.instance.node = node;
-      this.searchMenuContainer.instance.draggable = false;
-      this.searchMenuContainer.instance.show(evt.clientX, evt.clientY);
-
-    } else {
-      if (this.activeSearchResult === node) {
-        this.showActiveSearchResult = false;
-        this.container.clear();
-      } else {
-        this.container.clear();
-        this.activeSearchResult = node;
-        const factory: ComponentFactory<any> =
-          this.resolver.resolveComponentFactory(CytoscapeInformationComponent);
-        this.searchMenuContainer = this.container.createComponent(factory);
-        this.searchMenuContainer.instance.node = node;
-        this.searchMenuContainer.instance.draggable = false;
-        this.searchMenuContainer.instance.show(evt.clientX, evt.clientY);
-      }
+      this.searchMenuComponent = this.searchMenuContainer.createComponent(factory);
+      this.searchMenuComponent.instance.node = node;
+      this.searchMenuComponent.instance.draggable = false;
+      this.searchMenuComponent.instance.show(evt.clientX, evt.clientY);
     }
   }
-
 
 
   getLabels(): void {
@@ -119,13 +101,25 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
       });
   }
 
-/*
-  @HostListener('document:click')
-  document(): void {
-    if (this.showActiveSearchResult) {
-      this.showActiveSearchResult = false;
-      this.container.clear();
+
+  @HostListener('document:click', ['$event'])
+  clickout(): void {
+    if (!this.clickInside) {
+      this.searchMenuContainer.clear();
+      console.log('clicked outside');
+    } else {
+      this.clickInside = false;
     }
-  }*/
+
+
+  }
+
+  @HostListener('click')
+  clickinside(): void {
+    this.clickInside = true;
+    console.log('clicked inside');
+  }
+
+
 
 }
