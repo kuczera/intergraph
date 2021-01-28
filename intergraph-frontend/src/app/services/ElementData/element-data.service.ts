@@ -83,7 +83,7 @@ export class ElementDataService {
     }
 
     const httpParams: HttpParams = new HttpParams()
-      .append('searchText', searchText)
+      .append('searchText', searchText.toLowerCase())
       .append('filter', filter);
 
     const options = {

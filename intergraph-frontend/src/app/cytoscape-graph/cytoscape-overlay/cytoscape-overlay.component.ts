@@ -8,15 +8,17 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {CytoscapeInformationDraggableComponent} from './cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
-import {GraphBuilderService} from '../services/graphbuilder/graph-builder.service';
-import {NodeDefinition} from 'cytoscape';
+import { CytoscapeInformationDraggableComponent } from './cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
+import { GraphBuilderService } from '../services/graphbuilder/graph-builder.service';
+import { NodeDefinition } from 'cytoscape';
+
+
 
 @Component({
   selector: 'app-cytoscape-overlay',
   templateUrl: './cytoscape-overlay.component.html',
   styleUrls: ['./cytoscape-overlay.component.css'],
-  providers: []
+  providers: [],
 })
 export class CytoscapeOverlayComponent implements OnInit {
 
@@ -26,10 +28,11 @@ export class CytoscapeOverlayComponent implements OnInit {
   @ViewChild('searchComponent')
   elementRef: ElementRef;
 
+  public nodes: Array<NodeDefinition> = new Array<NodeDefinition>();
+
   showSearch: boolean;
   showInformation: boolean;
   showConfig: boolean;
-
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -38,6 +41,8 @@ export class CytoscapeOverlayComponent implements OnInit {
 
   }
 
+
+
   ngOnInit(): void {
     this.showSearch = false;
     this.showInformation = false;
@@ -45,6 +50,8 @@ export class CytoscapeOverlayComponent implements OnInit {
 
     this.graphBuilderService.onNodeTap(this.createNodeInformation.bind(this));
   }
+
+
 
   toggleSearch(): void {
     if (!this.showSearch) {
@@ -57,6 +64,8 @@ export class CytoscapeOverlayComponent implements OnInit {
     this.toggleInformationElements();
   }
 
+
+
   toggleInformation(): void {
     if (!this.showInformation) {
       this.showSearch = false;
@@ -67,6 +76,8 @@ export class CytoscapeOverlayComponent implements OnInit {
     }
     this.toggleInformationElements();
   }
+
+
 
   toggleConfig(): void {
     if (!this.showConfig) {
@@ -79,6 +90,8 @@ export class CytoscapeOverlayComponent implements OnInit {
     this.toggleInformationElements();
   }
 
+
+
   createNodeInformation(node: NodeDefinition): void {
     const newID = node.data.id + '-draggableInformation';
     if (document.getElementById(newID) === null) {
@@ -90,11 +103,13 @@ export class CytoscapeOverlayComponent implements OnInit {
       if (!this.showInformation) {
         // timeout since view is creating div slower than toggling works
         setTimeout(() => {
-          this.toggleInformation();
+          //this.toggleInformation();
+
         });
       }
     }
   }
+
 
 
   toggleInformationElements(): void {
@@ -108,5 +123,25 @@ export class CytoscapeOverlayComponent implements OnInit {
   }
 
 
+  searchEventLeftClicked(event): void {
+    if (this.nodes.indexOf(event) === -1) {   // event is not part of the list of nodes
+      this.nodes.push(event);
+      document.getElementById(event.data.id).style.backgroundColor = '#FFD700';
+    } else {
+      this.nodes.forEach((element, index) => {
+        if (element === event) {
+          this.nodes.splice(index, 1);
+        }
+      });
+      document.getElementById(event.data.id).style.backgroundColor = 'white';
+    }
+  }
 
+
+  resetSelection(event): void {
+    this.nodes.forEach((element, index) => {
+      document.getElementById(element.data.id).style.backgroundColor = 'white';
+    });
+    this.nodes = new Array<NodeDefinition>();
+  }
 }

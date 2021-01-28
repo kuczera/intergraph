@@ -12,12 +12,13 @@
     </button>
   </div>
   <ng-template [ngIf]="showSearch">
-    <app-cytoscape-search></app-cytoscape-search>
+    <app-cytoscape-search (nodeSelected)="searchEventLeftClicked($event)"></app-cytoscape-search>
   </ng-template>
   <ng-template [ngIf]="showConfig">
     <app-cytoscape-config></app-cytoscape-config>
   </ng-template>
   <ng-template  #nodeInformation>
   </ng-template>
+  <app-cytoscape-node-selection [nodeSelection]="nodes" (nodesToPull)="resetSelection($event)"></app-cytoscape-node-selection>
   <app-cytoscape-time-filter></app-cytoscape-time-filter>
 <!--</div>-->

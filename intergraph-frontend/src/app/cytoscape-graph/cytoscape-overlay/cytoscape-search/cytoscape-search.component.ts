@@ -3,15 +3,19 @@ import {
   Component,
   ComponentFactory,
   ComponentFactoryResolver,
-  ComponentRef, ElementRef,
-  OnInit,
+  ComponentRef, ElementRef, EventEmitter, Host, HostListener,
+  OnInit, Output,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {ElementDataService} from '../../../services/ElementData/element-data.service';
-import {CytoscapeInformationComponent} from '../cytoscape-information/cytoscape-information.component';
-import {NodeDefinition} from 'cytoscape';
-import {IFilterLabel} from '../../../filter-label';
+import { ElementDataService } from '../../../services/ElementData/element-data.service';
+import { CytoscapeInformationComponent } from '../cytoscape-information/cytoscape-information.component';
+import { NodeDefinition } from 'cytoscape';
+import { IFilterLabel } from '../../../filter-label';
+import { SearchListMenuComponent } from '../search-list-menu/search-list-menu.component';
+
+
+
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -20,13 +24,15 @@ import {IFilterLabel} from '../../../filter-label';
 })
 export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
-
-  @ViewChild('informationContainer', {read: ViewContainerRef}) container: ViewContainerRef;
-  informationContainer: ComponentRef<any>;
+  @ViewChild('searchMenuContainer', {read: ViewContainerRef}) searchMenuContainer: ViewContainerRef;
+  searchMenuComponent: ComponentRef<any>;
 
   @ViewChild('searchInput')
   searchInput: ElementRef;
 
+  @Output() nodeSelected: EventEmitter<NodeDefinition> = new EventEmitter<NodeDefinition>();
+
+  clickInside: boolean;
   searchText = '';
   showSearchResult: boolean;
   searchResult: NodeDefinition[];
@@ -34,12 +40,14 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
   filter = 'Regesta';
+  selectionList: Array<any> = new Array<any>();
 
 
   constructor(
     private elementDataService: ElementDataService,
     private resolver: ComponentFactoryResolver
   ) { }
+
 
   ngOnInit(): void {
     this.showSearchResult = true;
@@ -48,13 +56,13 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   }
 
 
-
   ngAfterViewInit(): void {
 
     // ExpressionChangedAfterItHasBeenCheckedError - fix
     setTimeout(() => {
       this.searchInput.nativeElement.focus();
     });
+    this.clickInside = false;
   }
 
 
@@ -68,36 +76,24 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         .subscribe((result) => {
           this.searchResult = result;
           this.showSearchResult = true;
-          console.log(result);
         });
     }
   }
 
-  showInformation(node: NodeDefinition): void {
+
+  showContextMenu(node: NodeDefinition, evt: any): void {
     if (!this.showActiveSearchResult) {
-      this.showActiveSearchResult = true;
       this.activeSearchResult = node;
+
+      this.searchMenuContainer.clear();
       const factory: ComponentFactory<any> =
-        this.resolver.resolveComponentFactory(CytoscapeInformationComponent);
-      this.informationContainer = this.container.createComponent(factory);
-      this.informationContainer.instance.node = node;
-      this.informationContainer.instance.draggable = false;
-    } else {
-      if (this.activeSearchResult === node) {
-        this.showActiveSearchResult = false;
-        this.container.clear();
-      } else {
-        this.container.clear();
-        this.activeSearchResult = node;
-        const factory: ComponentFactory<any> =
-          this.resolver.resolveComponentFactory(CytoscapeInformationComponent);
-        this.informationContainer = this.container.createComponent(factory);
-        this.informationContainer.instance.node = node;
-        this.informationContainer.instance.draggable = false;
-      }
+        this.resolver.resolveComponentFactory(SearchListMenuComponent);
+      this.searchMenuComponent = this.searchMenuContainer.createComponent(factory);
+      this.searchMenuComponent.instance.node = node;
+      this.searchMenuComponent.instance.draggable = false;
+      this.searchMenuComponent.instance.show(evt.clientX, evt.clientY);
     }
   }
-
 
 
   getLabels(): void {
@@ -107,7 +103,30 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.filterLabels.push({"name": "Any"});
         this.filterLabels.push({"name": "Entity"});
       });
+  }
 
+
+  addNodeToSelectionList(node: NodeDefinition): void {
+    this.nodeSelected.emit(node);
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  clickout(): void {
+    if (!this.clickInside) {
+      this.searchMenuContainer.clear();
+      console.log('clicked outside');
+    } else {
+      this.clickInside = false;
+    }
+
+
+  }
+
+  @HostListener('click')
+  clickinside(): void {
+    this.clickInside = true;
+    console.log('clicked inside');
   }
 
 
