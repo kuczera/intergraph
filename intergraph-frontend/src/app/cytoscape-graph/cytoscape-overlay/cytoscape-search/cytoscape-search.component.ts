@@ -3,8 +3,8 @@ import {
   Component,
   ComponentFactory,
   ComponentFactoryResolver,
-  ComponentRef, ElementRef, Host, HostListener,
-  OnInit,
+  ComponentRef, ElementRef, EventEmitter, Host, HostListener,
+  OnInit, Output,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -30,6 +30,8 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput')
   searchInput: ElementRef;
 
+  @Output() nodeSelected: EventEmitter<NodeDefinition> = new EventEmitter<NodeDefinition>();
+
   clickInside: boolean;
   searchText = '';
   showSearchResult: boolean;
@@ -38,6 +40,8 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
   filter = 'Regesta';
+  selectionList: Array<any> = new Array<any>();
+
 
   constructor(
     private elementDataService: ElementDataService,
@@ -99,6 +103,11 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.filterLabels.push({"name": "Any"});
         this.filterLabels.push({"name": "Entity"});
       });
+  }
+
+
+  addNodeToSelectionList(node: NodeDefinition): void {
+    this.nodeSelected.emit(node);
   }
 
 

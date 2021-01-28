@@ -29,6 +29,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NouisliderModule } from 'ng2-nouislider';
 import { CytoscapeTimeFilterComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-time-filter/cytoscape-time-filter.component';
 import { SearchListMenuComponent } from './cytoscape-graph/cytoscape-overlay/search-list-menu/search-list-menu.component';
+import { CytoscapeNodeSelectionComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-node-selection/cytoscape-node-selection.component';
 
 
 
@@ -46,6 +47,7 @@ import { SearchListMenuComponent } from './cytoscape-graph/cytoscape-overlay/sea
     SortFilterLabelByPipe,
     CytoscapeTimeFilterComponent,
     SearchListMenuComponent,
+    CytoscapeNodeSelectionComponent,
   ],
     imports: [
         BrowserModule,

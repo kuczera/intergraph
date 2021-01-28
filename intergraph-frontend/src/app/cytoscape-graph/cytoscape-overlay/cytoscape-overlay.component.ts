@@ -28,6 +28,8 @@ export class CytoscapeOverlayComponent implements OnInit {
   @ViewChild('searchComponent')
   elementRef: ElementRef;
 
+  public nodes: Array<NodeDefinition> = new Array<NodeDefinition>();
+
   showSearch: boolean;
   showInformation: boolean;
   showConfig: boolean;
@@ -120,4 +122,26 @@ export class CytoscapeOverlayComponent implements OnInit {
     });
   }
 
+
+  searchEventLeftClicked(event): void {
+    if (this.nodes.indexOf(event) === -1) {   // event is not part of the list of nodes
+      this.nodes.push(event);
+      document.getElementById(event.data.id).style.backgroundColor = '#FFD700';
+    } else {
+      this.nodes.forEach((element, index) => {
+        if (element === event) {
+          this.nodes.splice(index, 1);
+        }
+      });
+      document.getElementById(event.data.id).style.backgroundColor = 'white';
+    }
+  }
+
+
+  resetSelection(event): void {
+    this.nodes.forEach((element, index) => {
+      document.getElementById(element.data.id).style.backgroundColor = 'white';
+    });
+    this.nodes = new Array<NodeDefinition>();
+  }
 }
