@@ -28,6 +28,7 @@ export function convertDatabaseRecordsToCyElements(records: Record[]): JSON[]{
             cyElements.push(cyElement);
         });
     });
+    console.log(cyElements);
     return cyElements;
 }
 

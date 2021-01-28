@@ -85,7 +85,7 @@ export const register = ( app: express.Application ) => {
                             WHERE (
                                 ANY (
                                     prop IN KEYS(n)
-                                    WHERE Lower(toString(n[prop]))
+                                    WHERE toLower(toString(n[prop]))
                                     CONTAINS "${req.query.searchText}"
                                     )
                                 )
@@ -109,7 +109,7 @@ export const register = ( app: express.Application ) => {
                             WHERE (
                                 ANY (
                                     prop IN KEYS(n)
-                                    WHERE n[prop]
+                                    WHERE toLower(toString(n[prop]))
                                     CONTAINS "${req.query.searchText}"
                                     )
                                 )
