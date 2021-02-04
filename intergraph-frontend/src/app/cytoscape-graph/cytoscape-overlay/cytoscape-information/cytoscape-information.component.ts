@@ -4,7 +4,7 @@ import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
-import {style} from '../../../intergraph/cytoscapeOptions';
+//import {style} from '../../../intergraph/cytoscapeOptions';
 
 @Component({
   selector: 'app-cytoscape-information',
@@ -39,12 +39,13 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    /*
     // retrieve json string from file cytoscapeOptions.ts
     if (style !== undefined) {
       for (const entry of JSON.parse(style)) {
         this.nodeStyle.push(entry);
       }
-    }
+    }*/
 
   }
 
