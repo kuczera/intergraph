@@ -1,0 +1,40 @@
+.searchMenuContainer {
+  float: left;
+}
+
+
+#cytoscapeContextMenu {
+  min-width: 200px;
+  min-height: 100px;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.9);
+  color: #fff;
+}
+
+#cytoscapeContextMenu * {
+  font-size: 1rem;
+}
+
+
+button {
+  display: block;
+  width: 100%;
+
+  border: 0;
+  padding: 0.25rem;
+
+  font-size: 1rem;
+  text-align: left;
+  text-decoration: none;
+
+  background-color: transparent;
+  color: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+
+
+button:hover {
+  opacity: 1;
+}

@@ -1,0 +1,15 @@
+<div class="nodeSelectionContainer" *ngIf="nodeSelection.length !== 0">
+
+    <button mat-raised-button color="primary" (click)="add()">Add to graph</button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear selection</button>
+    <p>
+      {{ nodeSelection.length }}
+      <span *ngIf="nodeSelection.length == 1">node</span>
+      <span *ngIf="nodeSelection.length !== 1">nodes</span>
+    </p>
+
+</div>
+
+
+
+
