@@ -4,7 +4,6 @@ import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
-import {styleOptions} from '../../../intergraph/cytoscapeOptions';
 
 @Component({
   selector: 'app-cytoscape-information',
@@ -39,15 +38,13 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-
-    const jsStyleOptions: any = JSON.stringify(styleOptions);
-    console.log(jsStyleOptions);
+    /*
     // retrieve json string from file cytoscapeOptions.ts
     if (jsStyleOptions !== undefined) {
       for (const entry of JSON.parse(jsStyleOptions)) {
         this.nodeStyle.push(entry);
       }
-    }
+    }*/
 
   }
 
@@ -97,25 +94,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   }
 
 
-
-  addNode(): void {
-    this.graphBuilderService.addNodeWithRelations(this.node);
-    this.nodeExists = true;
-  }
-
-  addNodesByType(type: string): void {
-    this.elementDataService.getRelatedNodesByType(this.node.data.id, type).subscribe((result: ElementDefinition[]) => {
-      result.forEach((element: ElementDefinition) => {
-        this.graphBuilderService.addElement(element);
-      });
-    });
-  }
-
-  removeNode(): void {
-    this.graphBuilderService.removeElement(this.node);
-    this.nodeExists = false;
-  }
-
   toggleProperty(property?: KeyValue<string, any>): void {
     if (property.value.length > this.lenTrunc) {
       this.propertyToDisplay = property;
@@ -123,6 +101,13 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
     } else {
       this.showData = false;
     }
+  }
+
+
+
+  toggleInfocard(): void {
+    this.showData = false;
+
   }
 
 
