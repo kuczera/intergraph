@@ -4,6 +4,8 @@ import {QueryResult} from "neo4j-driver";
 import neo4j from "../database/neo4j";
 import {convertDatabaseRecordsToCyElements, convertLabelsToJson} from "../mapping/mapping";
 
+var fs = require('fs');
+const FILENAME = "settings.json";
 
 export const register = ( app: express.Application ) => {
 
@@ -27,6 +29,54 @@ export const register = ( app: express.Application ) => {
                 res.send(error);
             });
     });
+
+    // put the settings
+    // parameters:  -
+    app.put('/settings', (req: Request, res: Response) => {
+        console.log("Saving settings to " + FILENAME);
+        console.log(req.body);
+        res.json(req.body);
+        fs.writeFileSync(FILENAME, JSON.stringify(req.body));
+    });
+
+    // get the settings
+    // parameters:  -
+    app.get('/settings', (req: Request, res: Response) => {
+        try {
+            if (fs.existsSync(FILENAME)) {
+                console.log("Reading settings from " + FILENAME);
+                let data = JSON.parse(fs.readFileSync(FILENAME));
+                console.log(data);
+                res.json(data);
+            }
+            else {
+                console.log(FILENAME + " does not exist, sending back empty json {}");
+                res.json({});
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+
+    // get all keys encoutered for a given node type
+    // parameters:
+    //  node type
+    app.get('/getKeys', (req: Request, res: Response) => {
+        neo4j.read( `MATCH (n: ${req.query.type})
+            WITH DISTINCT apoc.coll.sort(keys(n)) as allkeys
+            WITH REDUCE (result = [], k IN COLLECT(allkeys)| apoc.coll.union(result,k)) as reduction
+            UNWIND reduction as r RETURN r`)
+            .then((result: QueryResult) => {
+                res.json(convertLabelsToJson(result.records))
+            })
+            .catch((error) => {
+                res.status(400);
+                res.send(error);
+            });
+    });
+
+
 
     // get all relations of a single node
     // parameters:
@@ -130,6 +180,23 @@ export const register = ( app: express.Application ) => {
         neo4j.read(`CALL db.labels()`)
             .then((result: QueryResult) => {
                 res.json(convertLabelsToJson(result.records));
+            })
+            .catch((error) => {
+                res.status(400);
+                res.send(error);
+            });
+    });
+
+    // get all labels from the database with their count
+    app.get('/getDatabaseLabelCount', (req: Request, res: Response) => {
+        neo4j.read(`CALL apoc.meta.stats() YIELD labels RETURN labels`)
+            .then((result: QueryResult) => {
+                let r = result.records[0].get(0);
+                let s : JSON[] = [];
+                for (let property in r)
+                    s.push(JSON.parse(JSON.stringify({"name": property, "count": r[property].toNumber()})));
+                console.log(s);
+                res.json(s);
             })
             .catch((error) => {
                 res.status(400);

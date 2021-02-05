@@ -1,1 +1,101 @@
-<p>cytoscape-config works!</p>
+<br>
+<p>
+  <button mat-raised-button id="saveButton" [disabled]="saveDisabled" color="primary" (click)="save()">Save Settings</button>
+</p>
+<mat-card>
+<table>
+  <tr>
+    <td class="CellWithComment">
+      <b>Label</b>
+      <span class="CellComment">Node label identifying the data type</span>
+    </td>
+    <td class="CellWithComment">
+      <b>Count</b>
+      <span class="CellComment">Number of nodes in the database</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>Search</b>
+      <span class="CellComment">Field used for keyword search</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>Title</b>
+      <span class="CellComment">Field displayed for a node</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>Start</b>
+      <span class="CellComment">Field with start timestamp</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>End</b>
+      <span class="CellComment">Field with end timestamp (can be identical to start)</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>Latitude</b>
+      <span class="CellComment">Field with location latitude</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>Longitude</b>
+      <span class="CellComment">Field with location longitude</span>
+    </td>
+    <td  class="CellWithComment">
+      <b>Color</b>
+      <span class="CellComment">Color used for this data type</span>
+    </td>
+  </tr>
+  <tr *ngFor="let l of labelcount ">
+    <td>
+      {{ l.name }}
+    </td>
+    <td>
+      {{ l.count }}
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-search']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-title']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-start']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-end']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-latitude']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-longitude']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <input [(colorPicker)]="colorTmp[l.name]" cpAlphaChannel=disabled [style.background]="settings[l.name+'-color']"
+             [cpOutputFormat]="hex" [cpOKButton]=true [cpCancelButton]=true (colorPickerSelect)="settings[l.name+'-color']=colorTmp[l.name]; saveDisabled = false"/>
+    </td>
+  </tr>
+</table>
+</mat-card>
+

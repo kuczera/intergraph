@@ -26,6 +26,9 @@ import { TruncPipe } from './trunc.pipe';
 import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
 import {MatSelectModule} from '@angular/material/select';
 import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+import {MatDialogModule} from "@angular/material/dialog";
+import {PwdDialogComponent} from "./cytoscape-graph/cytoscape-overlay/cytoscape-config/pwd-dialog/pwd-dialog.component";
 
 
 
@@ -42,6 +45,8 @@ import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context
     TruncPipe,
     SortFilterLabelByPipe,
     CytoscapeContextMenuComponent,
+    PwdDialogComponent
+
   ],
     imports: [
         BrowserModule,
@@ -51,6 +56,7 @@ import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context
         MatButtonModule,
         MatIconModule,
         MatCardModule,
+        MatDialogModule,
         MatFormFieldModule,
         FormsModule,
         MatInputModule,
@@ -58,12 +64,13 @@ import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context
         MatListModule,
         MatExpansionModule,
         MatTabsModule,
-        MatSelectModule
+        MatSelectModule,
+        ColorPickerModule
     ],
 
 
   providers: [ ],
   bootstrap: [AppComponent],
-  entryComponents: [CytoscapeInformationComponent]
+  entryComponents: [CytoscapeInformationComponent, PwdDialogComponent ]
 })
 export class AppModule { }
