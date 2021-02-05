@@ -4,7 +4,7 @@ import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
-//import {style} from '../../../intergraph/cytoscapeOptions';
+// import {style} from '../../../intergraph/cytoscapeOptions';
 
 @Component({
   selector: 'app-cytoscape-information',
@@ -15,9 +15,7 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
   // needs empty Input since it's throwing an error if the component isn't used
   @Input()
-  node: NodeDefinition = {
-    data: { }
-  };
+  node: NodeDefinition = { data: {} };
   displayToken: string;
   properties: Map<string, any> = new Map<string, any>();
   showData: boolean;
@@ -29,6 +27,7 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   nodeExists: boolean;
   lenTrunc: number;
   nodeStyle = [];
+  minimized = false;
 
   constructor(
     private graphBuilderService: GraphBuilderService,
@@ -39,16 +38,13 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    /*
     // retrieve json string from file cytoscapeOptions.ts
-    if (style !== undefined) {
-      for (const entry of JSON.parse(style)) {
-        this.nodeStyle.push(entry);
-      }
-    }*/
-
+    // if (style !== undefined) {
+    //   for (const entry of JSON.parse(style)) {
+    //     this.nodeStyle.push(entry);
+    //   }
+    // }
   }
-
 
   ngAfterViewInit(): void {
     // this timeout handles the ExpressionChangedAfterItHasBeenCheckedError
@@ -94,7 +90,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
     return 'white';
   }
 
-
   toggleProperty(property?: KeyValue<string, any>): void {
     if (property.value.length > this.lenTrunc) {
       this.propertyToDisplay = property;
@@ -104,12 +99,14 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
     }
   }
 
-
-
   toggleInfocard(): void {
     this.showData = false;
-
   }
 
-
+  // Minimizing info card by Toggle
+  toggleMinimize(): void {
+    this.minimized = !this.minimized;
+    // As double clicking automatically selects text in infocard, we unselect
+    if (window.getSelection) { window.getSelection().removeAllRanges(); }
+  }
 }
