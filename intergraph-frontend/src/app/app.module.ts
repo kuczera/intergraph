@@ -27,8 +27,8 @@ import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
 import {MatSelectModule} from '@angular/material/select';
 import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import {MatDialogModule} from "@angular/material/dialog";
-import {PwdDialogComponent} from "./cytoscape-graph/cytoscape-overlay/cytoscape-config/pwd-dialog/pwd-dialog.component";
+import {MatDialogModule} from '@angular/material/dialog';
+import {PwdDialogComponent} from './cytoscape-graph/cytoscape-overlay/cytoscape-config/pwd-dialog/pwd-dialog.component';
 
 
 

@@ -125,6 +125,7 @@
   },
   "defaultProject": "intergraph-frontend",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@ngrx/schematics"
   }
 }
