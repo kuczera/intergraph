@@ -39,7 +39,7 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   activeSearchResult: NodeDefinition;
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
-  filter = 'Regesta';
+  filter = 'Any';
   selectionList: Array<any> = new Array<any>();
 
 
