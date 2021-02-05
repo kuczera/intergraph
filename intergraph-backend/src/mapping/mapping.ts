@@ -32,8 +32,6 @@ export function convertDatabaseRecordsToCyElements(records: Record[]): JSON[]{
     return cyElements;
 }
 
-
-
 export function convertLabelsToJson(records: Record[]): JSON[] {
 
     const jsonLabels: JSON[] = [];
@@ -49,6 +47,7 @@ export function convertLabelsToJson(records: Record[]): JSON[] {
     });
     return jsonLabels;
 }
+<<<<<<< HEAD
 
 
 
@@ -66,3 +65,5 @@ export function convertDatesToJson(records: Record[]): JSON[] {
 
     return jsonDates;
 }
+=======
+>>>>>>> settings

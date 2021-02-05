@@ -72,12 +72,10 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         document.activeElement.blur();
       }
       this.showSearchResult = false;
-      console.log(this.filter);
       this.elementDataService.searchNodes(this.searchText, this.filter)
         .subscribe((result) => {
           this.searchResult = result;
           this.showSearchResult = true;
-          console.log(result);
         });
 
     }
@@ -118,7 +116,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   clickout(): void {
     if (!this.clickInside) {
       this.searchMenuContainer.clear();
-      console.log('clicked outside');
     } else {
       this.clickInside = false;
     }
@@ -129,7 +126,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   @HostListener('click')
   clickinside(): void {
     this.clickInside = true;
-    console.log('clicked inside');
   }
 
 
