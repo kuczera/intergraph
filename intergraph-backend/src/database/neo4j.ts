@@ -1,8 +1,13 @@
 import neo4j, {Driver, QueryResult} from "neo4j-driver";
+import * as dotenv from "dotenv";
+
+
+dotenv.config();
+
 
 // Create Driver
 const driver: Driver = neo4j.driver(
-    'bolt://jlu-buster.mni.thm.de:10211', neo4j.auth.basic('neo4j', '1234')
+    process.env.DBHOST, neo4j.auth.basic(process.env.DBUSER, process.env.DBPW)
 );
 
 

@@ -1,5 +1,9 @@
 # IntergraphBackend
 
+## Modify environment variables
+
+Open `.env` file to set up database host and credentials.
+
 ## Development
 
 Install dependencies with `npm install`.

@@ -1,6 +1,6 @@
 # Intergraph
 
-This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions there.
+This repository contains project files for both [frontend](./intergraph-frontend) and [backend](./intergraph-backend). You can find more detailed information about how to build and deploy the corresponding solutions in their directories.
 
 ## Local Test Deployment
 
@@ -9,7 +9,11 @@ https://github.com/kuczera/intergraph
 
 ### Clone repository
 
-`git@github.com:kuczera/intergraph.git`
+`git clone git@github.com:kuczera/intergraph.git`
+
+### Setup backend environment variables
+
+Open `./intergraph-backend/.env` file to set up host url and credentials for the graph database.
 
 ### Install dependencies
 
@@ -30,6 +34,8 @@ Run `npm run start` to run both frontend and backend for a local test.
       - properties to be queried on search per label
       - property to be shown for a node label in cytoscape
       - properties to be shown in info container for a node in the view
+
+
 
 ## Tools & Frameworks
 

@@ -59,6 +59,21 @@ export class ElementDataService {
     );
   }
 
+  getKeys(type: string): Observable<any> {
+    const httpParams: HttpParams = new HttpParams()
+      .append('type', type);
+
+    const options = {
+      responseType: 'json' as const,
+      params: httpParams
+    };
+
+    return this.http.get(
+      this.intergraphApiUrl + '/getKeys', options
+    );
+  }
+
+
   getRelatedNodesByType(id: string, type: string): Observable<any> {
     const httpParams: HttpParams = new HttpParams()
       .append('id', id)
@@ -98,14 +113,23 @@ export class ElementDataService {
 
   getDatabaseLabels(): Observable<IFilterLabel[]> {
     const httpParams: HttpParams = new HttpParams();
-
     const options = {
       responseType: 'json' as const,
       params: httpParams
     };
-
     return this.http.get<IFilterLabel[]>(
       this.intergraphApiUrl + '/getDatabaseLabels', options
+    );
+  }
+
+  getDatabaseLabelCount(): Observable<any> {
+    const httpParams: HttpParams = new HttpParams();
+    const options = {
+      responseType: 'json' as const,
+      params: httpParams
+    };
+    return this.http.get(
+      this.intergraphApiUrl + '/getDatabaseLabelCount', options
     );
   }
 

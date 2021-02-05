@@ -21,16 +21,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CytoscapeInformationDraggableComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-information/cytoscape-information-draggable/cytoscape-information-draggable.component';
-import { TruncPipe } from './trunc.pipe';
-import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
-import { MatSelectModule } from '@angular/material/select';
 import { ChartsModule } from 'ng2-charts';
 import { NouisliderModule } from 'ng2-nouislider';
 import { CytoscapeTimeFilterComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-time-filter/cytoscape-time-filter.component';
 import { SearchListMenuComponent } from './cytoscape-graph/cytoscape-overlay/search-list-menu/search-list-menu.component';
 import { CytoscapeNodeSelectionComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-node-selection/cytoscape-node-selection.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
+import { TruncPipe } from './trunc.pipe';
+import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
+import {MatSelectModule} from '@angular/material/select';
+import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+import {MatDialogModule} from '@angular/material/dialog';
+import {PwdDialogComponent} from './cytoscape-graph/cytoscape-overlay/cytoscape-config/pwd-dialog/pwd-dialog.component';
 
 
 
@@ -50,6 +53,7 @@ import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-conte
     SearchListMenuComponent,
     CytoscapeNodeSelectionComponent,
     CytoscapeContextMenuComponent,
+    PwdDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -59,6 +63,7 @@ import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-conte
         MatButtonModule,
         MatIconModule,
         MatCardModule,
+        MatDialogModule,
         MatFormFieldModule,
         FormsModule,
         MatInputModule,
@@ -68,12 +73,13 @@ import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-conte
         MatTabsModule,
         MatSelectModule,
         ChartsModule,
-        NouisliderModule
+        NouisliderModule,
+        ColorPickerModule
     ],
 
 
   providers: [ ],
   bootstrap: [AppComponent],
-  entryComponents: [CytoscapeInformationComponent]
+  entryComponents: [CytoscapeInformationComponent, PwdDialogComponent ]
 })
 export class AppModule { }

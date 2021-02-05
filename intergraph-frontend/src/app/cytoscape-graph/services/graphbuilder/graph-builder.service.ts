@@ -12,19 +12,13 @@ export class GraphBuilderService {
 
   cyGraph: cy.Core;
   graphContainer: HTMLElement;
-
   elements: ElementDefinition[] = [];
-  options: CytoscapeOptions = {
-
-  };
+  options: CytoscapeOptions = {};
 
   public createNodeInformation: (evt: any) => void;
-
-
   openInformationContainerIds: string[] = [];
 
   constructor(private elementDataService: ElementDataService) { }
-
 
   setGraphContainerElement(graphContainer: HTMLElement): void{
     this.graphContainer = graphContainer;
@@ -34,10 +28,9 @@ export class GraphBuilderService {
     cy.use(cola);
     this.cyGraph = cy({
       wheelSensitivity: 0.1,
+      maxZoom: 2.5,
       container: this.graphContainer,
-      layout: {
-        name: 'cola'
-      },
+      layout: { name: 'cola' },
       style: styleOptions
     });
 
@@ -90,17 +83,13 @@ export class GraphBuilderService {
           });
         });
 
-
       this.cyGraph.add(element);
       this.elements.push(element);
       this.cyGraph.add(relations);
-      relations.forEach((edge: EdgeDefinition) => {
-        this.elements.push(edge);
-      });
+      relations.forEach((edge: EdgeDefinition) => this.elements.push(edge));
       this.cyGraph.layout({name: 'cola'}).run();
     }
   }
-
 
   removeElement(element: ElementDefinition): void {
     if (this.checkForExistence(element)) {
@@ -125,14 +114,11 @@ export class GraphBuilderService {
     this.openInformationContainerIds.push(id);
   }
 
-
-
   // Helper for the View
   removeFromOpenInformationContainerIds(id: string): void {
     this.openInformationContainerIds.splice(
       this.openInformationContainerIds.indexOf(id, 0 ), 1);
   }
-
 
   // Filtering nodes in graph
   filterGraph(startDate: number, endDate: number): void {
@@ -149,5 +135,24 @@ export class GraphBuilderService {
       }
 
     });
+  }
+
+  // Exports graph elements to csv file
+  exportToCSV(): void {
+    const content: string[][] = [];
+    this.elements.forEach((element: ElementDefinition) => {
+      const identifier = element.data.identifier;
+      const url = element.data.url;
+      if (url != null) {
+        content.push([identifier, url]);
+      }
+    });
+
+    const csvHeader = 'data:text/csv;charset=utf-8,';
+    if (content.length > 0) {
+      const csvContent = content.map(row => row.join(';')).join('\n');
+      const encodedUri = encodeURI(csvHeader + csvContent);
+      window.open(encodedUri);
+    }
   }
 }
