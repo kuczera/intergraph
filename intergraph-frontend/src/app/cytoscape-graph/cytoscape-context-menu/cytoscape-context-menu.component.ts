@@ -121,4 +121,9 @@ export class CytoscapeContextMenuComponent implements OnInit {
     this.graphBuilderService.cyGraph.fit();
     this.hide();
   }
+
+  exportCSV(): void {
+    this.graphBuilderService.exportToCSV();
+    this.hide();
+  }
 }

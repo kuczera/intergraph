@@ -136,4 +136,23 @@ export class GraphBuilderService {
 
     });
   }
+
+  // Exports graph elements to csv file
+  exportToCSV(): void {
+    const content: string[][] = [];
+    this.elements.forEach((element: ElementDefinition) => {
+      const identifier = element.data.identifier;
+      const url = element.data.url;
+      if (url != null) {
+        content.push([identifier, url]);
+      }
+    });
+
+    const csvHeader = 'data:text/csv;charset=utf-8,';
+    if (content.length > 0) {
+      const csvContent = content.map(row => row.join(';')).join('\n');
+      const encodedUri = encodeURI(csvHeader + csvContent);
+      window.open(encodedUri);
+    }
+  }
 }
