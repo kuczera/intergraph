@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <p>Saving the settings is password protected.</p>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" [(ngModel)]="password">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="password" cdkFocusInitial>Ok</button>
+</div>

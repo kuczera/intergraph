@@ -9,15 +9,15 @@
     "clean": "rimraf dist/*",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "tsc": "tsc",
-    "build": "npm-run-all clean lint tsc",
+    "build": "npm-run-all clean tsc",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "start": "node ."
   },
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "@types/node": "^14.11.2",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cytoscape": "^3.16.1",
     "dotenv": "^8.2.0",

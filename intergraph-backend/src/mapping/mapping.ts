@@ -32,8 +32,6 @@ export function convertDatabaseRecordsToCyElements(records: Record[]): JSON[]{
     return cyElements;
 }
 
-
-
 export function convertLabelsToJson(records: Record[]): JSON[] {
 
     const jsonLabels: JSON[] = [];
