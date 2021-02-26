@@ -107,6 +107,7 @@ export class SettingsService {
   }
 
   getSetting(type: string, property: string)  {
+    console.log(this.settings[type + '-' + property]);
     return this.settings[type + '-' + property];
   }
 

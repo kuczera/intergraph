@@ -65,10 +65,6 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
   searchNodes(): void {
     if (this.searchText !== '') {   // search text is not empty
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
-      }
-      this.showSearchResult = false;
 
       // only search if the search setting property is set
       if (this.settingsService.getSetting(this.filter, 'search') !== undefined) {

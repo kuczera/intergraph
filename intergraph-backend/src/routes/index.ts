@@ -198,7 +198,7 @@ export const register = ( app: express.Application ) => {
                 let r = result.records[0].get(0);
                 let s : JSON[] = [];
                 for (let property in r)
-                    s.push(JSON.parse(JSON.stringify({"name": property, "count": r[property].toNumber()})));
+                    s.push(JSON.parse(JSON.stringify({"name": property, "count": r[property] })));
                 console.log(s);
                 res.json(s);
             })
