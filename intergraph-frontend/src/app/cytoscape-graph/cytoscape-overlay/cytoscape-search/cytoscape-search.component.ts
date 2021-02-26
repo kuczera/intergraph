@@ -13,9 +13,7 @@ import { CytoscapeInformationComponent } from '../cytoscape-information/cytoscap
 import { NodeDefinition } from 'cytoscape';
 import { IFilterLabel } from '../../../filter-label';
 import { SearchListMenuComponent } from '../search-list-menu/search-list-menu.component';
-
-
-
+import {SettingsService} from '../../../services/settings/settings.service';
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -39,12 +37,11 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   activeSearchResult: NodeDefinition;
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
-  filter = 'Regesta';
-  selectionList: Array<any> = new Array<any>();
-
+  filter : string;
 
   constructor(
     private elementDataService: ElementDataService,
+    private settingsService: SettingsService,
     private resolver: ComponentFactoryResolver
   ) { }
 
@@ -52,7 +49,7 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.showSearchResult = true;
     this.showActiveSearchResult = false;
-    this.getLabels();
+    this.getFilterLabels();
   }
 
 
@@ -72,13 +69,21 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         document.activeElement.blur();
       }
       this.showSearchResult = false;
-      this.elementDataService.searchNodes(this.searchText, this.filter)
-        .subscribe((result) => {
-          this.searchResult = result;
-          this.showSearchResult = true;
-        });
 
+      // only search if the search setting property is set
+      if (this.settingsService.getSetting(this.filter, 'search') !== undefined) {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+        this.showSearchResult = false;
+        this.elementDataService.searchNodes(this.filter, this.settingsService.getSetting(this.filter, 'search'), this.searchText)
+          .subscribe((result) => {
+            this.searchResult = result;
+            this.showSearchResult = true;
+          });
+      }
     }
+
   }
 
 
@@ -97,12 +102,13 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   }
 
 
-  getLabels(): void {
+
+  getFilterLabels(): void {
     this.elementDataService.getDatabaseLabels()
       .subscribe((data) => {
         this.filterLabels = data;
-        this.filterLabels.push({"name": "Any"});
-        this.filterLabels.push({"name": "Entity"});
+//        this.filterLabels.push({"name": "Any"});
+        this.filter = this.filterLabels[0].name;
       });
   }
 
@@ -122,6 +128,7 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
   }
+
 
   @HostListener('click')
   clickinside(): void {

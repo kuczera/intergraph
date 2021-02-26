@@ -18,12 +18,7 @@ export class CyNode implements NodeDefinition{
     this.group = 'nodes';
     this.data = new CyNodeData(dbElement);
 
-    // the intergraph database sometimes has IndexEntry as a second class
-    // if this happens then remove IndexEntry
-    dbElement.labels.join("").replace("IndexEntry", "") === ""
-        ? this.classes = dbElement.labels.join("")
-        : this.classes = dbElement.labels.join("").replace("IndexEntry", "");
-
+    this.classes = dbElement.labels.join("")
 
     // save all the informations the db exposes to us
     const dbProperties = JSON.parse(JSON.stringify(dbElement.properties));

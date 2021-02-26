@@ -63,7 +63,7 @@ export const register = ( app: express.Application ) => {
     // parameters:
     //  node type
     app.get('/getKeys', (req: Request, res: Response) => {
-        neo4j.read( `MATCH (n: ${req.query.type})
+        neo4j.read( `MATCH (n: \`${req.query.type}\`)
             WITH DISTINCT apoc.coll.sort(keys(n)) as allkeys
             WITH REDUCE (result = [], k IN COLLECT(allkeys)| apoc.coll.union(result,k)) as reduction
             UNWIND reduction as r RETURN r`)
@@ -115,7 +115,7 @@ export const register = ( app: express.Application ) => {
     //  id
     //  type
     app.get('/getRelatedNodesByType', (req: Request, res: Response) => {
-        neo4j.read( `MATCH (n)-[r:${req.query.type}]-(x)
+        neo4j.read( `MATCH (n)-[r:\`${req.query.type}\`]-(x)
                             WHERE id(n) = ${req.query.id}
                             RETURN x,r`)
             .then((result: QueryResult) => {
@@ -155,15 +155,7 @@ export const register = ( app: express.Application ) => {
     // parameters:
     //  searchText
     app.get('/searchNodesByType', (req: Request, res: Response) => {
-        neo4j.read( `MATCH (n:${req.query.filter})
-                            WHERE (
-                                ANY (
-                                    prop IN KEYS(n)
-                                    WHERE toLower(toString(n[prop]))
-                                    CONTAINS "${req.query.searchText}"
-                                    )
-                                )
-                            RETURN n`)
+        neo4j.read(`MATCH (n:\`${req.query.filter}\`) WHERE n.${req.query.property} CONTAINS "${req.query.searchText}" RETURN n`)
             .then((result: QueryResult) => {
                 res.json(convertDatabaseRecordsToCyElements(result.records));
             })

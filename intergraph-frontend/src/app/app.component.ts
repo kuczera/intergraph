@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {SettingsService} from './services/settings/settings.service';
 
 
 
@@ -9,9 +10,18 @@ import {Component} from '@angular/core';
 })
 export class AppComponent{
 
-  constructor() {
+  appVisible: boolean;
+
+  constructor(
+    private settingsService: SettingsService
+  ) {
+    this.appVisible = false;
+    // load and cache settings
+    this.settingsService.loadSettings().subscribe(settings =>
+      {
+        this.settingsService.cacheSettings(settings);
+        this.appVisible = true;
+      }
+    )
   }
-
-
-
 }
