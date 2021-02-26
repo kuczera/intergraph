@@ -12,6 +12,7 @@ import {ElementDataService} from '../../../services/ElementData/element-data.ser
 import {CytoscapeInformationComponent} from '../cytoscape-information/cytoscape-information.component';
 import {NodeDefinition} from 'cytoscape';
 import {IFilterLabel} from '../../../filter-label';
+import {SettingsService} from '../../../services/settings/settings.service';
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -33,18 +34,18 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   activeSearchResult: NodeDefinition;
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
-  filter = 'Regesta';
-
+  filter : string;
 
   constructor(
     private elementDataService: ElementDataService,
+    private settingsService: SettingsService,
     private resolver: ComponentFactoryResolver
   ) { }
 
   ngOnInit(): void {
     this.showSearchResult = true;
     this.showActiveSearchResult = false;
-    this.getLabels();
+    this.getFilterLabels();
   }
 
 
@@ -60,15 +61,18 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
   searchNodes(): void {
 
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
+    // only search if the search setting property is set
+    if (this.settingsService.getSetting(this.filter,'search')!==undefined) {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      this.showSearchResult = false;
+      this.elementDataService.searchNodes(this.filter, this.settingsService.getSetting(this.filter, 'search'), this.searchText)
+        .subscribe((result) => {
+          this.searchResult = result;
+          this.showSearchResult = true;
+        });
     }
-    this.showSearchResult = false;
-    this.elementDataService.searchNodes(this.searchText, this.filter)
-      .subscribe((result) => {
-        this.searchResult = result;
-        this.showSearchResult = true;
-      });
   }
 
   showInformation(node: NodeDefinition): void {
@@ -98,13 +102,14 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
 
-  getLabels(): void {
+  getFilterLabels(): void {
     this.elementDataService.getDatabaseLabels()
       .subscribe((data) => {
         this.filterLabels = data;
-        this.filterLabels.push({"name": "Any"});
-        this.filterLabels.push({"name": "Entity"});
+//        this.filterLabels.push({"name": "Any"});
+        this.filter = this.filterLabels[0].name;
       });
+
 
   }
 

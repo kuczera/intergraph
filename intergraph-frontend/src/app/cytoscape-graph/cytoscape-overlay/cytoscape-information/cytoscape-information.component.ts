@@ -1,10 +1,9 @@
 import {AfterViewInit, OnInit, Component, Input} from '@angular/core';
-import {nodeConfig} from '../../../intergraph/nodeConfig';
 import {KeyValue} from '@angular/common';
 import {GraphBuilderService} from '../../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
+import {SettingsService} from '../../../services/settings/settings.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
-import {styleOptions} from '../../../intergraph/cytoscapeOptions';
 
 @Component({
   selector: 'app-cytoscape-information',
@@ -32,7 +31,8 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
   constructor(
     private graphBuilderService: GraphBuilderService,
-    private elementDataService: ElementDataService
+    private elementDataService: ElementDataService,
+    private settingsService: SettingsService
   ) {
     this.showData = false;
     this.lenTrunc = 20;
@@ -40,8 +40,8 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
 
-    const jsStyleOptions: any = JSON.stringify(styleOptions);
-    console.log(jsStyleOptions);
+    const jsStyleOptions: any = JSON.stringify(this.settingsService.getStyleOptions());
+    //console.log(jsStyleOptions);
     // retrieve json string from file cytoscapeOptions.ts
     if (jsStyleOptions !== undefined) {
       for (const entry of JSON.parse(jsStyleOptions)) {
@@ -55,13 +55,14 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     // this timeout handles the ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
-      // with this config the node name is set
-      for (const key in nodeConfig) {
-        if (key === this.node.classes) {
-          const value = nodeConfig[key];
-          this.displayToken = this.node.data[value];
+      this.displayToken = ""; // default
+      for (var key of this.settingsService.getNodeClasses()) {
+        if ((this.node.classes as string).includes(key)) {
+          var x = this.node.data[this.settingsService.getSetting(key,'title')];
+          if (x!==undefined) this.displayToken = x;
         }
       }
+
       for (const key of Object.keys(this.node.data)){
         this.properties.set(key, this.node.data[key]);
       }
@@ -69,7 +70,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
       this.graphBuilderService.checkForExistence(this.node)
         ? this.nodeExists = true
         : this.nodeExists = false;
-
 
       this.elementDataService.getRelations(this.node.data.id)
         .subscribe((result: EdgeDefinition[]) => {

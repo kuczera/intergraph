@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import * as cy from 'cytoscape';
-import {CytoscapeOptions, EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
+import { EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
+import {SettingsService} from '../../../services/settings/settings.service';
 import {first} from 'rxjs/operators';
-import {styleOptions} from '../../../intergraph/cytoscapeOptions';
 const cola = require('cytoscape-cola');
 // const dage = require('cytoscape-dagre');
 
@@ -14,31 +14,32 @@ export class GraphBuilderService {
   graphContainer: HTMLElement;
 
   elements: ElementDefinition[] = [];
-  options: CytoscapeOptions = {
-
-  };
 
   createNodeInformation: (evt: any) => void;
 
 
   openInformationContainerIds: string[] = [];
 
-  constructor(private elementDataService: ElementDataService) { }
+  constructor(
+    private elementDataService: ElementDataService,
+    private settingsService: SettingsService
+  ) { }
 
 
-  setGraphContainerElement(graphContainer: HTMLElement): void{
+  setGraphContainerElement(graphContainer: HTMLElement): void {
     this.graphContainer = graphContainer;
   }
 
   initGraph(): void {
     cy.use(cola);
+
     this.cyGraph = cy({
       wheelSensitivity: 0.1,
       container: this.graphContainer,
       layout: {
         name: 'cola'
       },
-      style: styleOptions
+      style: this.settingsService.getStyleOptions()
     });
 
     this.cyGraph.on('mouseover', 'node', (evt: any) => {
@@ -81,8 +82,8 @@ export class GraphBuilderService {
             this.elements.forEach((existingElement: ElementDefinition) => {
               if (
                 // source and target are in number format (whyever)
-                existingElement.data.id === edge.data.target.toString() ||
-                existingElement.data.id === edge.data.source.toString()
+              existingElement.data.id === edge.data.target.toString() ||
+              existingElement.data.id === edge.data.source.toString()
               ) {
                 relations.push(edge);
               }
@@ -94,9 +95,7 @@ export class GraphBuilderService {
       this.cyGraph.add(element);
       this.elements.push(element);
       this.cyGraph.add(relations);
-      relations.forEach((edge: EdgeDefinition) => {
-        this.elements.push(edge);
-      });
+      relations.forEach((edge: EdgeDefinition) => { this.elements.push(edge); });
       this.cyGraph.layout({name: 'cola'}).run();
     }
   }
