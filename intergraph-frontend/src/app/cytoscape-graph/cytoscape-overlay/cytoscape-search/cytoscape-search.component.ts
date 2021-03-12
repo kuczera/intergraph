@@ -127,21 +127,25 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
   sortingByAlpha(): void {
+
     this.searchResult.sort((a, b) => {
       const property = this.settingsService.getSetting(this.filter, 'title');
 
-      if (a.data[property] < b.data[property]) {
-        if (this.alphaOrder) {
-          return 1;
-        }
-        return -1;
-      }
+      const A = a.data[property].replace(' ', '');
+      const B = b.data[property].replace(' ', '');
 
-      if (a.data[property] > b.data[property]) {
+      if (A < B) {
         if (this.alphaOrder) {
           return -1;
         }
         return 1;
+      }
+
+      if (A > B) {
+        if (this.alphaOrder) {
+          return 1;
+        }
+        return -1;
       }
       return 0;
     });
