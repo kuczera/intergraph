@@ -33,4 +33,5 @@ export class CytoscapeNodeDetailComponent implements AfterViewInit {
     });
 
   }
+
 }

@@ -1,5 +1,4 @@
-<div class="searchContainer" #searchContainer>
-  <div id="searchContent">
+<div class="searchContainer">
     <mat-card class="search-card">
       <mat-card-header>
         <mat-card-title>Search</mat-card-title>
@@ -20,6 +19,12 @@
           </button>
         </mat-form-field>
         <div id="searchResult">
+          <button mat-button (click)="sortingByAlpha()" *ngIf="showSearchResult">
+            <mat-icon>sort_by_alpha</mat-icon>
+          </button>
+          <button mat-button (click)="sortingByTime()" *ngIf="showSearchResult">
+            <mat-icon>access_time</mat-icon>
+          </button>
           <mat-selection-list #nodes [multiple]="false" *ngIf="showSearchResult">
             <mat-list-option
                 [id]="node.data.id"
@@ -30,7 +35,7 @@
               <app-cytoscape-node-detail [node]="node"></app-cytoscape-node-detail>
             </mat-list-option>
           </mat-selection-list>
-          <div id="spinnerContainer" *ngIf="!showSearchResult">
+          <div id="spinnerContainer" *ngIf="isSearching">
             <mat-progress-spinner  class="searchSpinner"
                                    color="primary" mode="indeterminate" diameter="50">
             </mat-progress-spinner>
@@ -43,8 +48,7 @@
       <!--      <button mat-button>SHARE</button>-->
       <!--    </mat-card-actions>-->
     </mat-card>
-  </div>
-  <div class="searchMenuContainer">
-    <ng-template #searchMenuContainer></ng-template>
-  </div>
+</div>
+<div class="searchMenuContainer">
+  <ng-template #searchMenuContainer></ng-template>
 </div>

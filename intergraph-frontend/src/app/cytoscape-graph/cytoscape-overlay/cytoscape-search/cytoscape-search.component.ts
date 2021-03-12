@@ -13,7 +13,8 @@ import { CytoscapeInformationComponent } from '../cytoscape-information/cytoscap
 import { NodeDefinition } from 'cytoscape';
 import { IFilterLabel } from '../../../filter-label';
 import { SearchListMenuComponent } from '../search-list-menu/search-list-menu.component';
-import {SettingsService} from '../../../services/settings/settings.service';
+import { SettingsService} from '../../../services/settings/settings.service';
+
 
 @Component({
   selector: 'app-cytoscape-search',
@@ -28,16 +29,22 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput')
   searchInput: ElementRef;
 
+
   @Output() nodeSelected: EventEmitter<NodeDefinition> = new EventEmitter<NodeDefinition>();
 
   clickInside: boolean;
   searchText = '';
   showSearchResult: boolean;
+  isSearching: boolean;
   searchResult: NodeDefinition[];
   activeSearchResult: NodeDefinition;
   showActiveSearchResult: boolean;
   filterLabels: IFilterLabel[];
-  filter : string;
+  filter: string;
+  chronologicalOrder: boolean;
+  alphaOrder: boolean;
+
+
 
   constructor(
     private elementDataService: ElementDataService,
@@ -47,8 +54,11 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.showSearchResult = true;
+    this.showSearchResult = false;
+    this.isSearching = false;
     this.showActiveSearchResult = false;
+    this.chronologicalOrder = true;
+    this.alphaOrder = true;
     this.getFilterLabels();
   }
 
@@ -72,10 +82,12 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
           document.activeElement.blur();
         }
         this.showSearchResult = false;
+        this.isSearching = true;
         this.elementDataService.searchNodes(this.filter, this.settingsService.getSetting(this.filter, 'search'), this.searchText)
           .subscribe((result) => {
             this.searchResult = result;
             this.showSearchResult = true;
+            this.isSearching = false;
           });
       }
     }
@@ -111,6 +123,57 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
   addNodeToSelectionList(node: NodeDefinition): void {
     this.nodeSelected.emit(node);
+  }
+
+
+  sortingByAlpha(): void {
+    this.searchResult.sort((a, b) => {
+      const property = this.settingsService.getSetting(this.filter, 'title');
+
+      if (a.data[property] < b.data[property]) {
+        if (this.alphaOrder) {
+          return 1;
+        }
+        return -1;
+      }
+
+      if (a.data[property] > b.data[property]) {
+        if (this.alphaOrder) {
+          return -1;
+        }
+        return 1;
+      }
+      return 0;
+    });
+    this.alphaOrder = !this.alphaOrder;
+  }
+
+
+  sortingByTime(): void {
+
+    this.searchResult.sort((a, b) => {
+
+      const date1 = new Date(a.data.endDate);
+      const date2 = new Date(b.data.endDate);
+
+      if (!isNaN(date1.getTime()) && !isNaN(date2.getTime())) {
+
+        if (date1.getTime() < date2.getTime()) {
+          if (this.chronologicalOrder) {
+            return 1;
+          }
+          return -1;
+        }
+        if (date1.getTime() > date2.getTime()) {
+          if (this.chronologicalOrder) {
+            return -1;
+          }
+          return  1;
+        }
+      }
+      return 0;
+    });
+    this.chronologicalOrder = !this.chronologicalOrder;
   }
 
 
