@@ -148,9 +148,10 @@ export class GraphBuilderService {
   exportToCSV(): void {
     const content: string[][] = [];
     this.elements.forEach((element: ElementDefinition) => {
+      const display = this.cyGraph.getElementById(element.data.id).style('display');
       const identifier = element.data.identifier;
       const url = element.data.url;
-      if (url != null) {
+      if (url != null && display !== 'none') {
         content.push([identifier, url]);
       }
     });
