@@ -31,6 +31,7 @@ import { SearchListMenuComponent } from './cytoscape-graph/cytoscape-overlay/sea
 import { CytoscapeNodeSelectionComponent } from './cytoscape-graph/cytoscape-overlay/cytoscape-node-selection/cytoscape-node-selection.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
+import { MapCanvasComponent } from './map-canvas/map-canvas.component';
 
 
 
@@ -50,6 +51,7 @@ import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-conte
     SearchListMenuComponent,
     CytoscapeNodeSelectionComponent,
     CytoscapeContextMenuComponent,
+    MapCanvasComponent,
   ],
     imports: [
         BrowserModule,

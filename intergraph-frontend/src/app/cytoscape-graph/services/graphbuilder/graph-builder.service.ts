@@ -155,4 +155,71 @@ export class GraphBuilderService {
       window.open(encodedUri);
     }
   }
+
+  //
+  // PARSING ELEMENT DEFINITIONS
+  //
+
+  getElements(): ElementDefinition[] {
+    return this.elements;
+  }
+
+  getElementById(id: string): ElementDefinition {
+    return this.getElement(id);
+  }
+
+  getSelectedElements(): ElementDefinition[] {
+    const selectedElements: ElementDefinition[] = [];
+
+    const cySelectedElements = this.cyGraph.$(':selected');
+    cySelectedElements.forEach(cySelectedElement => {
+      const id = cySelectedElement.data().id;
+      const selectedElement = this.getElementById(id);
+      selectedElements.push(selectedElement);
+    });
+
+    return selectedElements;
+  }
+
+  //
+  // CSV EXPORT
+  //
+
+  exportElementsToCSV(elements: ElementDefinition[]): void {
+    const content: string[][] = [];
+    elements.forEach((element: ElementDefinition) => {
+      const identifier = element.data.identifier;
+      const url = element.data.url;
+      if (url != null) {
+        content.push([identifier, url]);
+      }
+    });
+
+    const csvHeader = 'data:text/csv;charset=utf-8,';
+    if (content.length > 0) {
+      const csvContent = content.map(row => row.join(';')).join('\n');
+      const encodedUri = encodeURI(csvHeader + csvContent);
+      window.open(encodedUri);
+    }
+  }
+
+  exportAllToCSV(): void {
+    this.exportElementsToCSV(this.elements);
+  }
+
+  exportVisibleElementsToCSV(): void {
+    const elements: ElementDefinition[] = [];
+    this.elements.forEach(element => {
+      const isVisible = true;
+      if (isVisible) {
+        elements.push(element);
+      }
+    });
+    this.exportElementsToCSV(elements);
+  }
+
+  exportSelectionToCSV(): void {
+    const elements: ElementDefinition[] = this.getSelectedElements();
+    this.exportElementsToCSV(elements);
+  }
 }

@@ -2,6 +2,7 @@
   <div #nodeMenu *ngIf="isNodeMenuShowed">
     <h5>Node</h5>
     <button (click)="seeInfo()">See informations</button>
+    <button (click)="openURL()">Go to website</button>
     <h5>Expand</h5>
     <button (click)="expandAll()">All</button>
     <button *ngFor="let relation of relationsByType | keyvalue" (click)="expandByRelationType(relation.key)">{{relation.key}}({{relation.value}})</button>
@@ -16,8 +17,12 @@
     <h5>Canvas</h5>
     <button (click)="cleanCanvas()">Clean canvas</button>
     <button (click)="fitCanvas()">Fit</button>
-    <h5>Export</h5>
-    <button (click)="exportCSV()">CSV</button>
+    <h5>Map</h5>
+    <button (click)="selectionToMap()">Selection</button>
+    <h5>CSV export</h5>
+    <button (click)="exportAllToCSV()">All</button>
+    <button (click)="exportVisibleToCSV()">Visible</button>
+    <button (click)="exportSelectionToCSV()">Selection</button>
   </div>
 </div>
 

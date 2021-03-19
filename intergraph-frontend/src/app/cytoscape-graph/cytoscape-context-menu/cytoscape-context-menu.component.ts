@@ -2,6 +2,7 @@ import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/co
 import {GraphBuilderService} from '../services/graphbuilder/graph-builder.service';
 import {ElementDataService} from '../../services/ElementData/element-data.service';
 import {EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-cytoscape-context-menu',
@@ -24,7 +25,8 @@ export class CytoscapeContextMenuComponent implements OnInit {
   relationsByType: Map<string, number> = new Map<string, number>();
 
   constructor(private graphBuilderService: GraphBuilderService,
-              private elementDataService: ElementDataService) { }
+              private elementDataService: ElementDataService,
+              public app: AppComponent) { }
 
   ngOnInit(): void {
   }
@@ -122,8 +124,38 @@ export class CytoscapeContextMenuComponent implements OnInit {
     this.hide();
   }
 
-  exportCSV(): void {
-    this.graphBuilderService.exportToCSV();
+  //
+  // Map
+  //
+
+  selectionToMap(): void {
+    this.app.openMap(this.graphBuilderService.getSelectedElements());
+  }
+
+  //
+  // CSV export
+  //
+
+  exportAllToCSV(): void {
+    this.graphBuilderService.exportAllToCSV();
     this.hide();
+  }
+
+  exportVisibleToCSV(): void {
+    this.graphBuilderService.exportVisibleElementsToCSV();
+    this.hide();
+  }
+
+  exportSelectionToCSV(): void {
+    this.graphBuilderService.exportSelectionToCSV();
+    this.hide();
+  }
+
+  //
+  // Other
+  //
+
+  openURL(): void {
+    window.open(this.node.data.url, '_blank');
   }
 }
