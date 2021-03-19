@@ -35,7 +35,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PwdDialogComponent} from './cytoscape-graph/cytoscape-overlay/cytoscape-config/pwd-dialog/pwd-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MapCanvasComponent } from './map-canvas/map-canvas.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     SearchListMenuComponent,
     CytoscapeNodeSelectionComponent,
     CytoscapeContextMenuComponent,
-    PwdDialogComponent
+    PwdDialogComponent,
+    MapCanvasComponent
   ],
     imports: [
         BrowserModule,

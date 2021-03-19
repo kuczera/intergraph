@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {GraphBuilderService} from './services/graphbuilder/graph-builder.service';
 import {CytoscapeOverlayComponent} from './cytoscape-overlay/cytoscape-overlay.component';
 import {CytoscapeContextMenuComponent} from './cytoscape-context-menu/cytoscape-context-menu.component';
+import {ElementDefinition} from 'cytoscape';
 // import {EdgeDefinition} from 'cytoscape';
 
 @Component({
@@ -20,7 +21,7 @@ export class CytoscapeGraphComponent implements AfterViewInit {
   contextMenuShown: boolean;
 
   constructor(
-    private graphBuilderService: GraphBuilderService,
+    public graphBuilderService: GraphBuilderService,
   ) {}
 
   ngAfterViewInit(): void {
