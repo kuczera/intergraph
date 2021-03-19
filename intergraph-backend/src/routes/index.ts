@@ -155,7 +155,10 @@ export const register = ( app: express.Application ) => {
     // parameters:
     //  searchText
     app.get('/searchNodesByType', (req: Request, res: Response) => {
-        neo4j.read(`MATCH (n:\`${req.query.filter}\`) WHERE n.${req.query.property} CONTAINS "${req.query.searchText}" RETURN n`)
+        neo4j.read(`MATCH (n:\`${req.query.filter}\`) 
+                          WHERE toLower(toString(n.${req.query.property})) 
+                          CONTAINS "${req.query.searchText}" 
+                          RETURN n`)
             .then((result: QueryResult) => {
                 res.json(convertDatabaseRecordsToCyElements(result.records));
             })

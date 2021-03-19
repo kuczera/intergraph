@@ -86,6 +86,7 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
         this.elementDataService.searchNodes(this.filter, this.settingsService.getSetting(this.filter, 'search'), this.searchText)
           .subscribe((result) => {
             this.searchResult = result;
+            console.log(result);
             this.showSearchResult = true;
             this.isSearching = false;
           });
@@ -135,17 +136,11 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
       const B = b.data[property].replace(' ', '');
 
       if (A < B) {
-        if (this.alphaOrder) {
-          return -1;
-        }
-        return 1;
+        return (this.alphaOrder ? -1 : 1);
       }
 
       if (A > B) {
-        if (this.alphaOrder) {
-          return 1;
-        }
-        return -1;
+        return (this.alphaOrder ? 1 : -1);
       }
       return 0;
     });
@@ -157,25 +152,21 @@ export class CytoscapeSearchComponent implements OnInit, AfterViewInit {
 
     this.searchResult.sort((a, b) => {
 
-      const date1 = new Date(a.data.endDate);
-      const date2 = new Date(b.data.endDate);
+      const startingDate = this.settingsService.getSetting(this.filter, 'start');
 
-      if (!isNaN(date1.getTime()) && !isNaN(date2.getTime())) {
+      if (startingDate) {
+        const date1 = new Date(a.data[startingDate]);
+        const date2 = new Date(b.data[startingDate]);
 
         if (date1.getTime() < date2.getTime()) {
-          if (this.chronologicalOrder) {
-            return 1;
-          }
-          return -1;
+          return (this.chronologicalOrder ? 1 : -1);
         }
         if (date1.getTime() > date2.getTime()) {
-          if (this.chronologicalOrder) {
-            return -1;
-          }
-          return  1;
+          return (this.chronologicalOrder ? -1 : 1);
         }
       }
       return 0;
+
     });
     this.chronologicalOrder = !this.chronologicalOrder;
   }

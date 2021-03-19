@@ -18,7 +18,7 @@ export class CyNode implements NodeDefinition{
     this.group = 'nodes';
     this.data = new CyNodeData(dbElement);
 
-    this.classes = dbElement.labels.join("")
+    this.classes = dbElement.labels[0]
 
     // save all the informations the db exposes to us
     const dbProperties = JSON.parse(JSON.stringify(dbElement.properties));
