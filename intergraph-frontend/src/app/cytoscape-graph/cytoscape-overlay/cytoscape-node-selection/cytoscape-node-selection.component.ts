@@ -26,6 +26,7 @@ export class CytoscapeNodeSelectionComponent implements OnInit {
 
   add(): void {
     this.nodeSelection.forEach((element, index) => {
+      console.log(element);
       this.graphBuilderService.addNodeWithRelations(element);
     });
     this.nodeSelection = new Array<NodeDefinition>();

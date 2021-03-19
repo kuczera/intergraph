@@ -106,6 +106,19 @@ export class GraphBuilderService {
     }
   }
 
+  removeAll(): void {
+    this.elements.forEach((element) => {
+      this.cyGraph.remove(this.cyGraph.getElementById(element.data.id));
+      this.elements.splice(this.elements.indexOf(element, 0), 1);
+    });
+    console.log(this.elements);
+    this.elements.forEach((element) => {
+      this.cyGraph.remove(this.cyGraph.getElementById(element.data.id));
+      this.elements.splice(this.elements.indexOf(element, 0), 1);
+    });
+  }
+
+
   checkForExistence(element: ElementDefinition): boolean {
     return this.cyGraph.hasElementWithId(element.data.id);
   }
@@ -146,15 +159,17 @@ export class GraphBuilderService {
 
   // Exports graph elements to csv file
   exportToCSV(): void {
+    console.log(this.elements);
     const content: string[][] = [];
     this.elements.forEach((element: ElementDefinition) => {
+      const display = this.cyGraph.getElementById(element.data.id).style('display');
       const identifier = element.data.identifier;
       const url = element.data.url;
-      if (url != null) {
+      if (url != null && display !== 'none') {
         content.push([identifier, url]);
       }
     });
-
+    console.log(content);
     const csvHeader = 'data:text/csv;charset=utf-8,';
     if (content.length > 0) {
       const csvContent = content.map(row => row.join(';')).join('\n');
