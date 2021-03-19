@@ -19,10 +19,20 @@
           </button>
         </mat-form-field>
         <div id="searchResult">
-          <button mat-button (click)="sortingByAlpha()" *ngIf="showSearchResult">
+          <button mat-button
+                  *ngIf="showSearchResult"
+                  (click)="sortingByAlpha()"
+                  matTooltip="Sorting by alphabetical order"
+                  [matTooltipPosition]="'below'"
+                  matTooltipHideDelay="0">
             <mat-icon>sort_by_alpha</mat-icon>
           </button>
-          <button mat-button (click)="sortingByTime()" *ngIf="showSearchResult">
+          <button mat-button
+                  matTooltip="Sorting by time"
+                  [matTooltipPosition]="'below'"
+                  matTooltipHideDelay="0"
+                  *ngIf="showSearchResult"
+                  (click)="sortingByTime()">
             <mat-icon>access_time</mat-icon>
           </button>
           <mat-selection-list #nodes [multiple]="false" *ngIf="showSearchResult">
