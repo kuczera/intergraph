@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
+import {nodeConfig} from '../../../intergraph/nodeConfig';
 import {NodeDefinition} from 'cytoscape';
-
-import {SettingsService} from '../../../services/settings/settings.service';
 
 @Component({
   selector: 'app-cytoscape-node-detail',
@@ -17,21 +16,22 @@ export class CytoscapeNodeDetailComponent implements AfterViewInit {
   displayToken: string;
 
   constructor(
-    private settingsService: SettingsService
   ) { }
 
   ngAfterViewInit(): void {
     // this timeout handles the ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
-      this.displayToken = ""; // default
-      for (var key of this.settingsService.getNodeClasses()) {
-        if ((this.node.classes as string).includes(key)) {
-          var x = this.node.data[this.settingsService.getSetting(key,'title')];
-          if (x!==undefined) this.displayToken = x;
+      // with this config the node name is set
+      for (const key in nodeConfig) {
+        if (key === this.node.classes) {
+          const value = nodeConfig[key];
+          this.displayToken = this.node.data[value];
         }
       }
     });
 
   }
+
+
 
 }

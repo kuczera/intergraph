@@ -32,7 +32,6 @@ export class ElementDataService {
   }
 
   getRelations(id: string): Observable<any> {
-
     const httpParams: HttpParams = new HttpParams()
       .append('id', id);
 
@@ -90,7 +89,7 @@ export class ElementDataService {
     );
   }
 
-  searchNodes(filter: string, property: string, searchText: string): Observable<any> {
+  searchNodes(searchText: string, filter: string): Observable<any> {
 
     if (filter === 'Any') {
       this.restApiName = '/searchNodes';
@@ -100,8 +99,7 @@ export class ElementDataService {
 
     const httpParams: HttpParams = new HttpParams()
       .append('searchText', searchText.toLowerCase())
-      .append('filter', filter)
-      .append('property', property);
+      .append('filter', filter);
 
     const options = {
       responseType: 'json' as const,

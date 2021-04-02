@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import * as cy from 'cytoscape';
-import { EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
+import {CytoscapeOptions, EdgeDefinition, ElementDefinition, NodeDefinition} from 'cytoscape';
 import {ElementDataService} from '../../../services/ElementData/element-data.service';
-import {SettingsService} from '../../../services/settings/settings.service';
 import {first} from 'rxjs/operators';
+import {styleOptions} from '../../../intergraph/cytoscapeOptions';
 const cola = require('cytoscape-cola');
 // const dage = require('cytoscape-dagre');
 
@@ -13,16 +13,12 @@ export class GraphBuilderService {
   cyGraph: cy.Core;
   graphContainer: HTMLElement;
   elements: ElementDefinition[] = [];
-  // options: CytoscapeOptions = {};
+  options: CytoscapeOptions = {};
 
   public createNodeInformation: (evt: any) => void;
   openInformationContainerIds: string[] = [];
 
-  constructor(
-    private elementDataService: ElementDataService,
-    private settingsService: SettingsService
-  ) { }
-
+  constructor(private elementDataService: ElementDataService) { }
 
   setGraphContainerElement(graphContainer: HTMLElement): void{
     this.graphContainer = graphContainer;
@@ -30,15 +26,12 @@ export class GraphBuilderService {
 
   initGraph(): void {
     cy.use(cola);
-
     this.cyGraph = cy({
       wheelSensitivity: 0.1,
       maxZoom: 2.5,
       container: this.graphContainer,
-      layout: {
-        name: 'cola'
-      },
-      style: this.settingsService.getStyleOptions()
+      layout: { name: 'cola' },
+      style: styleOptions
     });
 
     this.cyGraph.on('mouseover', 'node', (evt: any) => {
@@ -81,8 +74,8 @@ export class GraphBuilderService {
             this.elements.forEach((existingElement: ElementDefinition) => {
               if (
                 // source and target are in number format (whyever)
-              existingElement.data.id === edge.data.target.toString() ||
-              existingElement.data.id === edge.data.source.toString()
+                existingElement.data.id === edge.data.target.toString() ||
+                existingElement.data.id === edge.data.source.toString()
               ) {
                 relations.push(edge);
               }
@@ -93,7 +86,7 @@ export class GraphBuilderService {
       this.cyGraph.add(element);
       this.elements.push(element);
       this.cyGraph.add(relations);
-      relations.forEach((edge: EdgeDefinition) => { this.elements.push(edge); });
+      relations.forEach((edge: EdgeDefinition) => this.elements.push(edge));
       this.cyGraph.layout({name: 'cola'}).run();
     }
   }
@@ -105,19 +98,6 @@ export class GraphBuilderService {
       // this.cyGraph.layout({name: 'cola'}).run();
     }
   }
-
-  removeAll(): void {
-    this.elements.forEach((element) => {
-      this.cyGraph.remove(this.cyGraph.getElementById(element.data.id));
-      this.elements.splice(this.elements.indexOf(element, 0), 1);
-    });
-    console.log(this.elements);
-    this.elements.forEach((element) => {
-      this.cyGraph.remove(this.cyGraph.getElementById(element.data.id));
-      this.elements.splice(this.elements.indexOf(element, 0), 1);
-    });
-  }
-
 
   checkForExistence(element: ElementDefinition): boolean {
     return this.cyGraph.hasElementWithId(element.data.id);
@@ -159,57 +139,8 @@ export class GraphBuilderService {
 
   // Exports graph elements to csv file
   exportToCSV(): void {
-    console.log(this.elements);
     const content: string[][] = [];
     this.elements.forEach((element: ElementDefinition) => {
-      const display = this.cyGraph.getElementById(element.data.id).style('display');
-      const identifier = element.data.identifier;
-      const url = element.data.url;
-      if (url != null && display !== 'none') {
-        content.push([identifier, url]);
-      }
-    });
-    console.log(content);
-    const csvHeader = 'data:text/csv;charset=utf-8,';
-    if (content.length > 0) {
-      const csvContent = content.map(row => row.join(';')).join('\n');
-      const encodedUri = encodeURI(csvHeader + csvContent);
-      window.open(encodedUri);
-    }
-  }
-
-  //
-  // PARSING ELEMENT DEFINITIONS
-  //
-
-  getElements(): ElementDefinition[] {
-    return this.elements;
-  }
-
-  getElementById(id: string): ElementDefinition {
-    return this.getElement(id);
-  }
-
-  getSelectedElements(): ElementDefinition[] {
-    const selectedElements: ElementDefinition[] = [];
-
-    const cySelectedElements = this.cyGraph.$(':selected');
-    cySelectedElements.forEach(cySelectedElement => {
-      const id = cySelectedElement.data().id;
-      const selectedElement = this.getElementById(id);
-      selectedElements.push(selectedElement);
-    });
-
-    return selectedElements;
-  }
-
-  //
-  // CSV EXPORT
-  //
-
-  exportElementsToCSV(elements: ElementDefinition[]): void {
-    const content: string[][] = [];
-    elements.forEach((element: ElementDefinition) => {
       const identifier = element.data.identifier;
       const url = element.data.url;
       if (url != null) {
@@ -223,25 +154,5 @@ export class GraphBuilderService {
       const encodedUri = encodeURI(csvHeader + csvContent);
       window.open(encodedUri);
     }
-  }
-
-  exportAllToCSV(): void {
-    this.exportElementsToCSV(this.elements);
-  }
-
-  exportVisibleElementsToCSV(): void {
-    const elements: ElementDefinition[] = [];
-    this.elements.forEach(element => {
-      const isVisible = true;
-      if (isVisible) {
-        elements.push(element);
-      }
-    });
-    this.exportElementsToCSV(elements);
-  }
-
-  exportSelectionToCSV(): void {
-    const elements: ElementDefinition[] = this.getSelectedElements();
-    this.exportElementsToCSV(elements);
   }
 }

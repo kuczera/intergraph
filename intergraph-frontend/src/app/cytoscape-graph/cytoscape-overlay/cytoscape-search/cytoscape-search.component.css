@@ -1,8 +1,5 @@
 .searchContainer {
-  width: 40vh;
-  float: left;
-  position: relative;
-  max-height: 50vh;
+
 }
 
 mat-form-field {
@@ -10,7 +7,7 @@ mat-form-field {
 }
 
 #searchResult {
-  /* min-height: 100px; */
+  min-height: 100px;
 }
 
 .searchSpinner {
@@ -21,6 +18,11 @@ mat-form-field {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#searchContent {
+  width: 40vh;
+  float: left;
 }
 
 mat-selection-list {
@@ -36,6 +38,15 @@ ng-template {
   float: left;
 }
 
+.searchComponent {
+  z-index: 7;
+}
+
+.timeFilter {
+  width: 35vh;
+  height: 1vh;
+  background-color: aqua;
+}
 
 .endDateButton {
    float: right;

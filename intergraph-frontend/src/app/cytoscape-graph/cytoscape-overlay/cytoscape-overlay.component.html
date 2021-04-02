@@ -20,5 +20,6 @@
   <ng-template  #nodeInformation>
   </ng-template>
   <app-cytoscape-node-selection [nodeSelection]="nodes" (nodesToPull)="resetSelection($event)"></app-cytoscape-node-selection>
-  <app-cytoscape-time-filter></app-cytoscape-time-filter>
+  <app-cytoscape-time-filter *ngIf="!showConfig"></app-cytoscape-time-filter>
+
 <!--</div>-->

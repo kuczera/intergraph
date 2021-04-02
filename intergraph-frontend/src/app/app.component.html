@@ -1,9 +1,3 @@
 <!--<div id="cy" class="graphWrapper">-->
 <!--</div>-->
-<app-cytoscape-graph #cyto [hidden]="!isCytoscapeSelected" *ngIf="appVisible"></app-cytoscape-graph>
-<app-map-canvas #map *ngIf="isMapcanvasSelected"></app-map-canvas>
-
-<nav id="switchButtons">
-  <button *ngIf="isMapcanvasSelected" (click)="selectCytoscape()">Back to Cytoscape</button>
-<!--  <button (click)="selectMapcanvas()">Mapcanvas</button>-->
-</nav>
+<app-cytoscape-graph></app-cytoscape-graph>
