@@ -31,22 +31,20 @@ export class CytoscapeConfigComponent implements OnInit {
     this.colorTmp = {};
     this.keyList = new Map();
 
-    this.settingsService.getSettings().subscribe(data => {
-      this.settings = data;
-      this.elementDataService.getDatabaseLabelCount().subscribe((data) => {
-        this.labelcount = data;
-        for (const l of this.labelcount) {
-          this.elementDataService.getKeys(l.name).subscribe((data) => {
-              const k = new Array();
-              k.push('');
-              data.sort((a, b) => (a.name > b.name ? 1 : -1));
-              for (const d of data) k.push(d.name);
-              this.keyList.set(l.name, k);
-            });
-          this.colorTmp[l.name] = this.settings[l.name + '-color'] === undefined ? '#ffffff' : this.settings[l.name + '-color'];
-        }
-        this.labelcount.sort((a, b) => (a.count < b.count ? 1 : -1));
-      });
+    this.settings = this.settingsService.getSettings();
+    this.elementDataService.getDatabaseLabelCount().subscribe((data) => {
+      this.labelcount = data;
+      for (let l of this.labelcount) {
+        this.elementDataService.getKeys(l.name).subscribe((data) => {
+          var k = new Array();
+          k.push("");
+          data.sort((a, b) => (a.name > b.name ? 1 : -1));
+          for (let d of data) k.push(d.name);
+          this.keyList.set(l.name, k);
+        })
+        this.colorTmp[l.name] = this.settings[l.name + "-color"] === undefined ? "#ffffff" : this.settings[l.name + "-color"];
+      }
+      this.labelcount.sort((a, b) => (a.count < b.count ? 1 : -1));
     });
   }
 

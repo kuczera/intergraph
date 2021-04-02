@@ -7,8 +7,7 @@ dotenv.config();
 
 // Create Driver
 const driver: Driver = neo4j.driver(
-    process.env.DBHOST, neo4j.auth.basic(process.env.DBUSER, process.env.DBPW)
-);
+    process.env.DBHOST, neo4j.auth.basic(process.env.DBUSER, process.env.DBPW), { disableLosslessIntegers: true });
 
 
 

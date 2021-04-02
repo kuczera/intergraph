@@ -1,8 +1,8 @@
 #timeFilterContent {
   position: absolute;
   bottom: 0;
-  height: 10%;
-  width: 100%;
+  left: 0;
+  right: 0;
 }
 
 nouislider {
