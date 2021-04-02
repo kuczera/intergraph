@@ -113,7 +113,8 @@ export class CytoscapeContextMenuComponent implements OnInit {
   }
 
   cleanCanvas(): void {
-    this.graphBuilderService.cyGraph.elements().remove();
+    /*this.graphBuilderService.cyGraph.elements().remove();*/
+    this.graphBuilderService.removeAll();
     this.hide();
   }
 
