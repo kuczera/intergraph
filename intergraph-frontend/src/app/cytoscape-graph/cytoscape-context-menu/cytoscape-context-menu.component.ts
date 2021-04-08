@@ -79,6 +79,10 @@ export class CytoscapeContextMenuComponent implements OnInit {
     this.hide();
   }
 
+  redirectToWebSite(): void {
+    window.open(this.node.data.url);
+  }
+
   expandAll(): void {
     for (const key of this.relationsByType.keys()) {
       this.expandByRelationType(key);
