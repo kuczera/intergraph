@@ -39,6 +39,10 @@
       <span class="CellComment">Field with location longitude. If empty, node does not appear on a map.</span>
     </td>
     <td  class="CellWithComment">
+      <b>URL</b>
+      <span class="CellComment">Field with node URL.</span>
+    </td>
+    <td  class="CellWithComment">
       <b>Color</b>
       <span class="CellComment">Color used for this data type. If empty, default color is grey.</span>
     </td>
@@ -88,6 +92,13 @@
     <td>
       <mat-form-field>
         <mat-select [(ngModel)]="settings[l.name+'-longitude']" (ngModelChange)="saveDisabled = false">
+          <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select [(ngModel)]="settings[l.name+'-url']" (ngModelChange)="saveDisabled = false">
           <mat-option *ngFor="let k of keyList.get(l.name)" value="{{k}}">{{k}}</mat-option>
         </mat-select>
       </mat-form-field>

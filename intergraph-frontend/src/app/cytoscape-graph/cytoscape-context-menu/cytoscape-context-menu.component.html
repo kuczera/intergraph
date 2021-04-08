@@ -2,6 +2,7 @@
   <div #nodeMenu *ngIf="isNodeMenuShowed">
     <h5>Node</h5>
     <button (click)="seeInfo()">See informations</button>
+    <button (click)="redirectToWebSite()">URL</button>
     <h5>Expand</h5>
     <button (click)="expandAll()">All</button>
     <button *ngFor="let relation of relationsByType | keyvalue" (click)="expandByRelationType(relation.key)">{{relation.key}}({{relation.value}})</button>

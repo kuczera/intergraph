@@ -103,4 +103,8 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
     // As double clicking automatically selects text in infocard, we unselect
     if (window.getSelection) { window.getSelection().removeAllRanges(); }
   }
+
+  redirectToUrl(): void {
+    window.open(this.node.data.url);
+  }
 }
