@@ -30,12 +30,15 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { TruncPipe } from './trunc.pipe';
 import { SortFilterLabelByPipe } from './sort-filter-label-by.pipe';
 import {MatSelectModule} from '@angular/material/select';
-import {CytoscapeContextMenuComponent} from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PwdDialogComponent} from './cytoscape-graph/cytoscape-overlay/cytoscape-config/pwd-dialog/pwd-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CytoscapeContextMenuComponent } from './cytoscape-graph/cytoscape-context-menu/cytoscape-context-menu.component';
+import { MapCanvasComponent } from './map-canvas/map-canvas.component';
+
+
 
 @NgModule({
   declarations: [
@@ -53,30 +56,30 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     SearchListMenuComponent,
     CytoscapeNodeSelectionComponent,
     CytoscapeContextMenuComponent,
-    PwdDialogComponent
+    PwdDialogComponent,
+    MapCanvasComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        FormsModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatListModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatSelectModule,
-        ChartsModule,
-        NouisliderModule,
-        ColorPickerModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatSelectModule,
+    ChartsModule,
+    NouisliderModule,
+    ColorPickerModule,
+    MatDialogModule,
+  ],
 
 
   providers: [ ],

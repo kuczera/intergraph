@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   templateUrl: './pwd-dialog.component.html',
@@ -15,6 +15,6 @@ export class PwdDialogComponent implements OnInit{
     this.dialogRef.close();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 }

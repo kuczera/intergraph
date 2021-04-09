@@ -34,15 +34,16 @@ export class CytoscapeConfigComponent implements OnInit {
     this.settings = this.settingsService.getSettings();
     this.elementDataService.getDatabaseLabelCount().subscribe((data) => {
       this.labelcount = data;
-      for (let l of this.labelcount) {
+      for (const l of this.labelcount) {
+        // tslint:disable-next-line:no-shadowed-variable
         this.elementDataService.getKeys(l.name).subscribe((data) => {
-          var k = new Array();
-          k.push("");
+          const k = new Array();
+          k.push('');
           data.sort((a, b) => (a.name > b.name ? 1 : -1));
-          for (let d of data) k.push(d.name);
+          for (const d of data) { k.push(d.name); }
           this.keyList.set(l.name, k);
-        })
-        this.colorTmp[l.name] = this.settings[l.name + "-color"] === undefined ? "#ffffff" : this.settings[l.name + "-color"];
+        });
+        this.colorTmp[l.name] = this.settings[l.name + '-color'] === undefined ? '#ffffff' : this.settings[l.name + '-color'];
       }
       this.labelcount.sort((a, b) => (a.count < b.count ? 1 : -1));
     });
@@ -60,8 +61,10 @@ export class CytoscapeConfigComponent implements OnInit {
       if (isPwdValid) {
         this.saveDisabled = true;
         this.settingsService.saveSettings(this.settings).subscribe();
+        console.log('Right password');
       } else {
         // run code for wrong password
+        console.log('Wrong password');
       }
     });
   }
