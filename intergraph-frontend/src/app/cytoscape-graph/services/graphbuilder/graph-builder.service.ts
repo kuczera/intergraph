@@ -190,6 +190,10 @@ export class GraphBuilderService {
     return this.getElement(id);
   }
 
+  getVisibleElements(): ElementDefinition[] {
+    return this.elements;
+  }
+
   getSelectedElements(): ElementDefinition[] {
     const selectedElements: ElementDefinition[] = [];
 
@@ -221,7 +225,13 @@ export class GraphBuilderService {
     if (content.length > 0) {
       const csvContent = content.map(row => row.join(';')).join('\n');
       const encodedUri = encodeURI(csvHeader + csvContent);
-      window.open(encodedUri);
+
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'my_data.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   }
 

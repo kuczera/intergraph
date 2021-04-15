@@ -133,6 +133,14 @@ export class CytoscapeContextMenuComponent implements OnInit {
   // Map
   //
 
+  allToMap(): void {
+    this.app.openMap(this.graphBuilderService.getElements());
+  }
+
+  visibleToMap(): void {
+    this.app.openMap(this.graphBuilderService.getVisibleElements());
+  }
+
   selectionToMap(): void {
     this.app.openMap(this.graphBuilderService.getSelectedElements());
   }
@@ -142,17 +150,17 @@ export class CytoscapeContextMenuComponent implements OnInit {
   //
 
   exportAllToCSV(): void {
-    this.graphBuilderService.exportAllToCSV();
+    this.graphBuilderService.exportElementsToCSV(this.graphBuilderService.getElements());
     this.hide();
   }
 
   exportVisibleToCSV(): void {
-    this.graphBuilderService.exportVisibleElementsToCSV();
+    this.graphBuilderService.exportElementsToCSV(this.graphBuilderService.getVisibleElements());
     this.hide();
   }
 
   exportSelectionToCSV(): void {
-    this.graphBuilderService.exportSelectionToCSV();
+    this.graphBuilderService.exportElementsToCSV(this.graphBuilderService.getSelectedElements());
     this.hide();
   }
 
