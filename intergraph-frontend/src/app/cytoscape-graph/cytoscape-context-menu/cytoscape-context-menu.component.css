@@ -2,8 +2,8 @@
   min-width: 200px;
   min-height: 230px;
   overflow: hidden;
-  background-color: rgba(0,0,0,0.9);
-  color: #fff;
+  background-color: #CCCCCC;
+  color: #000000;
 }
 
 #cytoscapeContextMenu * {

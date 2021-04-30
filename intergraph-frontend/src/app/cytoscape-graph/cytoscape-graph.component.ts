@@ -33,6 +33,7 @@ export class CytoscapeGraphComponent implements AfterViewInit {
 
   showContextMenu(event: any): void {
     if (event.target instanceof Array) {
+      if (event.target.isNode()) // no edges
       this.ctxMenu.showNodeMenu(event);
     } else {
       this.ctxMenu.showCanvasMenu(event);

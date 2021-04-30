@@ -25,7 +25,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
   propertyToDisplay: KeyValue<string, any>;
   nodeExists: boolean;
   lenTrunc: number;
-  nodeStyle = [];
   minimized = false;
 
   constructor(
@@ -72,16 +71,6 @@ export class CytoscapeInformationComponent implements AfterViewInit, OnInit {
           });
         });
     });
-  }
-
-  // return colors matching with the node classes
-  applyColorForNode(typeOfNode: string): string {
-    for (const entry of this.nodeStyle) {
-      if (entry.selector.includes(typeOfNode)) {
-        return entry.style['background-color'];
-      }
-    }
-    return 'white';
   }
 
   toggleProperty(property?: KeyValue<string, any>): void {

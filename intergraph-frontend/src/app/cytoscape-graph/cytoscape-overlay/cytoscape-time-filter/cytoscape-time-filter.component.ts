@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import { ElementDataService } from '../../../services/ElementData/element-data.service';
 import { NouiFormatter } from 'ng2-nouislider';
 import { GraphBuilderService } from '../../services/graphbuilder/graph-builder.service';
@@ -13,12 +13,17 @@ import { GraphBuilderService } from '../../services/graphbuilder/graph-builder.s
 
 export class CytoscapeTimeFilterComponent implements OnInit {
 
+  config = {  behaviour: 'drag', connect: [false, true, false],
+    format:
+    //  {to: function (value) { return value + ',-';},from: function (value) { return Number(value.replace(',-', ''));}}}
+    {to: this.toFormat, from: this.toNumber } };
   toolTips: boolean[] = [true, true];
-  start = 0;
-  end = 15;
-  someRange: number[] = [this.start, this.end];
+  min = 0;
+  max = 10;
+  @Input() someRange: number[] = [2,9];
+  someotherRange: number[] = [2,9];
   format: NouiFormatter = {from: this.toNumber, to: this.toFormat};
-  step: number = 6 * 4 * 7 * 24 * 60 * 60 * 1000;
+  step: number = 1; //24 * 60 * 60 * 1000;
 
   constructor(
     private elementDataService: ElementDataService,
@@ -44,10 +49,11 @@ export class CytoscapeTimeFilterComponent implements OnInit {
             endDate = date;
           }
         }
-        this.start = startDate.getTime();
-        this.end = endDate.getTime();
-
+        this.min = startDate.getTime();
+        this.max = endDate.getTime();
+        this.someRange = [this.min,this.max];
       });
+
   }
 
 
@@ -60,14 +66,13 @@ export class CytoscapeTimeFilterComponent implements OnInit {
     return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
   }
 
-
-
   // convert date string to timestamp
   toNumber(value: string): number {
     const val = value.split(' ');
 
     if (val.length < 2) {
-      return new Date().getTime();
+      // sometimes at initialization, the formatting machanism send original number (??) so keep the number.
+      return parseInt(val[0]);
     }
     return new Date(value).getTime();
   }

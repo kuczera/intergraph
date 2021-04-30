@@ -27,7 +27,11 @@ export class CytoscapeNodeDetailComponent implements AfterViewInit {
       for (var key of this.settingsService.getNodeClasses()) {
         if ((this.node.classes as string).includes(key)) {
           var x = this.node.data[this.settingsService.getSetting(key,'title')];
-          if (x!==undefined) this.displayToken = x;
+          if (x!==undefined) {
+            let L = 60;
+            if (x.length>L) x = x.substr(0,L-3)+"...";
+            this.displayToken = x;
+          }
         }
       }
     });

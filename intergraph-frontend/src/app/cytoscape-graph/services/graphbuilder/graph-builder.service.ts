@@ -14,6 +14,9 @@ export class GraphBuilderService {
   graphContainer: HTMLElement;
   elements: ElementDefinition[] = [];
   // options: CytoscapeOptions = {};
+  highlightedNode = null;
+  node;
+
 
   public createNodeInformation: (evt: any) => void;
   openInformationContainerIds: string[] = [];
@@ -35,26 +38,52 @@ export class GraphBuilderService {
       wheelSensitivity: 0.1,
       maxZoom: 2.5,
       container: this.graphContainer,
-      layout: {
-        name: 'cola'
-      },
+      layout: { name: 'cola' },
       style: this.settingsService.getStyleOptions()
     });
 
-    this.cyGraph.on('mouseover', 'node', (evt: any) => {
-      const selectedNodeId: string = evt.target._private.data.id;
-      this.cyGraph.getElementById(selectedNodeId).style('text-wrap', 'none');
-    });
+    this.cyGraph.on('mouseover', 'node', this.highlightNode);
+    this.cyGraph.on('mouseout', 'node', this.unHighlightNode);
+//    this.cyGraph.on('boxselect', 'node', this.selectNode);
+//    this.cyGraph.on('tap', this.unselectNodes);
 
-    this.cyGraph.on('mouseout', 'node', (evt: any) => {
-      const selectedNodeId: string = evt.target._private.data.id;
-      this.cyGraph.getElementById(selectedNodeId).style('text-wrap', 'ellipsis');
-    });
+
 
     // this.cyGraph.on('tap', 'node', (evt: any) => {
     //   this.createNodeInformation(this.getElement(evt.target.data().id));
     // });
   }
+
+/*  selectNode = (e) => {
+    const nodeId = e.target._private.data.id;
+    this.node = this.cyGraph.getElementById(nodeId);
+    this.node.style('backgroundColor', 'Navy');
+    this.node.style("border-width", "2");
+    this.node.style("border-color", "yellow");
+  }
+
+  unselectNodes = () => {
+    this.cyGraph.nodes().map(node => node.style("border-width", "0"));
+  }
+*/
+
+  highlightNode = (e) => {
+    if (this.highlightedNode == null) {
+      let highlightedNodeId = e.target._private.data.id;
+      this.highlightedNode = this.cyGraph.getElementById(highlightedNodeId);
+      this.highlightedNode.style("border-width", "2");
+      this.highlightedNode.style("border-color", "yellow");
+      this.highlightedNode.style('text-wrap', 'none');
+    }
+  }
+
+  unHighlightNode = (e) => {
+    this.highlightedNode.style("border-width", "0");
+    this.highlightedNode.style('text-wrap', 'ellipsis');
+    this.highlightedNode = null;
+  }
+
+
 
   onNodeTap(fn: (evt: any) => void): void {
     this.createNodeInformation = fn;
@@ -157,27 +186,6 @@ export class GraphBuilderService {
     });
   }
 
-  // Exports graph elements to csv file
-  exportToCSV(): void {
-    console.log(this.elements);
-    const content: string[][] = [];
-    this.elements.forEach((element: ElementDefinition) => {
-      const display = this.cyGraph.getElementById(element.data.id).style('display');
-      const identifier = element.data.identifier;
-      const url = element.data.url;
-      if (url != null && display !== 'none') {
-        content.push([identifier, url]);
-      }
-    });
-    console.log(content);
-    const csvHeader = 'data:text/csv;charset=utf-8,';
-    if (content.length > 0) {
-      const csvContent = content.map(row => row.join(';')).join('\n');
-      const encodedUri = encodeURI(csvHeader + csvContent);
-      window.open(encodedUri);
-    }
-  }
-
   //
   // PARSING ELEMENT DEFINITIONS
   //
@@ -199,9 +207,11 @@ export class GraphBuilderService {
 
     const cySelectedElements = this.cyGraph.$(':selected');
     cySelectedElements.forEach(cySelectedElement => {
-      const id = cySelectedElement.data().id;
-      const selectedElement = this.getElementById(id);
-      selectedElements.push(selectedElement);
+      if (cySelectedElement.isNode()) {
+        const id = cySelectedElement.data().id;
+        const selectedElement = this.getElementById(id);
+        selectedElements.push(selectedElement);
+      }
     });
 
     return selectedElements;
@@ -213,12 +223,14 @@ export class GraphBuilderService {
 
   exportElementsToCSV(elements: ElementDefinition[]): void {
     const content: string[][] = [];
+    console.log(elements);
     elements.forEach((element: ElementDefinition) => {
       const identifier = element.data.identifier;
       const url = element.data.url;
-      if (url != null) {
-        content.push([identifier, url]);
-      }
+        if (url != null) {
+          content.push([identifier, url]);
+        }
+        else content.push([identifier, "(no URL)"]);
     });
 
     const csvHeader = 'data:text/csv;charset=utf-8,';
@@ -228,7 +240,7 @@ export class GraphBuilderService {
 
       const link = document.createElement('a');
       link.setAttribute('href', encodedUri);
-      link.setAttribute('download', 'my_data.csv');
+      link.setAttribute('download', 'export.csv');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

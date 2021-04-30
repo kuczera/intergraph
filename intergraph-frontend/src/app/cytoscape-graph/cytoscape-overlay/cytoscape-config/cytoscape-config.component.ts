@@ -57,14 +57,14 @@ export class CytoscapeConfigComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(password => {
       const isPwdValid = password === this.secret;
-      console.log(isPwdValid);
+//      console.log(isPwdValid);
       if (isPwdValid) {
         this.saveDisabled = true;
         this.settingsService.saveSettings(this.settings).subscribe();
-        console.log('Right password');
+//        console.log('Right password');
       } else {
         // run code for wrong password
-        console.log('Wrong password');
+//        console.log('Wrong password');
       }
     });
   }

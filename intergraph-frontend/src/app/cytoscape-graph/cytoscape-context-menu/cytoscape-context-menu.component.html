@@ -1,27 +1,29 @@
 <div id="cytoscapeContextMenu" #container>
   <div #nodeMenu *ngIf="isNodeMenuShowed">
-    <h5>Node</h5>
-    <button (click)="seeInfo()">See informations</button>
+    <h5>INSPECT</h5>
+    <button (click)="seeInfo()">Infocard</button>
     <button (click)="redirectToWebSite()">URL</button>
-    <h5>Expand</h5>
+
+    <h5>EXPAND</h5>
     <button (click)="expandAll()">All</button>
     <button *ngFor="let relation of relationsByType | keyvalue" (click)="expandByRelationType(relation.key)">{{relation.key}}({{relation.value}})</button>
 
-    <h5>Collapse</h5>
+    <h5>COLLAPSE</h5>
+    <button (click)="collapseNode()">Node</button>
     <button (click)="collapseAll()">All</button>
     <button *ngFor="let relation of relationsByType | keyvalue" (click)="collapseByRelationType(relation.key)">{{relation.key}}({{relation.value}})</button>
-    <button (click)="collapseNode()">Node</button>
+
   </div>
 
   <div #canvasMenu *ngIf="isCanvasMenuShowed">
     <h5>Canvas</h5>
-    <button (click)="cleanCanvas()">Clean canvas</button>
+    <button (click)="cleanCanvas()">Clear</button>
     <button (click)="fitCanvas()">Fit</button>
     <h5>Map</h5>
     <button (click)="allToMap()">All</button>
 <!--    <button (click)="visibleToMap()">Visible</button>-->
     <button (click)="selectionToMap()">Selection</button>
-    <h5>CSV export</h5>
+    <h5>Export</h5>
     <button (click)="exportAllToCSV()">All</button>
 <!--    <button (click)="exportVisibleToCSV()">Visible</button>-->
     <button (click)="exportSelectionToCSV()">Selection</button>

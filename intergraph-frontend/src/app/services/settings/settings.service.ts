@@ -23,7 +23,7 @@ export class SettingsService {
     const httpParams: HttpParams = new HttpParams();
 
     const options = {
-      responseType: 'json' as const,
+      responseType: 'json',
       params: httpParams
     };
 
@@ -83,11 +83,6 @@ export class SettingsService {
       }
     });
 
-    this.styleOptions.push({
-      selector: ':selected',
-      style: { 'background-color': '#DCCE4F' }
-    });
-
     for (var type of this.getNodeTypes())
     {
       var style: Object = {};
@@ -100,6 +95,14 @@ export class SettingsService {
         style: style
       });
     }
+    // in this order! selected last
+    this.styleOptions.push({
+      selector: ':selected',
+      style: {
+        'background-color': 'yellow',
+      }
+    });
+
   }
 
   getSettings(): Object {
@@ -107,7 +110,7 @@ export class SettingsService {
   }
 
   getSetting(type: string, property: string)  {
-    console.log(this.settings[type + '-' + property]);
+//    console.log(this.settings[type + '-' + property]);
     return this.settings[type + '-' + property];
   }
 

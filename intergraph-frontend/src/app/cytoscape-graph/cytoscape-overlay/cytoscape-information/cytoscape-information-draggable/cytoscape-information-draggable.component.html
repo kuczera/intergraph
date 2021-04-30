@@ -1,6 +1,6 @@
 <div id="draggableInformation" #draggableInformation class="draggableInformation">
-  <div id="draggableInformationHeader" class="draggableInformationHeader">
-    Click to Move!
+  <div id="draggableInformationHeader" class="draggableInformationHeader" [style]="{'background-color': applyColorForNode(node.classes)}">
+    Infocard
     <button mat-icon-button class="closeButton" #closeButton (click)="destroyComponent()">
       <mat-icon>close_small</mat-icon>
     </button>

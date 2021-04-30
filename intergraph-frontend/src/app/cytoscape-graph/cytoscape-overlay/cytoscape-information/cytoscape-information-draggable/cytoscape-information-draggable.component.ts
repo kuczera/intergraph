@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {GraphBuilderService} from '../../../services/graphbuilder/graph-builder.service';
 import {NodeDefinition} from 'cytoscape';
+import {SettingsService} from "../../../../services/settings/settings.service";
 
 @Component({
   selector: 'app-cytoscape-information-draggable',
@@ -19,11 +20,21 @@ export class CytoscapeInformationDraggableComponent implements AfterViewInit {
   node: NodeDefinition;
 
   constructor(
-    private graphBuilderSerivce: GraphBuilderService
+    private graphBuilderSerivce: GraphBuilderService,
+    private settingsService: SettingsService
   ) { }
 
   ngAfterViewInit(): void {
     this.dragElement(this.draggableInformation.nativeElement);
+  }
+
+  // return colors matching with the node classes
+  applyColorForNode(typeOfNode: string): string {
+    for (var key of this.settingsService.getNodeClasses()) {
+      if ((this.node.classes as string).includes(key))
+        return this.settingsService.getSetting(key, 'color')
+    }
+    return 'white';
   }
 
   // w3schools draggable div

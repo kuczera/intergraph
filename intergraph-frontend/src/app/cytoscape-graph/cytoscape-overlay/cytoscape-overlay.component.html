@@ -4,9 +4,9 @@
     <button mat-fab color="primary" aria-label="search" (click)="toggleSearch()">
       <mat-icon>search</mat-icon>
     </button>
-    <button mat-fab color="primary" aria-label="information" (click)="toggleInformation()">
-      <mat-icon>info_outline</mat-icon>
-    </button>
+    <!--     <button mat-fab color="primary" aria-label="information" (click)="toggleInformation()">
+          <mat-icon>info_outline</mat-icon>
+        </button>-->
     <button mat-fab color="primary" aria-label="config" (click)="toggleConfig()">
       <mat-icon>settings</mat-icon>
     </button>
@@ -22,4 +22,4 @@
   <app-cytoscape-node-selection [nodeSelection]="nodes" (nodesToPull)="resetSelection($event)"></app-cytoscape-node-selection>
   <app-cytoscape-time-filter *ngIf="!showConfig"></app-cytoscape-time-filter>
 
-<!--</div>-->
+    <!--</div>-->

@@ -7,7 +7,7 @@
     "server": "cd intergraph-backend && npm run dev:start",
     "client": "cd intergraph-frontend && npm run ng serve",
     "installServerDependencies": "cd intergraph-backend && npm install --prod",
-    "installClientDependencies": "cd intergraph-frontend && npm install --prod && npm link typescript && npm link @angular/cli",
+    "installClientDependencies": "cd intergraph-frontend && npm install --prod",
     "localtest": "npm-run-all installServerDependencies installClientDependencies",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
