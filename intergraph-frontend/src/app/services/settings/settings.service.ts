@@ -23,7 +23,7 @@ export class SettingsService {
     const httpParams: HttpParams = new HttpParams();
 
     const options = {
-      responseType: 'json',
+      responseType: 'json' as const,
       params: httpParams
     };
 
